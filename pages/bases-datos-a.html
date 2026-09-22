@@ -1,0 +1,347 @@
+<!doctype html>
+<html lang="es" data-bs-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Bases de Datos A · DAX Repaso</title>
+<meta name="description" content="Resumen de Bases de Datos A: modelo entidad-relación, modelo relacional, normalización y SQL.">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+<link href="../assets/css/style.css" rel="stylesheet">
+</head>
+<body data-page="bases-datos-a">
+<script>var BASE_PATH = "../"; var CURRENT_PAGE = "bases-datos-a";</script>
+
+<nav class="navbar topbar navbar-expand fixed-top">
+  <div class="topbar-inner">
+    <div class="topbar-brand-col">
+      <button class="btn-icon d-lg-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#sidebarOffcanvas" aria-label="Abrir menú">
+        <i class="bi bi-list"></i>
+      </button>
+      <a class="navbar-brand" href="../index.html"><i class="bi bi-mortarboard-fill"></i> DAX Repaso</a>
+    </div>
+    <div class="topbar-main">
+      <div class="topbar-search">
+        <i class="bi bi-search"></i>
+        <input type="search" class="search-input" placeholder="Buscar en el temario..." aria-label="Buscar en el temario" autocomplete="off">
+        <div class="search-results"></div>
+      </div>
+      <div class="topbar-actions">
+        <a class="btn-icon" href="https://github.com/benriosdev" target="_blank" rel="noopener" aria-label="Perfil de GitHub">
+          <i class="bi bi-github"></i>
+        </a>
+        <button class="btn-icon theme-toggle" type="button" aria-label="Cambiar tema">
+          <i class="bi bi-moon-stars"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<div class="layout">
+  <div class="layout-row">
+    <aside class="sidebar d-none d-lg-block">
+      <nav id="sidebar-nav"></nav>
+    </aside>
+
+    <div class="offcanvas offcanvas-start" tabindex="-1" id="sidebarOffcanvas">
+      <div class="offcanvas-header">
+        <h5 class="offcanvas-title"><i class="bi bi-mortarboard-fill"></i> DAX Repaso</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Cerrar"></button>
+      </div>
+      <div class="offcanvas-body">
+        <nav id="sidebar-nav-mobile"></nav>
+      </div>
+    </div>
+
+    <main class="content">
+      <nav aria-label="breadcrumb"><ol class="breadcrumb" id="breadcrumb"></ol></nav>
+
+      <article id="page-content">
+        <h1>Bases de Datos A</h1>
+        <p class="lead">Fundamentos de las bases de datos: por qué existen, cómo se diseñan con el modelo entidad-relación, cómo se traducen al modelo relacional y los primeros pasos con Oracle y SQL.</p>
+        <section>
+          <h2 id="u1">1. Introducción a las bases de datos</h2>
+          <p>Antes de los SGBD, la información se guardaba en ficheros sueltos gestionados por cada aplicación, con datos duplicados e inconsistentes entre sí. Un <strong>SGBD</strong> (Sistema Gestor de Bases de Datos) centraliza el almacenamiento y ofrece control de acceso, integridad y consultas eficientes sobre esos datos.</p>
+          <ul>
+            <li><strong>Ventajas</strong>: menos redundancia, datos consistentes, acceso concurrente y seguro. <strong>Inconvenientes</strong>: mayor complejidad y coste de implantación.</li>
+            <li><strong>ANSI/X3/SPARC</strong>: arquitectura estándar en tres niveles (externo, conceptual, interno) que separa cómo ve los datos cada usuario, cómo se modelan lógicamente y cómo se almacenan físicamente.</li>
+            <li><strong>Modelos y tipos de BBDD</strong>: jerárquico, en red, relacional (el más extendido) y orientado a objetos; y por despliegue, <strong>centralizadas</strong> (un único servidor) frente a <strong>distribuidas</strong> (los datos repartidos entre varios nodos).</li>
+            <li><strong>Big data</strong>: volúmenes de datos tan grandes o variados que superan la capacidad de los SGBD relacionales tradicionales.</li>
+            <li><strong>Legislación</strong>: normativa de protección de datos (como el RGPD) que regula cómo se pueden almacenar y tratar los datos personales.</li>
+          </ul>
+          <div class="callout">
+            <i class="bi bi-lightbulb"></i>
+            <div><strong>¿Sabías que...?</strong><p>El modelo relacional lo inventó Edgar F. Codd en 1970 mientras trabajaba en IBM. Su idea de organizar los datos en tablas con claves, en vez de estructuras jerárquicas rígidas, sigue siendo la base de la mayoría de bases de datos actuales.</p></div>
+          </div>
+        </section>
+
+        <section>
+          <h2 id="u2">2. Modelo entidad-relación</h2>
+          <p>Es la herramienta de diseño <strong>conceptual</strong> (independiente de cualquier SGBD concreto) con la que se representa la información del mundo real antes de construir la base de datos. Se apoya en tres elementos: <strong>entidades</strong> (objetos del mundo real, representadas como rectángulos), <strong>atributos</strong> (propiedades de una entidad, como óvalos) y <strong>relaciones</strong> (vínculos entre entidades, como rombos) — la misma notación que resume el <a href="anexo-entidad-relacion.html">Anexo de representación gráfica</a>.</p>
+          <ul>
+            <li>El <strong>modelo E-R extendido</strong> añade jerarquías de generalización/especialización (entidades "padre" e "hijas").</li>
+            <li>La <strong>guía para construir un modelo E-R</strong> propone un método ordenado: identificar entidades, sus atributos, las relaciones entre ellas y por último las cardinalidades.</li>
+          </ul>
+        </section>
+
+        <section>
+          <h2 id="u3">3. Modelo relacional</h2>
+          <p>Traduce el diseño conceptual (entidades y relaciones) a un diseño <strong>lógico</strong>: tablas (relaciones), filas (tuplas) y columnas (atributos), cada una con un dominio de valores válidos.</p>
+          <ul>
+            <li><strong>Tipos de clave</strong>: <em>candidata</em> (cualquier atributo que podría identificar una fila de forma única), <em>primaria</em> (la candidata elegida), <em>ajena o foránea</em> (referencia a la clave primaria de otra tabla) y <em>alternativa</em> (las candidatas no elegidas como primaria).</li>
+            <li><strong>Valores nulos</strong>: representan la ausencia de un dato, no un cero ni una cadena vacía.</li>
+            <li><strong>Reglas de integridad</strong>: la <em>de entidad</em> exige que la clave primaria nunca sea nula; la <em>referencial</em> exige que una clave ajena siempre apunte a un valor existente (o sea nula).</li>
+            <li><strong>Traducción E-R → relacional</strong>: cada entidad se convierte en una tabla, y las relaciones se resuelven con claves ajenas (o con una tabla intermedia en relaciones muchos-a-muchos).</li>
+          </ul>
+        </section>
+
+        <section>
+          <h2 id="u4">4. Normalización</h2>
+          <p>Proceso que reorganiza las tablas para eliminar redundancias e inconsistencias, basándose en las <strong>dependencias funcionales</strong> entre atributos (cuando el valor de uno determina el de otro). Se avanza por <strong>formas normales</strong> sucesivas: la <strong>1FN</strong> exige que cada campo contenga un único valor atómico (nada de listas o valores repetidos dentro de una misma celda).</p>
+
+          <div class="diagram-wrap">
+            <svg viewBox="0 0 420 220" role="img" aria-label="Pirámide de las formas normales">
+              <polygon points="210,20 340,80 340,110 80,110 80,80" class="dg-box-accent"></polygon>
+              <text x="210" y="65" class="dg-text-sm">1FN — valores atómicos</text>
+              <polygon points="80,110 340,110 340,140 60,140" class="dg-box"></polygon>
+              <text x="210" y="128" class="dg-text-sm">2FN — depende de toda la clave</text>
+              <polygon points="60,140 340,140 340,170 40,170" class="dg-box"></polygon>
+              <text x="210" y="158" class="dg-text-sm">3FN — sin dependencias transitivas</text>
+            </svg>
+          </div>
+          <p class="diagram-caption">Cada forma normal exige lo anterior, y añade una condición más estricta.</p>
+
+        </section>
+
+        <section>
+          <h2 id="u5">5. Primeros pasos en SGBD Oracle</h2>
+          <p>Puesta en marcha práctica de Oracle como SGBD real, antes de empezar a escribir SQL.</p>
+          <ul>
+            <li><strong>Oracle Database</strong>: el motor en sí, donde vive físicamente la información (puede instalarse localmente o usarse una instancia en la nube).</li>
+            <li><strong>Oracle SQL Developer</strong>: la herramienta gráfica más habitual para conectarse al SGBD, explorar tablas y ejecutar consultas sin usar la línea de comandos.</li>
+            <li><strong>Usuario y esquema</strong>: en Oracle, cada usuario tiene asociado su propio esquema (su conjunto de tablas), a diferencia de otros SGBD donde el esquema es independiente del usuario.</li>
+            <li><strong>Primera conexión</strong>: se necesita el host, el puerto, el nombre del servicio (o SID) y las credenciales del usuario para establecer la conexión desde SQL Developer.</li>
+          </ul>
+        </section>
+
+        <section>
+          <h2 id="u6">6. Lenguajes de las BBDD. SQL</h2>
+          <p>SQL (Structured Query Language) es el lenguaje estándar para trabajar con bases de datos relacionales, dividido en varios subgrupos: <strong>DDL</strong> (Data Definition Language, para crear y modificar tablas con <code>CREATE</code>/<code>ALTER</code>/<code>DROP</code>), <strong>DML</strong> (Data Manipulation Language, para consultar y modificar datos con <code>SELECT</code>/<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>) y <strong>DCL</strong> (Data Control Language, para permisos con <code>GRANT</code>/<code>REVOKE</code>).</p>
+
+          <table>
+            <thead><tr><th>Subgrupo</th><th>Para qué sirve</th><th>Ejemplos</th></tr></thead>
+            <tbody>
+              <tr><td>DDL</td><td>Definir la estructura de la base de datos</td><td><code>CREATE</code>, <code>ALTER</code>, <code>DROP</code></td></tr>
+              <tr><td>DML</td><td>Consultar y modificar los datos</td><td><code>SELECT</code>, <code>INSERT</code>, <code>UPDATE</code>, <code>DELETE</code></td></tr>
+              <tr><td>DCL</td><td>Gestionar permisos de acceso</td><td><code>GRANT</code>, <code>REVOKE</code></td></tr>
+            </tbody>
+          </table>
+
+          <pre><code>SELECT nombre, email
+FROM clientes
+WHERE ciudad = 'Madrid'
+ORDER BY nombre;</code></pre>
+        </section>
+
+        <section class="one-more-thing">
+          <h2 id="one-more-thing"><i class="bi bi-plus-circle"></i>One more thing…</h2>
+          <p class="omt-meta">
+            <span class="exam-badge"><i class="bi bi-pencil-square"></i> Preguntas de examen</span>
+            <span>Conceptos recopilados en <a href="https://benrios.dev/resumen-bbdd/" target="_blank" rel="noopener">benrios.dev/resumen-bbdd</a></span>
+          </p>
+
+          <h3 id="omt-bbdd-centralizadas-vs-distribuidas">BBDD centralizadas vs. distribuidas</h3>
+          <p>Una BBDD <strong>centralizada</strong> guarda todo en un único servidor, al que los usuarios acceden por red (LAN o WAN). Una BBDD <strong>distribuida</strong> reparte los datos entre varios servidores (incluso en distintos países), pero funciona como si fuera una sola. Por ejemplo, un banco multinacional permite consultar las cuentas desde cualquier país sin depender de un único servidor.</p>
+          <table>
+            <thead><tr><th></th><th>Centralizada</th><th>Distribuida</th></tr></thead>
+            <tbody>
+              <tr><td>Si cae el servidor</td><td>Cae todo el sistema (punto único de fallo)</td><td>Otros nodos asumen sus funciones</td></tr>
+              <tr><td>Escalabilidad</td><td>Limitada</td><td>Alta: se añaden nodos</td></tr>
+              <tr><td>Rendimiento</td><td>Cuello de botella con muchos usuarios</td><td>Carga repartida y datos más cerca del usuario</td></tr>
+              <tr><td>Complejidad y coste</td><td>Menor: control y mantenimiento en un solo punto</td><td>Mayor: hay que sincronizar los nodos</td></tr>
+            </tbody>
+          </table>
+
+          <h3 id="omt-el-sgbd-funciones-y-tipos">El SGBD: funciones y tipos</h3>
+          <p>Un <strong>SGBD</strong> es el software que permite diseñar, consultar y modificar una base de datos de forma eficiente y segura. Sus funciones son:</p>
+          <ul>
+            <li>Definir datos (DDL) y manipularlos (DML).</li>
+            <li>Optimizar consultas con índices y caché.</li>
+            <li>Gestionar la concurrencia de varios usuarios a la vez.</li>
+            <li>Seguridad: autenticación y permisos.</li>
+            <li>Integridad: claves y restricciones.</li>
+            <li>Transacciones con propiedades ACID.</li>
+          </ul>
+          <table>
+            <thead><tr><th>Clasificación</th><th>Tipo</th><th>Ejemplos</th></tr></thead>
+            <tbody>
+              <tr><td rowspan="2">Por capacidad</td><td>Ofimáticos: bases pequeñas, uso personal</td><td>Microsoft Access, SQLite</td></tr>
+              <tr><td>Empresariales: grandes volúmenes y muchos usuarios</td><td>Oracle, IBM Db2, SQL Server</td></tr>
+              <tr><td rowspan="2">Por licencia</td><td>Comerciales (de pago)</td><td>Oracle, SQL Server, IBM Db2</td></tr>
+              <tr><td>Código abierto</td><td>MySQL, PostgreSQL, MariaDB</td></tr>
+            </tbody>
+          </table>
+
+          <h3 id="omt-los-tres-niveles-ansi-sparc">Los tres niveles ANSI/SPARC</h3>
+          <ul>
+            <li><strong>Externo (o de visión)</strong>: lo que ve cada usuario. Por ejemplo, RR.HH. solo ve los datos de empleados y Finanzas solo las nóminas.</li>
+            <li><strong>Conceptual (o lógico)</strong>: la estructura global, con qué tablas hay (Clientes, Pedidos...), cómo se relacionan y qué restricciones tienen, sin entrar en cómo se guardan.</li>
+            <li><strong>Interno (o físico)</strong>: cómo se almacenan realmente los datos en disco (archivos, índices, organización secuencial o indexada).</li>
+          </ul>
+          <p>Separar niveles da <strong>independencia de los datos</strong>: se puede cambiar el almacenamiento físico sin tocar el esquema lógico, y el esquema lógico sin afectar a las vistas de los usuarios.</p>
+
+          <h3 id="omt-big-data-y-power-bi">Big Data y Power BI</h3>
+          <p><strong>Big Data</strong> son conjuntos de datos tan grandes y complejos que no se pueden procesar con técnicas tradicionales. Se define con las <strong>3V</strong>:</p>
+          <ul>
+            <li><strong>Volumen</strong>: de terabytes a petabytes.</li>
+            <li><strong>Velocidad</strong>: datos generados en tiempo real, como los sensores IoT.</li>
+            <li><strong>Variedad</strong>: datos estructurados, semiestructurados y no estructurados (tweets, imágenes, vídeos, emails...).</li>
+          </ul>
+          <p>A veces se añaden dos V más: <strong>Veracidad</strong> (calidad de los datos) y <strong>Valor</strong> (utilidad para decidir).</p>
+          <p><strong>Power BI</strong> es la herramienta de <em>Business Intelligence</em> de Microsoft. Conecta varias fuentes de datos, los prepara (ETL: extraer, transformar, cargar) y crea dashboards e informes interactivos para tomar decisiones.</p>
+
+          <h3 id="omt-modelo-e-r-lo-que-mas-se-pregunta">Modelo E-R: lo que más se pregunta</h3>
+          <ul>
+            <li><strong>Entidad débil</strong>: no tiene clave primaria propia y depende de una entidad fuerte (se dibuja con doble rectángulo). Ejemplo: <em>Línea de pedido</em> no existe sin su <em>Pedido</em>, y se identifica con <code>IDPedido</code> + número de línea.</li>
+            <li><strong>Tipos de atributo</strong>:
+              <ul>
+                <li>Simple: <em>Nombre</em>.</li>
+                <li>Compuesto: <em>Dirección</em> = calle + número + ciudad.</li>
+                <li>Multivaluado: <em>Teléfonos</em>.</li>
+                <li>Derivado, que se calcula a partir de otros: <em>Edad</em> a partir de la fecha de nacimiento.</li>
+                <li>Clave primaria: se dibuja <u>subrayada</u>.</li>
+              </ul>
+            </li>
+            <li><strong>Tipos de relación</strong>:
+              <ul>
+                <li>1:1: persona – pasaporte.</li>
+                <li>1:N: cliente – pedidos.</li>
+                <li>N:M: estudiante – asignaturas.</li>
+              </ul>
+            </li>
+            <li><strong>Relación reflexiva</strong> (unaria o de anillo): una entidad se relaciona consigo misma con roles distintos. El caso clásico es Empleado–Jefe.</li>
+          </ul>
+          <pre><code>CREATE TABLE Empleado (
+  IDEmpleado INT PRIMARY KEY,
+  Nombre     VARCHAR(50),
+  IDJefe     INT,
+  FOREIGN KEY (IDJefe) REFERENCES Empleado(IDEmpleado)
+);</code></pre>
+          <p><strong>Cardinalidad (mín., máx.)</strong>: <code>0..1</code> es cero o uno, <code>1..1</code> exactamente uno, <code>0..N</code> cero o muchos y <code>1..N</code> al menos uno.</p>
+
+          <h3 id="omt-cuantas-tablas-crea-una-relacion-1-n">¿Cuántas tablas crea una relación 1:N?</h3>
+          <p><strong>Dos</strong>: una por cada entidad. El lado <strong>N</strong> recibe la clave primaria del lado 1 como <strong>clave ajena</strong>. Por ejemplo, <code>Pedido</code> incluye <code>IDCliente</code>.</p>
+
+          <h3 id="omt-unique-vs-primary-key">UNIQUE vs. PRIMARY KEY</h3>
+          <table>
+            <thead><tr><th></th><th>UNIQUE</th><th>PRIMARY KEY</th></tr></thead>
+            <tbody>
+              <tr><td>Valores únicos</td><td>Sí</td><td>Sí</td></tr>
+              <tr><td>Admite NULL</td><td>Sí, en muchos SGBD</td><td>No (es UNIQUE + NOT NULL)</td></tr>
+              <tr><td>Cuántas por tabla</td><td>Varias</td><td>Una</td></tr>
+            </tbody>
+          </table>
+
+          <h3 id="omt-grado-y-cardinalidad-de-una-tabla">Grado y cardinalidad de una tabla</h3>
+          <p>El <strong>grado</strong> es el número de <strong>columnas</strong> (atributos). La <strong>cardinalidad</strong> es el número de <strong>filas</strong>. Una tabla <code>municipios(id, nombre, poblacion)</code> tiene grado 3, tenga las filas que tenga.</p>
+
+          <h3 id="omt-normalizacion-y-1fn">Normalización y 1FN</h3>
+          <p>Normalizar sirve para eliminar redundancias y evitar anomalías al insertar, actualizar o borrar. Un ejemplo típico que <strong>no cumple 1FN</strong> es tener <code>666777888, 666888999</code> en una sola celda "Teléfonos". Se corrige dejando un único valor atómico por celda.</p>
+          <table>
+            <thead><tr><th>Forma normal</th><th>Requisito</th></tr></thead>
+            <tbody>
+              <tr><td>1FN</td><td>Valores atómicos, sin grupos repetitivos</td></tr>
+              <tr><td>2FN</td><td>1FN + dependencia funcional completa de la clave</td></tr>
+              <tr><td>3FN</td><td>2FN + sin dependencias transitivas</td></tr>
+              <tr><td>FNBC</td><td>Boyce-Codd: más restrictiva que la 3FN</td></tr>
+            </tbody>
+          </table>
+
+          <h3 id="omt-sql-la-pregunta-trampa-y-las-consultas-tipicas">SQL: la pregunta trampa y las consultas típicas</h3>
+          <p><strong>¿SELECT es DDL o DML?</strong> Es <strong>DML</strong>, porque consulta datos y no define estructura. Además de DDL, DML y DCL existe <strong>TCL</strong> (control de transacciones): <code>COMMIT</code>, <code>ROLLBACK</code>, <code>SAVEPOINT</code>. Y ojo a esta diferencia: <code>DROP TABLE</code> borra la tabla entera, mientras que <code>TRUNCATE TABLE</code> vacía todas las filas pero conserva la estructura.</p>
+          <pre><code>-- Filtrar con WHERE
+SELECT nombre, poblacion
+FROM municipios
+WHERE poblacion &gt; 6000;
+
+-- INNER JOIN: solo filas con coincidencia en ambas tablas
+SELECT c.nombre, p.fecha
+FROM Clientes c
+INNER JOIN Pedidos p ON c.id_cliente = p.id_cliente;</code></pre>
+          <p>Operadores habituales en <code>WHERE</code>:</p>
+          <ul>
+            <li><code>=</code>, <code>&lt;&gt;</code> (o <code>!=</code>), <code>&gt;</code>, <code>&lt;</code>.</li>
+            <li><code>BETWEEN 1000 AND 5000</code>: entre dos valores.</li>
+            <li><code>LIKE 'Ma%'</code>: coincidencia de patrón.</li>
+            <li><code>IN (1, 2, 3)</code>: pertenencia a una lista.</li>
+          </ul>
+          <p>El <code>INNER JOIN</code> del ejemplo deja fuera a los clientes que no tienen pedidos.</p>
+        </section>
+
+        <section class="recap-box">
+          <h2><i class="bi bi-stars"></i> Puntos clave</h2>
+          <ul>
+            <li>Un SGBD centraliza el almacenamiento y evita la redundancia e inconsistencia de los ficheros sueltos.</li>
+            <li>El modelo E-R (entidades, atributos, relaciones) es el diseño conceptual, previo a las tablas.</li>
+            <li>La clave primaria identifica de forma única cada fila; la clave ajena referencia la clave primaria de otra tabla.</li>
+            <li>La normalización elimina redundancias aplicando formas normales sucesivas (1FN, 2FN, 3FN...).</li>
+            <li>SQL se divide en DDL (definir), DML (manipular) y DCL (permisos).</li>
+          </ul>
+        </section>
+
+        <section>
+          <h2 id="autoevaluacion">Ponte a prueba</h2>
+          <details class="quiz-item">
+            <summary>¿Qué diferencia hay entre una clave primaria y una clave ajena?</summary>
+            <p class="quiz-answer">La primaria identifica de forma única cada fila de su propia tabla; la ajena referencia la clave primaria de otra tabla para relacionar ambas.</p>
+          </details>
+          <details class="quiz-item">
+            <summary>¿Qué exige la primera forma normal (1FN)?</summary>
+            <p class="quiz-answer">Que cada campo contenga un único valor atómico, sin listas ni valores repetidos dentro de una misma celda.</p>
+          </details>
+          <details class="quiz-item">
+            <summary>¿Qué tipo de sentencias SQL pertenecen al DDL?</summary>
+            <p class="quiz-answer">Las que definen la estructura: <code>CREATE</code>, <code>ALTER</code>, <code>DROP</code>.</p>
+          </details>
+          <details class="quiz-item">
+            <summary>¿Qué es un valor nulo en una base de datos?</summary>
+            <p class="quiz-answer">La ausencia de un dato; no es lo mismo que cero o una cadena vacía.</p>
+          </details>
+          <details class="quiz-item">
+            <summary>¿Qué garantiza la regla de integridad de entidad?</summary>
+            <p class="quiz-answer">Que la clave primaria de una tabla nunca puede ser nula.</p>
+          </details>
+        </section>
+
+        <section>
+          <h2 id="para-saber-mas">Para saber más</h2>
+          <ul class="resources-list">
+            <li><a href="https://www.w3schools.com/sql/" target="_blank" rel="noopener"><i class="bi bi-box-arrow-up-right"></i> SQL Tutorial (W3Schools)</a></li>
+            <li><a href="https://docs.oracle.com/en/database/" target="_blank" rel="noopener"><i class="bi bi-box-arrow-up-right"></i> Documentación de Oracle Database</a></li>
+            <li><a href="https://benrios.dev/resumen-bbdd/" target="_blank" rel="noopener"><i class="bi bi-box-arrow-up-right"></i> Resumen de examen de Bases de Datos (benrios.dev)</a></li>
+            <li><a href="https://benrios.dev/modelo-er/" target="_blank" rel="noopener"><i class="bi bi-box-arrow-up-right"></i> Modelo Entidad-Relación paso a paso (benrios.dev)</a></li>
+          </ul>
+        </section>
+      </article>
+
+      <nav id="prev-next"></nav>
+    </main>
+
+    <aside class="toc d-none d-xl-block" id="toc-aside">
+      <div class="toc-inner">
+        <h6>En esta página</h6>
+        <nav id="toc-nav" class="nav flex-column"></nav>
+      </div>
+    </aside>
+  </div>
+</div>
+
+<button id="back-to-top" class="btn back-to-top" aria-label="Volver arriba"><i class="bi bi-arrow-up text-white"></i></button>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="../assets/js/nav-data.js"></script>
+<script src="../assets/js/search-index.js"></script>
+<script src="../assets/js/main.js"></script>
+</body>
+</html>

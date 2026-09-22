@@ -1,0 +1,224 @@
+<!doctype html>
+<html lang="es" data-bs-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Fundamentos de Java · DAX Repaso</title>
+<meta name="description" content="Guía práctica de Java: instalación, sintaxis básica, POO, colecciones y modificadores de acceso.">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+<link href="../assets/css/style.css" rel="stylesheet">
+</head>
+<body data-page="fundamentos-java">
+<script>var BASE_PATH = "../"; var CURRENT_PAGE = "fundamentos-java";</script>
+
+<nav class="navbar topbar navbar-expand fixed-top">
+  <div class="topbar-inner">
+    <div class="topbar-brand-col">
+      <button class="btn-icon d-lg-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#sidebarOffcanvas" aria-label="Abrir menú">
+        <i class="bi bi-list"></i>
+      </button>
+      <a class="navbar-brand" href="../index.html"><i class="bi bi-mortarboard-fill"></i> DAX Repaso</a>
+    </div>
+    <div class="topbar-main">
+      <div class="topbar-search">
+        <i class="bi bi-search"></i>
+        <input type="search" class="search-input" placeholder="Buscar en el temario..." aria-label="Buscar en el temario" autocomplete="off">
+        <div class="search-results"></div>
+      </div>
+      <div class="topbar-actions">
+        <a class="btn-icon" href="https://github.com/benriosdev" target="_blank" rel="noopener" aria-label="Perfil de GitHub">
+          <i class="bi bi-github"></i>
+        </a>
+        <button class="btn-icon theme-toggle" type="button" aria-label="Cambiar tema">
+          <i class="bi bi-moon-stars"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<div class="layout">
+  <div class="layout-row">
+    <aside class="sidebar d-none d-lg-block">
+      <nav id="sidebar-nav"></nav>
+    </aside>
+
+    <div class="offcanvas offcanvas-start" tabindex="-1" id="sidebarOffcanvas">
+      <div class="offcanvas-header">
+        <h5 class="offcanvas-title"><i class="bi bi-mortarboard-fill"></i> DAX Repaso</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Cerrar"></button>
+      </div>
+      <div class="offcanvas-body">
+        <nav id="sidebar-nav-mobile"></nav>
+      </div>
+    </div>
+
+    <main class="content">
+      <nav aria-label="breadcrumb"><ol class="breadcrumb" id="breadcrumb"></ol></nav>
+
+      <article id="page-content">
+        <h1>Fundamentos de Java</h1>
+        <p class="lead">Apunte compacto y muy práctico de Java: desde instalar el JDK hasta la orientación a objetos, pensado como chuleta de sintaxis más que como libro de texto.</p>
+        <section>
+          <h2 id="u1">Instalación y entorno</h2>
+          <p>Para programar en Java hacen falta dos piezas: el <strong>JDK</strong> (Java Development Kit), que incluye el compilador y la máquina virtual, y el <strong>JRE</strong>, que es la máquina virtual necesaria para ejecutar programas ya compilados.</p>
+          <ul>
+            <li><strong>JAVA_HOME</strong>: variable de entorno del sistema que indica dónde está instalado el JDK.</li>
+            <li><strong>PATH</strong>: se amplía con la ruta al JDK para poder invocar <code>java</code> y <code>javac</code> desde cualquier carpeta.</li>
+            <li>Probar la instalación con <code>java -version</code> desde la terminal confirma que todo está bien configurado.</li>
+          </ul>
+          <div class="callout">
+            <i class="bi bi-lightbulb"></i>
+            <div><strong>¿Sabías que...?</strong><p>El lema de Java desde su creación en 1995 es "write once, run anywhere" (escribe una vez, ejecuta en cualquier lugar): el mismo bytecode compilado corre igual en Windows, Linux o macOS gracias a la máquina virtual (JVM).</p></div>
+          </div>
+        </section>
+
+        <section>
+          <h2 id="u2">Sintaxis básica</h2>
+          <p>Todo programa Java vive dentro de una clase, y su ejecución empieza en el método <code>main</code>; cada instrucción termina con punto y coma.</p>
+          <ul>
+            <li><strong>Comentarios</strong>: <code>//</code> de una línea, <code>/* */</code> de varias.</li>
+            <li><strong>Constantes</strong> (<code>final</code>) frente a <strong>variables</strong>, que sí pueden cambiar de valor.</li>
+            <li><strong>Tipos primitivos</strong> (<code>int</code>, <code>double</code>, <code>boolean</code>, <code>char</code>...) almacenan el valor directamente; los <strong>tipos objeto</strong> (<code>String</code>, clases propias) almacenan una referencia.</li>
+            <li><strong>Operadores</strong> aritméticos, relacionales y lógicos para construir expresiones.</li>
+          </ul>
+        </section>
+
+        <section>
+          <h2 id="u3">Estructuras de control y E/S</h2>
+          <p><strong>Condicionales</strong> (<code>if/else</code>, <code>switch</code>) deciden qué código se ejecuta; <strong>repetitivas</strong> (<code>for</code>, <code>while</code>, <code>do-while</code>) repiten un bloque. Para <strong>entrada de datos</strong> por teclado se usa la clase <code>Scanner</code> del paquete <code>java.util</code>. La <strong>organización en la API de Java</strong> agrupa estas clases en paquetes (<code>java.lang</code>, <code>java.util</code>...) que se importan con <code>import</code>.</p>
+        </section>
+
+        <section>
+          <h2 id="u4">Orientación a objetos</h2>
+          <p>Bloque central del documento: cómo modelar entidades con clases y objetos.</p>
+          <ul>
+            <li><strong>Clase, objeto y estructura de una clase</strong>: la clase es la plantilla (atributos + métodos); el objeto es cada instancia concreta creada con <code>new</code>.</li>
+            <li><strong>Atributos, constructor y métodos</strong>: los atributos guardan el estado, el constructor inicializa un objeto recién creado, y los métodos definen su comportamiento.</li>
+            <li><strong>Getters y setters</strong>: métodos públicos para leer y modificar atributos privados de forma controlada (encapsulación).</li>
+            <li><strong>Ámbito de las variables</strong>: dónde es visible una variable (dentro de un método, de una clase o global); la <strong>signatura de un método</strong> es su nombre más el tipo y orden de sus parámetros.</li>
+            <li><strong>Sobrecarga de nombres</strong>: varios métodos pueden compartir nombre si difieren en su lista de parámetros.</li>
+            <li><strong>Creación de un objeto y clase principal</strong>: la clase con el método <code>main</code> es el punto de arranque del programa.</li>
+            <li><strong>Igualdad vs. identidad</strong>: <code>==</code> compara si dos referencias apuntan al mismo objeto en memoria, mientras que <code>.equals()</code> compara si su contenido es equivalente.</li>
+            <li><strong>Asignación entre objetos</strong>: al asignar un objeto a otra variable se copia la referencia, no el objeto; ambas variables acaban apuntando al mismo objeto en memoria.</li>
+          </ul>
+        </section>
+
+        <section>
+          <h2 id="u5">Cadenas, colecciones y utilidades</h2>
+          <ul>
+            <li><strong>Cadenas de texto</strong> (<code>String</code>): inmutables en Java, con métodos como <code>length()</code>, <code>substring()</code> o <code>toUpperCase()</code>.</li>
+            <li><strong>Arrays</strong>: colecciones de tamaño fijo; <strong>ArrayList</strong>: lista dinámica que puede crecer o encogerse; <strong>Random</strong>: generación de números aleatorios.</li>
+            <li><strong>Conversión de tipos</strong>: castings explícitos/implícitos entre tipos primitivos, y métodos como <code>Integer.parseInt()</code> para convertir texto a número.</li>
+            <li><strong>Paquetes</strong> para organizar clases relacionadas, y <strong>Javadoc</strong> (comentarios <code>/** */</code>) para generar documentación automática del código.</li>
+          </ul>
+        </section>
+
+        <section>
+          <h2 id="u6">Polimorfismo, herencia y modificadores</h2>
+          <ul>
+            <li><strong>Herencia</strong> (<code>extends</code>): una clase reutiliza atributos y métodos de otra.</li>
+            <li><strong>Polimorfismo</strong>: una referencia de la superclase puede comportarse de forma distinta según el objeto real que contenga, especialmente al sobreescribir métodos (<code>@Override</code>).</li>
+            <li><strong>Modificadores de acceso</strong>: <code>public</code> (accesible desde cualquier sitio), <code>private</code> (solo dentro de la clase), <code>protected</code> (clase, mismo paquete y subclases) y el acceso por defecto o <em>package</em> (solo dentro del mismo paquete).</li>
+          </ul>
+        </section>
+
+        <section class="one-more-thing">
+          <h2 id="one-more-thing"><i class="bi bi-plus-circle"></i>One more thing…</h2>
+          <p class="omt-meta">
+            <span>De la app de estudio <a href="https://benrios.dev/fundamentos-java/" target="_blank" rel="noopener">benrios.dev/fundamentos-java</a> (temas 1 y 2)</span>
+          </p>
+
+          <h3 id="omt-tipos-primitivos-de-un-vistazo">Tipos primitivos de un vistazo</h3>
+          <table>
+            <thead><tr><th>Grupo</th><th>Tipos</th><th>Ejemplo</th></tr></thead>
+            <tbody>
+              <tr><td>Lógicos</td><td><code>boolean</code></td><td><code>boolean activo = true;</code></td></tr>
+              <tr><td>Enteros</td><td><code>byte</code>, <code>int</code>, <code>long</code></td><td><code>int edad = 30;</code></td></tr>
+              <tr><td>Decimales</td><td><code>float</code>, <code>double</code></td><td><code>float f = 10.5f;</code> (necesita la <code>f</code>)</td></tr>
+              <tr><td>Carácter</td><td><code>char</code></td><td><code>char letra = 'A';</code> (comillas simples)</td></tr>
+            </tbody>
+          </table>
+          <p><code>String</code> <strong>no es un tipo primitivo</strong>: es un objeto y va con comillas dobles. Java es <strong>fuertemente tipado</strong>, así que hay que declarar el tipo de cada variable.</p>
+
+          <h3 id="omt-errores-comunes-a-evitar">Errores comunes a evitar</h3>
+          <ul>
+            <li>Olvidar el punto y coma al final de la instrucción.</li>
+            <li>No cerrar llaves, paréntesis o comillas.</li>
+            <li>Confundir <code>=</code> (asignación) con <code>==</code> (comparación).</li>
+            <li>Dividir por cero, que lanza <code>ArithmeticException</code> con enteros.</li>
+            <li>Crear bucles infinitos por una condición que nunca se cumple.</li>
+            <li>Escribir funciones recursivas sin caso base.</li>
+          </ul>
+
+          <h3 id="omt-buenas-practicas">Buenas prácticas</h3>
+          <ul>
+            <li>Usar nombres descriptivos para variables y funciones.</li>
+            <li>Indentar bien y comentar solo lo que no sea evidente.</li>
+            <li>Evitar código duplicado sacándolo a funciones.</li>
+            <li>Probar el código con distintos casos de entrada, incluidos los límites.</li>
+          </ul>
+          <p>La recursividad consume <strong>más memoria</strong> que la solución iterativa equivalente, porque cada llamada ocupa un hueco en la pila.</p>
+        </section>
+
+        <section class="recap-box">
+          <h2><i class="bi bi-stars"></i> Puntos clave</h2>
+          <ul>
+            <li>El JDK incluye el compilador; el JRE es lo mínimo necesario para ejecutar un programa ya compilado.</li>
+            <li>Los tipos primitivos guardan el valor directamente; los tipos objeto guardan una referencia.</li>
+            <li><code>==</code> compara referencias; <code>.equals()</code> compara contenido.</li>
+            <li>Sobrecargar un método significa repetir su nombre variando los parámetros; sobreescribir significa redefinirlo en una subclase.</li>
+            <li>Los modificadores de acceso (public/private/protected/package) controlan qué puede ver cada parte del código.</li>
+          </ul>
+        </section>
+
+        <section>
+          <h2 id="autoevaluacion">Ponte a prueba</h2>
+          <details class="quiz-item">
+            <summary>¿Cuál es la diferencia entre el JDK y el JRE?</summary>
+            <p class="quiz-answer">El JDK incluye el compilador y las herramientas de desarrollo; el JRE es solo la máquina virtual necesaria para ejecutar programas ya compilados.</p>
+          </details>
+          <details class="quiz-item">
+            <summary>¿Qué diferencia hay entre <code>==</code> y <code>.equals()</code> con objetos?</summary>
+            <p class="quiz-answer"><code>==</code> comprueba si dos referencias apuntan al mismo objeto en memoria; <code>.equals()</code> comprueba si su contenido es equivalente.</p>
+          </details>
+          <details class="quiz-item">
+            <summary>¿Qué es la sobrecarga de métodos?</summary>
+            <p class="quiz-answer">Definir varios métodos con el mismo nombre pero distinta lista de parámetros.</p>
+          </details>
+          <details class="quiz-item">
+            <summary>¿Qué modificador de acceso permite ver un miembro solo dentro del mismo paquete?</summary>
+            <p class="quiz-answer">El acceso por defecto (sin escribir ningún modificador), también llamado <em>package-private</em>.</p>
+          </details>
+        </section>
+
+        <section>
+          <h2 id="para-saber-mas">Para saber más</h2>
+          <ul class="resources-list">
+            <li><a href="https://docs.oracle.com/javase/tutorial/" target="_blank" rel="noopener"><i class="bi bi-box-arrow-up-right"></i> Java Tutorials (Oracle)</a></li>
+            <li><a href="https://benrios.dev/fundamentos-java/" target="_blank" rel="noopener"><i class="bi bi-box-arrow-up-right"></i> App de estudio de Fundamentos de Java (benrios.dev)</a></li>
+          </ul>
+        </section>
+      </article>
+
+      <nav id="prev-next"></nav>
+    </main>
+
+    <aside class="toc d-none d-xl-block" id="toc-aside">
+      <div class="toc-inner">
+        <h6>En esta página</h6>
+        <nav id="toc-nav" class="nav flex-column"></nav>
+      </div>
+    </aside>
+  </div>
+</div>
+
+<button id="back-to-top" class="btn back-to-top" aria-label="Volver arriba"><i class="bi bi-arrow-up text-white"></i></button>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="../assets/js/nav-data.js"></script>
+<script src="../assets/js/search-index.js"></script>
+<script src="../assets/js/main.js"></script>
+</body>
+</html>

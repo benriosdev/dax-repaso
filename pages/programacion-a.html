@@ -1,0 +1,381 @@
+<!doctype html>
+<html lang="es" data-bs-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Programación A · DAX Repaso</title>
+<meta name="description" content="Resumen de Programación A: algoritmos, programación estructurada, estructuras de control, depuración y POO en Java.">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+<link href="../assets/css/style.css" rel="stylesheet">
+</head>
+<body data-page="programacion-a">
+<script>var BASE_PATH = "../"; var CURRENT_PAGE = "programacion-a";</script>
+
+<nav class="navbar topbar navbar-expand fixed-top">
+  <div class="topbar-inner">
+    <div class="topbar-brand-col">
+      <button class="btn-icon d-lg-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#sidebarOffcanvas" aria-label="Abrir menú">
+        <i class="bi bi-list"></i>
+      </button>
+      <a class="navbar-brand" href="../index.html"><i class="bi bi-mortarboard-fill"></i> DAX Repaso</a>
+    </div>
+    <div class="topbar-main">
+      <div class="topbar-search">
+        <i class="bi bi-search"></i>
+        <input type="search" class="search-input" placeholder="Buscar en el temario..." aria-label="Buscar en el temario" autocomplete="off">
+        <div class="search-results"></div>
+      </div>
+      <div class="topbar-actions">
+        <a class="btn-icon" href="https://github.com/benriosdev" target="_blank" rel="noopener" aria-label="Perfil de GitHub">
+          <i class="bi bi-github"></i>
+        </a>
+        <button class="btn-icon theme-toggle" type="button" aria-label="Cambiar tema">
+          <i class="bi bi-moon-stars"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<div class="layout">
+  <div class="layout-row">
+    <aside class="sidebar d-none d-lg-block">
+      <nav id="sidebar-nav"></nav>
+    </aside>
+
+    <div class="offcanvas offcanvas-start" tabindex="-1" id="sidebarOffcanvas">
+      <div class="offcanvas-header">
+        <h5 class="offcanvas-title"><i class="bi bi-mortarboard-fill"></i> DAX Repaso</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Cerrar"></button>
+      </div>
+      <div class="offcanvas-body">
+        <nav id="sidebar-nav-mobile"></nav>
+      </div>
+    </div>
+
+    <main class="content">
+      <nav aria-label="breadcrumb"><ol class="breadcrumb" id="breadcrumb"></ol></nav>
+
+      <article id="page-content">
+        <h1>Programación A</h1>
+        <p class="lead">Primera parte del módulo de Programación: qué es programar, cómo se estructura un programa y las bases del lenguaje Java, hasta llegar a la programación orientada a objetos y la construcción de interfaces gráficas.</p>
+        <section>
+          <h2 id="u0">0. Qué es la programación</h2>
+          <p>Programar es crear un conjunto de instrucciones (código), escritas en un lenguaje que el ordenador puede entender y ejecutar, para resolver un problema o realizar una tarea. Todo programa parte de un problema a resolver y termina en una solución expresada como instrucciones en un lenguaje concreto.</p>
+          <h3>Pequeña historia de la programación</h3>
+          <p>Desde el ábaco hasta el software del programa Apollo de la NASA, la idea central no ha cambiado: separar los datos del procedimiento que los manipula. Esa separación es, precisamente, la noción de <strong>algoritmo</strong> que formuló Ada Lovelace en el siglo XIX junto a Charles Babbage, lo que la convierte en la primera programadora de la historia.</p>
+          <div class="callout">
+            <i class="bi bi-lightbulb"></i>
+            <div><strong>¿Sabías que...?</strong><p>El código de vuelo del programa Apollo, escrito a mano en ensamblador por el equipo de Margaret Hamilton, ocupaba pilas de listados más altas que una persona. Puedes verlo publicado en GitHub a día de hoy.</p></div>
+          </div>
+
+          <h3>El algoritmo</h3>
+          <p>Un algoritmo es una secuencia finita y ordenada de pasos que resuelve un problema. Para considerarse un buen algoritmo debe cumplir cinco características: ser <strong>finito</strong> (número limitado de pasos), estar <strong>definido</strong> (cada paso claramente especificado), aceptar <strong>entradas</strong>, producir una <strong>salida</strong> y hacerlo con <strong>eficiencia</strong> (tiempo y recursos razonables). Una receta de cocina o el proceso de cambiar el aceite de un coche son algoritmos perfectamente válidos aunque no se ejecuten en un ordenador.</p>
+          <h3>El pensamiento computacional</h3>
+          <p>Es el método de resolución de problemas que hay detrás de cualquier algoritmo, y se apoya en cuatro pilares: <strong>descomposición</strong> (dividir un problema grande en partes manejables), <strong>reconocimiento de patrones</strong> (detectar similitudes reutilizables), <strong>abstracción</strong> (quedarse solo con los detalles esenciales) y el propio diseño de <strong>algoritmos</strong>.</p>
+          <h3>El proceso de creación de un programa</h3>
+          <p>De cara al programador, crear un programa sigue siempre el mismo ciclo: análisis del problema → diseño de la solución → implementación (donde se incluyen pruebas y corrección de errores) → programa terminado. Este ciclo se repite constantemente durante el desarrollo, independientemente del lenguaje que se use.</p>
+        </section>
+
+        <section>
+          <h2 id="u1">1. Programación estructurada</h2>
+          <p>La programación estructurada organiza el código en bloques claros y reutilizables en lugar de instrucciones sueltas. En este bloque se aprende Java escribiendo los primeros programas reales.</p>
+          <h3>Primer programa en Java</h3>
+          <p>Todo programa Java necesita una clase con un método <code>main</code>, el punto de entrada por donde arranca la ejecución. El clásico primer ejercicio es mostrar un mensaje por consola:</p>
+          <pre><code>public class Main {
+  public static void main(String[] args) {
+    System.out.println("Hola Mundo!");
+  }
+}</code></pre>
+          <h3>Variables</h3>
+          <p>Una variable es un espacio de almacenamiento con nombre, tipo de dato, valor, alcance y duración, que permite guardar y reutilizar información durante la ejecución. Java tiene tipos primitivos como <code>boolean</code>, <code>int</code>, <code>double</code> o <code>char</code>, además de tipos más complejos como <code>String</code>.</p>
+          <h3>Operadores</h3>
+          <p>Los operadores permiten combinar y comparar valores: aritméticos (<code>+ - * / %</code>), unarios (<code>++ --</code>, negación), de asignación (<code>+= -=</code>...), relacionales (<code>== != &gt; &lt;</code>) y lógicos (<code>&amp;&amp; || !</code>). El operador <code>%</code> (módulo) devuelve el resto de una división y es muy útil, por ejemplo, para saber si un número es par. También existe el operador ternario (<code>?:</code>), una forma abreviada de un <code>if-else</code>: <code>int max = (a &gt; b) ? a : b;</code> asigna a <code>max</code> el valor de <code>a</code> si la condición es verdadera, o el de <code>b</code> si es falsa.</p>
+          <h3>Casting</h3>
+          <p>El casting convierte un valor de un tipo de dato a otro. Puede ser <strong>implícito</strong> (Java lo hace solo, al pasar de un tipo más pequeño a uno más grande, como <code>int</code> a <code>double</code>) o <strong>explícito</strong> (hay que indicarlo a mano entre paréntesis, como <code>(int) 9.78</code>, con riesgo de perder la parte decimal).</p>
+          <h3>IDE y comentarios</h3>
+          <p>Un IDE (entorno de desarrollo integrado, como Eclipse, IntelliJ IDEA o Visual Studio) combina editor, compilador, depurador y control de versiones en una sola herramienta, aumentando la productividad. Los comentarios (<code>//</code> para una línea, <code>/* */</code> para varias, <code>/** */</code> para generar documentación con Javadoc) no se ejecutan, pero documentan el código para quien lo lea después.</p>
+        </section>
+
+        <section>
+          <h2 id="u2">2. Estructuras de control</h2>
+          <p>Permiten decidir qué instrucciones se ejecutan y en qué orden. Se dividen en condicionales, de repetición (bucles) y de salto.</p>
+          <h3>Condicionales</h3>
+          <p>Ejecutan un bloque de código u otro según se cumpla una condición: <code>if</code>, <code>if-else</code>, <code>if-else-if</code> encadenados, o <code>switch</code> cuando hay muchos valores posibles para una misma variable.</p>
+          <h3>Bucles (repetición)</h3>
+          <p><code>for</code> se usa cuando se sabe de antemano cuántas veces hay que repetir algo; <code>while</code> repite mientras se cumpla una condición (puede no ejecutarse ninguna vez); <code>do-while</code> es igual que <code>while</code> pero garantiza al menos una ejecución.</p>
+          <h3>Sentencias de salto</h3>
+          <p><code>break</code> sale de un bucle o <code>switch</code> antes de tiempo; <code>continue</code> salta a la siguiente iteración sin ejecutar el resto del bloque; <code>return</code> termina un método y, opcionalmente, devuelve un valor.</p>
+          <h3>Funciones</h3>
+          <p>Una función (o método) agrupa código reutilizable con nombre, parámetros de entrada, cuerpo y un valor de retorno opcional. Dividir un programa en funciones hace el código más modular y fácil de mantener.</p>
+          <h3>Recursividad</h3>
+          <p>Una función recursiva se llama a sí misma para resolver un problema dividiéndolo en versiones más pequeñas del mismo problema, hasta llegar a una <strong>condición base</strong> que detiene las llamadas (evitando así un desbordamiento de pila). El ejemplo clásico es el factorial:</p>
+          <pre><code>public static int factorial(int n) {
+    if (n == 0) {
+        return 1; // condición base
+    } else {
+        return n * factorial(n - 1); // llamada recursiva
+    }
+}</code></pre>
+          <h3>Palabras reservadas</h3>
+          <p>Son identificadores predefinidos del lenguaje (<code>class</code>, <code>public</code>, <code>static</code>, <code>if</code>, <code>for</code>, <code>try</code>, <code>new</code>...) que no pueden usarse como nombres de variables porque tienen un significado especial para el compilador.</p>
+          <h3>Pseudocódigo</h3>
+          <p>Es una forma de describir un algoritmo en lenguaje natural mezclado con estructuras de control, sin atarse a la sintaxis de ningún lenguaje concreto. Sirve para diseñar la lógica de la solución antes de programarla, y para poder trasladar ese mismo algoritmo a cualquier lenguaje.</p>
+        </section>
+
+        <section>
+          <h2 id="u3">3. Depuración del código</h2>
+          <p>Depurar es identificar, diagnosticar y corregir errores (bugs) hasta que el programa funciona como se espera; es un proceso continuo, no solo una fase final.</p>
+          <h3>Qué es un bug (error)</h3>
+          <p>Los errores se dividen en dos grandes tipos: de <strong>compilación</strong> (sintaxis incorrecta, variables no declaradas... impiden que el programa llegue a ejecutarse) y de <strong>tiempo de ejecución</strong> (como dividir por cero o acceder a un índice fuera de rango), que solo aparecen mientras el programa corre.</p>
+          <h3>Manejo de excepciones</h3>
+          <p>Una excepción es un evento inesperado que interrumpe el flujo normal del programa. Java gestiona estas situaciones con bloques <code>try / catch / finally</code>: el código que puede fallar va en <code>try</code>, su gestión en <code>catch</code>, y lo que debe ejecutarse siempre (falle o no) va en <code>finally</code>.</p>
+          <pre><code>try {
+    int resultado = 10 / 0;
+} catch (ArithmeticException e) {
+    System.out.println("Error: no se puede dividir por cero.");
+}</code></pre>
+          <h3>La salida de error (System.err)</h3>
+          <p><code>System.err</code> es un flujo de salida independiente de <code>System.out</code>, pensado específicamente para mensajes de error, de forma que puedan separarse o redirigirse distinto al resto de la salida del programa.</p>
+          <h3>Uso de logs</h3>
+          <p>Un log es un registro cronológico de eventos, avisos y errores de un sistema o aplicación. En Java, la clase <code>Logger</code> permite registrar mensajes con distintos niveles de gravedad (información, advertencia, error grave), muy útil para diagnosticar problemas en producción donde no se puede depurar en directo.</p>
+          <h3>El depurador</h3>
+          <p>El depurador (debugger) del IDE permite ejecutar el programa paso a paso: colocar puntos de interrupción (breakpoints), inspeccionar y hasta modificar el valor de las variables en tiempo real, y seguir el flujo exacto de ejecución para localizar la causa real de un fallo.</p>
+          <h3>Test unitarios</h3>
+          <p>Son pruebas automatizadas (con frameworks como JUnit) que verifican que una función o método concreto se comporta como se espera, de forma independiente al resto del programa, cubriendo casos normales, límite y de error.</p>
+          <h3>Toma de tiempos y optimización</h3>
+          <p>Medir cuánto tarda en ejecutarse un fragmento de código (por ejemplo con <code>System.currentTimeMillis()</code>) permite detectar cuellos de botella y comparar distintas soluciones para elegir la más eficiente.</p>
+        </section>
+
+        <section>
+          <h2 id="u4">4. Programación orientada a objetos I</h2>
+          <p>La POO organiza el código en torno a "objetos" que agrupan datos y comportamiento, modelando entidades del mundo real (por ejemplo, un <code>Libro</code> con título, autor y número de páginas).</p>
+          <h3>Qué es una clase</h3>
+          <p>Una clase es la plantilla que define qué atributos (datos) y qué métodos (comportamientos) tendrán los objetos creados a partir de ella.</p>
+          <h3>Qué es un objeto</h3>
+          <p>Un objeto es una instancia concreta de una clase: si <code>Libro</code> es la clase, un ejemplar específico como "El Quijote" es un objeto de esa clase, con sus propios valores para cada atributo.</p>
+          <h3>Métodos y atributos</h3>
+          <p>Los atributos almacenan el estado del objeto; los métodos definen su comportamiento (qué puede hacer o qué se puede hacer con él).</p>
+          <h3>Encapsulación</h3>
+          <p>Consiste en ocultar los detalles internos de una clase y exponer solo lo necesario a través de métodos públicos (típicamente <em>getters</em> y <em>setters</em>), protegiendo así la integridad de los datos.</p>
+          <h3>El constructor</h3>
+          <p>Es un método especial que se ejecuta al crear un objeto con <code>new</code>, y que se usa para inicializar sus atributos con valores iniciales.</p>
+          <h3>Los paquetes</h3>
+          <p>Los paquetes (<code>package</code>) agrupan clases relacionadas, evitando conflictos de nombres y organizando el código en un proyecto grande.</p>
+          <h3>La memoria de un programa</h3>
+          <p>Java gestiona dos zonas de memoria principales: la <strong>pila</strong> (stack), donde viven las variables locales y las llamadas a métodos, y el <strong>montículo</strong> (heap), donde se almacenan los objetos creados con <code>new</code>.</p>
+          <h3>La recursividad en la memoria</h3>
+          <p>Cada llamada recursiva añade un nuevo marco a la pila de llamadas; si la recursión no llega nunca a su condición base, la pila se llena y el programa falla con un <em>stack overflow</em>.</p>
+        </section>
+
+        <section>
+          <h2 id="u5">5. GUI y librerías</h2>
+          <p>Cierra el bloque con las interfaces gráficas y las librerías estándar de Java más habituales para trabajar con entrada/salida, colecciones y generación de informes.</p>
+          <h3>Qué es UI y UX</h3>
+          <p>La UI (interfaz de usuario) son los elementos visuales con los que interactúa la persona usuaria; la UX (experiencia de usuario) es la calidad de esa interacción en su conjunto: facilidad de uso, accesibilidad y satisfacción.</p>
+          <h3>Interfaz de comando y librería JSwing</h3>
+          <p>Antes de una interfaz gráfica, muchos programas funcionan por línea de comandos (CLI). Swing es la librería clásica de Java para construir interfaces gráficas de escritorio con ventanas, botones y formularios.</p>
+          <h3>Paquetes java.io, java.util y java.math</h3>
+          <p><code>java.io</code> proporciona las clases para leer y escribir datos (ficheros, teclado); <code>java.util</code> incluye colecciones como <code>ArrayList</code> o la clase <code>Random</code>; <code>java.math</code> ofrece operaciones matemáticas más allá de los operadores básicos.</p>
+          <h3>Manejo de XML con JAXB y creación de informes con JasperReports</h3>
+          <p>JAXB permite convertir automáticamente objetos Java a XML y viceversa. JasperReports es una librería para generar informes (PDF, Excel...) a partir de los datos de la aplicación.</p>
+        </section>
+        <section class="one-more-thing">
+          <h2 id="one-more-thing"><i class="bi bi-plus-circle"></i>One more thing…</h2>
+          <p class="omt-meta">
+            <span class="exam-badge"><i class="bi bi-pencil-square"></i> Preguntas de examen</span>
+            <span>Conceptos recopilados en <a href="https://benrios.dev/resumen-java/" target="_blank" rel="noopener">benrios.dev/resumen-java</a></span>
+          </p>
+
+          <h3 id="omt-chuleta-de-simbolos-y-palabras-clave">Chuleta de símbolos y palabras clave</h3>
+          <p>La forma más rápida de fallar una pregunta de examen es dudar entre símbolos parecidos. Tabla resumen:</p>
+          <table>
+            <thead><tr><th>Concepto</th><th>Símbolo / palabra</th><th>Ejemplo</th></tr></thead>
+            <tbody>
+              <tr><td>Cadena de texto</td><td><code>"..."</code> (comillas dobles)</td><td><code>"Hola"</code></td></tr>
+              <tr><td>Multiplicación</td><td><code>*</code></td><td><code>5 * 3</code></td></tr>
+              <tr><td>Módulo (resto)</td><td><code>%</code></td><td><code>10 % 3</code> → 1</td></tr>
+              <tr><td>OR lógico</td><td><code>||</code></td><td>solo es <code>false</code> si ambos operandos lo son</td></tr>
+              <tr><td>Crear un objeto</td><td><code>new</code></td><td><code>new Persona()</code></td></tr>
+              <tr><td>Acceso privado</td><td><code>private</code></td><td><code>private String nombre;</code></td></tr>
+              <tr><td>Saltar una iteración</td><td><code>continue</code></td><td>a diferencia de <code>break</code>, no sale del bucle</td></tr>
+              <tr><td>Incremento</td><td><code>++</code></td><td><code>a++</code> (post) / <code>++a</code> (pre)</td></tr>
+              <tr><td>Operador ternario</td><td><code>?:</code></td><td><code>(a &gt; b) ? a : b</code></td></tr>
+              <tr><td>Organizar clases</td><td><code>package</code></td><td><code>package com.empresa;</code></td></tr>
+              <tr><td>Usar clases externas</td><td><code>import</code></td><td><code>import java.util.*;</code></td></tr>
+            </tbody>
+          </table>
+
+          <h3 id="omt-switch-while-y-do-while">Switch, while y do-while</h3>
+          <p><strong>Switch</strong> evalúa una variable y ejecuta el bloque cuyo <code>case</code> coincide; es más legible que encadenar muchos <code>if-else</code>. Ojo con la diferencia entre bucles:</p>
+          <table>
+            <thead><tr><th></th><th>while</th><th>do-while</th></tr></thead>
+            <tbody>
+              <tr><td>Comprueba la condición</td><td>Antes de ejecutar</td><td>Después de ejecutar</td></tr>
+              <tr><td>¿Puede no ejecutarse nunca?</td><td>Sí, si la condición es falsa desde el principio</td><td>No, siempre se ejecuta al menos una vez</td></tr>
+              <tr><td>Se usa para</td><td>Validaciones</td><td>Menús repetitivos</td></tr>
+            </tbody>
+          </table>
+
+          <h3 id="omt-recursividad-y-stackoverflowerror">Recursividad y StackOverflowError</h3>
+          <p>Cuando una función recursiva no tiene caso base (o la recursión es demasiado profunda), la pila de llamadas se llena y Java lanza un <code>StackOverflowError</code>.</p>
+          <pre><code>// Esto causa StackOverflowError
+public void funcionRecursiva() {
+    funcionRecursiva(); // se llama a sí misma sin condición de parada
+}</code></pre>
+          <p>Se evita asegurando siempre un caso base y, si el problema es puramente iterativo, prefiriendo un bucle a la recursión.</p>
+
+          <h3 id="omt-visibilidad-private-y-encapsulacion">Visibilidad, <code>private</code> y encapsulación</h3>
+          <table>
+            <thead><tr><th>Modificador</th><th>Misma clase</th><th>Mismo paquete</th><th>Subclase</th><th>Todos</th></tr></thead>
+            <tbody>
+              <tr><td><code>private</code></td><td>✓</td><td>✗</td><td>✗</td><td>✗</td></tr>
+              <tr><td>(sin especificar)</td><td>✓</td><td>✓</td><td>✗</td><td>✗</td></tr>
+              <tr><td><code>protected</code></td><td>✓</td><td>✓</td><td>✓</td><td>✗</td></tr>
+              <tr><td><code>public</code></td><td>✓</td><td>✓</td><td>✓</td><td>✓</td></tr>
+            </tbody>
+          </table>
+          <p><code>private</code> es la base de la <strong>encapsulación</strong>: oculta el atributo y solo permite tocarlo a través de sus getters/setters, que pueden validar el valor antes de asignarlo.</p>
+
+          <h3 id="omt-gui-cli-ui-y-ux">GUI, CLI, UI y UX</h3>
+          <table>
+            <thead><tr><th></th><th>CLI</th><th>GUI</th></tr></thead>
+            <tbody>
+              <tr><td>Basada en</td><td>Texto y comandos</td><td>Ventanas, botones, iconos</td></tr>
+              <tr><td>Ejemplos</td><td>Terminal, CMD, PowerShell</td><td>Windows, macOS, apps de escritorio</td></tr>
+            </tbody>
+          </table>
+          <p><strong>UI</strong> es cómo se ve una aplicación (botones, colores, disposición); <strong>UX</strong> es cómo se siente usarla (facilidad, claridad, satisfacción). Se puede tener una UI bonita con mala UX, y viceversa.</p>
+
+          <h3 id="omt-swing-java-io-y-jaxb">Swing, java.io y JAXB</h3>
+          <p>Componentes de Swing más preguntados:</p>
+          <table>
+            <thead><tr><th>Tipo</th><th>Elemento</th><th>Para qué sirve</th></tr></thead>
+            <tbody>
+              <tr><td rowspan="2">Contenedores</td><td><code>JFrame</code></td><td>Ventana principal de la aplicación</td></tr>
+              <tr><td><code>JPanel</code></td><td>Panel para organizar otros componentes</td></tr>
+              <tr><td rowspan="4">Componentes</td><td><code>JButton</code></td><td>Botón interactivo</td></tr>
+              <tr><td><code>JTextField</code></td><td>Campo de texto de una línea</td></tr>
+              <tr><td><code>JComboBox</code></td><td>Lista desplegable</td></tr>
+              <tr><td><code>JTable</code></td><td>Tabla para mostrar datos</td></tr>
+            </tbody>
+          </table>
+          <p>De <code>java.io</code>, las clases más habituales son <code>Scanner</code> (leer datos del usuario), <code>FileReader</code>/<code>FileWriter</code> (leer y escribir archivos de texto) y <code>BufferedReader</code> (lectura eficiente con buffer).</p>
+          <p><strong>JAXB</strong> convierte objetos Java a XML (<em>marshaling</em>) y XML a objetos Java (<em>unmarshaling</em>):</p>
+          <pre><code>@XmlRootElement
+public class Persona {
+    @XmlElement private String nombre;
+    @XmlElement private int edad;
+}
+
+JAXBContext ctx = JAXBContext.newInstance(Persona.class);
+Marshaller m = ctx.createMarshaller();
+m.marshal(persona, System.out);
+// &lt;persona&gt;&lt;nombre&gt;Carlos&lt;/nombre&gt;&lt;edad&gt;30&lt;/edad&gt;&lt;/persona&gt;</code></pre>
+
+          <h3 id="omt-arraylist-y-hashmap">ArrayList y HashMap</h3>
+          <p>Las dos colecciones de <code>java.util</code> más usadas, con formas de acceso distintas:</p>
+          <pre><code>ArrayList&lt;String&gt; nombres = new ArrayList&lt;&gt;();
+nombres.add("Juan");
+nombres.get(0); // "Juan" — se accede por posición
+
+HashMap&lt;String, Integer&gt; edades = new HashMap&lt;&gt;();
+edades.put("Juan", 30);
+edades.get("Juan"); // 30 — se accede por clave</code></pre>
+
+          <h3 id="omt-paquetes-estandar-de-java">Paquetes estándar de Java</h3>
+          <table>
+            <thead><tr><th>Paquete</th><th>Uso principal</th></tr></thead>
+            <tbody>
+              <tr><td><code>java.lang</code></td><td>Clases fundamentales (String, Math, System); se importa automáticamente</td></tr>
+              <tr><td><code>java.util</code></td><td>Colecciones (ArrayList, HashMap), fechas, aleatorios</td></tr>
+              <tr><td><code>java.io</code></td><td>Lectura y escritura de ficheros</td></tr>
+              <tr><td><code>java.math</code></td><td>Cálculos de alta precisión (BigInteger, BigDecimal)</td></tr>
+              <tr><td><code>javax.swing</code></td><td>Componentes gráficos avanzados</td></tr>
+              <tr><td><code>java.sql</code></td><td>Conexión y operaciones con bases de datos</td></tr>
+              <tr><td><code>java.net</code></td><td>Programación de red y sockets</td></tr>
+            </tbody>
+          </table>
+
+          <h3 id="omt-stack-vs-heap">Stack vs. Heap</h3>
+          <table>
+            <thead><tr><th>Stack</th><th>Heap</th></tr></thead>
+            <tbody>
+              <tr><td>Variables primitivas y referencias a objetos</td><td>Los objetos creados con <code>new</code></td></tr>
+              <tr><td>Contexto de cada método</td><td>Arrays y Strings</td></tr>
+              <tr><td>Memoria liberada automáticamente al salir del método</td><td>Gestionada por el Garbage Collector</td></tr>
+            </tbody>
+          </table>
+          <pre><code>Persona persona = new Persona("Juan", 30);
+// "persona" (la referencia)  → Stack
+// El objeto Persona en sí    → Heap</code></pre>
+        </section>
+
+        <section class="recap-box">
+          <h2><i class="bi bi-stars"></i> Puntos clave</h2>
+          <ul>
+            <li>Un algoritmo debe ser finito, definido, aceptar entradas, producir salida y ser eficiente.</li>
+            <li>La programación estructurada organiza el código en bloques reutilizables en vez de instrucciones sueltas.</li>
+            <li>Las estructuras de control (condicionales, bucles, saltos) deciden qué se ejecuta y en qué orden.</li>
+            <li>La recursividad necesita siempre una condición base para no desbordar la pila.</li>
+            <li>Depurar no es solo corregir errores al final: es un proceso continuo con logs, tests y el depurador del IDE.</li>
+            <li>La POO modela el mundo real con clases y objetos: atributos + métodos + encapsulación.</li>
+          </ul>
+        </section>
+
+        <section>
+          <h2 id="autoevaluacion">Ponte a prueba</h2>
+          <details class="quiz-item">
+            <summary>¿Cuál es la diferencia entre un error de compilación y uno de tiempo de ejecución?</summary>
+            <p class="quiz-answer">El de compilación impide que el programa llegue a ejecutarse (sintaxis, variables no declaradas); el de tiempo de ejecución ocurre mientras el programa corre (dividir por cero, índice fuera de rango).</p>
+          </details>
+          <details class="quiz-item">
+            <summary>¿Qué evita que una función recursiva entre en bucle infinito?</summary>
+            <p class="quiz-answer">La condición base: el caso más simple del problema que la función puede resolver directamente sin volver a llamarse.</p>
+          </details>
+          <details class="quiz-item">
+            <summary>¿Qué diferencia hay entre <code>a++</code> y <code>++a</code>?</summary>
+            <p class="quiz-answer"><code>a++</code> devuelve el valor de <code>a</code> y luego lo incrementa; <code>++a</code> lo incrementa primero y luego devuelve el nuevo valor.</p>
+          </details>
+          <details class="quiz-item">
+            <summary>¿Para qué sirve la encapsulación en POO?</summary>
+            <p class="quiz-answer">Para ocultar los detalles internos de una clase y exponer solo lo necesario mediante métodos públicos (getters/setters), protegiendo la integridad de los datos.</p>
+          </details>
+          <details class="quiz-item">
+            <summary>¿Qué diferencia hay entre <code>System.out</code> y <code>System.err</code>?</summary>
+            <p class="quiz-answer">Ambos imprimen por consola, pero <code>System.err</code> es un flujo independiente pensado para mensajes de error, que se puede separar o redirigir distinto al resto de la salida.</p>
+          </details>
+        </section>
+
+        <section>
+          <h2 id="para-saber-mas">Para saber más</h2>
+          <ul class="resources-list">
+            <li><a href="https://benrios.dev/resumen-java/" target="_blank" rel="noopener"><i class="bi bi-box-arrow-up-right"></i> Resumen de examen de Programación A (benrios.dev)</a></li>
+            <li><a href="https://docs.oracle.com/javase/tutorial/" target="_blank" rel="noopener"><i class="bi bi-box-arrow-up-right"></i> Java Tutorials (Oracle)</a></li>
+            <li><a href="https://docs.oracle.com/en/java/javase/17/docs/api/index.html" target="_blank" rel="noopener"><i class="bi bi-box-arrow-up-right"></i> Documentación oficial de Java (API)</a></li>
+            <li><a href="https://benrios.dev/fundamentos-java/" target="_blank" rel="noopener"><i class="bi bi-box-arrow-up-right"></i> App de estudio de Java: temas 1 y 2 (benrios.dev)</a></li>
+          </ul>
+        </section>
+      </article>
+
+      <nav id="prev-next"></nav>
+    </main>
+
+    <aside class="toc d-none d-xl-block" id="toc-aside">
+      <div class="toc-inner">
+        <h6>En esta página</h6>
+        <nav id="toc-nav" class="nav flex-column"></nav>
+      </div>
+    </aside>
+  </div>
+</div>
+
+<button id="back-to-top" class="btn back-to-top" aria-label="Volver arriba"><i class="bi bi-arrow-up text-white"></i></button>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="../assets/js/nav-data.js"></script>
+<script src="../assets/js/search-index.js"></script>
+<script src="../assets/js/main.js"></script>
+</body>
+</html>

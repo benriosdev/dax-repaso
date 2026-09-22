@@ -1,0 +1,157 @@
+<!doctype html>
+<html lang="es" data-bs-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>MySQL Workbench · DAX Repaso</title>
+<meta name="description" content="MySQL Workbench: conexiones, editor SQL, modelado entidad-relación y administración de bases de datos MySQL.">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+<link href="../assets/css/style.css" rel="stylesheet">
+</head>
+<body data-page="mysql-workbench">
+<script>var BASE_PATH = "../"; var CURRENT_PAGE = "mysql-workbench";</script>
+
+<nav class="navbar topbar navbar-expand fixed-top">
+  <div class="topbar-inner">
+    <div class="topbar-brand-col">
+      <button class="btn-icon d-lg-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#sidebarOffcanvas" aria-label="Abrir menú">
+        <i class="bi bi-list"></i>
+      </button>
+      <a class="navbar-brand" href="../index.html"><i class="bi bi-mortarboard-fill"></i> DAX Repaso</a>
+    </div>
+    <div class="topbar-main">
+      <div class="topbar-search">
+        <i class="bi bi-search"></i>
+        <input type="search" class="search-input" placeholder="Buscar en el temario..." aria-label="Buscar en el temario" autocomplete="off">
+        <div class="search-results"></div>
+      </div>
+      <div class="topbar-actions">
+        <a class="btn-icon" href="https://github.com/benriosdev" target="_blank" rel="noopener" aria-label="Perfil de GitHub">
+          <i class="bi bi-github"></i>
+        </a>
+        <button class="btn-icon theme-toggle" type="button" aria-label="Cambiar tema">
+          <i class="bi bi-moon-stars"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<div class="layout">
+  <div class="layout-row">
+    <aside class="sidebar d-none d-lg-block">
+      <nav id="sidebar-nav"></nav>
+    </aside>
+
+    <div class="offcanvas offcanvas-start" tabindex="-1" id="sidebarOffcanvas">
+      <div class="offcanvas-header">
+        <h5 class="offcanvas-title"><i class="bi bi-mortarboard-fill"></i> DAX Repaso</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Cerrar"></button>
+      </div>
+      <div class="offcanvas-body">
+        <nav id="sidebar-nav-mobile"></nav>
+      </div>
+    </div>
+
+    <main class="content">
+      <nav aria-label="breadcrumb"><ol class="breadcrumb" id="breadcrumb"></ol></nav>
+
+      <article id="page-content">
+        <h1>MySQL Workbench</h1>
+        <p class="lead">Herramienta visual oficial de Oracle para diseñar, administrar y consultar bases de datos MySQL, sin depender solo de la línea de comandos.</p>
+
+        <section>
+          <h2 id="u0">0. Qué es y para qué sirve</h2>
+          <p>MySQL Workbench es la herramienta gráfica oficial y gratuita de Oracle para trabajar con servidores MySQL. Se organiza en tres áreas principales: <strong>SQL Development</strong> (escribir y ejecutar consultas), <strong>Data Modeling</strong> (diseñar diagramas entidad-relación) y <strong>Server Administration</strong> (gestionar usuarios, copias de seguridad y rendimiento del servidor).</p>
+          <div class="callout">
+            <i class="bi bi-lightbulb"></i>
+            <div><strong>¿Sabías que...?</strong><p>MySQL Workbench es la continuación de DBDesigner 4, una herramienta de modelado que Oracle (a través de su compra de MySQL AB) integró y amplió para cubrir también consultas y administración, no solo diseño.</p></div>
+          </div>
+        </section>
+
+        <section>
+          <h2 id="u1">1. Conectar con un servidor</h2>
+          <p>Al abrir Workbench, la pantalla de inicio permite crear una nueva conexión indicando host (por ejemplo <code>localhost</code> o la IP del servidor), puerto (el 3306 por defecto en MySQL), usuario y contraseña. Un botón de "Test Connection" comprueba que los datos son correctos antes de guardar la conexión.</p>
+          <h3>Varias conexiones</h3>
+          <p>Es habitual tener guardadas varias conexiones (un servidor local de desarrollo, uno de pruebas, uno de producción); cada una aparece como una tarjeta en la pantalla de inicio, así que cambiar de servidor es tan simple como hacer doble clic en otra tarjeta.</p>
+        </section>
+
+        <section>
+          <h2 id="u2">2. Editor SQL</h2>
+          <p>El editor SQL es la pestaña donde se escriben y ejecutan las consultas contra la base de datos conectada. Ofrece autocompletado de nombres de tablas y columnas, resaltado de sintaxis y la posibilidad de ejecutar solo la consulta donde está el cursor sin lanzar todo el script.</p>
+          <pre><code>SELECT nombre, email FROM usuarios WHERE activo = 1;</code></pre>
+          <h3>Resultados y exportación</h3>
+          <p>Cada consulta ejecutada abre una pestaña de resultados en forma de tabla, editable directamente para modificar filas sin escribir un <code>UPDATE</code>. Los resultados se pueden exportar a CSV, JSON o Excel desde el propio panel de resultados.</p>
+        </section>
+
+        <section>
+          <h2 id="u3">3. Modelado entidad-relación (EER)</h2>
+          <p>El módulo de modelado (EER Diagrams) permite diseñar visualmente las tablas de una base de datos, sus columnas, claves primarias y foráneas, y las relaciones entre ellas, antes de escribir una sola línea de SQL.</p>
+          <h3>Ingeniería inversa y directa</h3>
+          <p>La <strong>ingeniería inversa</strong> (<em>reverse engineering</em>) genera un diagrama automáticamente a partir de una base de datos ya existente, muy útil para entender un proyecto ajeno de un vistazo. La <strong>ingeniería directa</strong> (<em>forward engineering</em>) hace lo contrario: genera el script SQL con las sentencias <code>CREATE TABLE</code> a partir del diagrama diseñado.</p>
+        </section>
+
+        <section>
+          <h2 id="u4">4. Administración</h2>
+          <p>Desde el panel de administración se gestionan los usuarios del servidor y sus privilegios (qué bases de datos y qué operaciones puede hacer cada uno), sin necesidad de escribir sentencias <code>GRANT</code> a mano.</p>
+          <h3>Copias de seguridad y monitorización</h3>
+          <p>Workbench permite exportar (<em>dump</em>) e importar bases de datos completas o solo algunas tablas, útil para copias de seguridad o para mover datos entre servidores. También ofrece un panel básico de monitorización con el estado de las conexiones activas y el rendimiento del servidor.</p>
+        </section>
+
+        <section class="recap-box">
+          <h2><i class="bi bi-stars"></i> Puntos clave</h2>
+          <ul>
+            <li>Workbench cubre tres áreas: desarrollo SQL, modelado de datos y administración del servidor.</li>
+            <li>Una conexión se define con host, puerto (3306 por defecto), usuario y contraseña.</li>
+            <li>El editor SQL ejecuta consultas y permite exportar los resultados a CSV, JSON o Excel.</li>
+            <li>La ingeniería inversa genera un diagrama desde una BBDD existente; la directa genera el SQL desde el diagrama.</li>
+            <li>Permite gestionar usuarios y privilegios, y exportar/importar bases de datos completas.</li>
+          </ul>
+        </section>
+
+        <section>
+          <h2 id="autoevaluacion">Ponte a prueba</h2>
+          <details class="quiz-item">
+            <summary>¿Qué tres áreas principales cubre MySQL Workbench?</summary>
+            <p class="quiz-answer">SQL Development (consultas), Data Modeling (diagramas entidad-relación) y Server Administration (usuarios, privilegios y rendimiento).</p>
+          </details>
+          <details class="quiz-item">
+            <summary>¿Qué puerto usa MySQL por defecto al configurar una conexión?</summary>
+            <p class="quiz-answer">El puerto 3306.</p>
+          </details>
+          <details class="quiz-item">
+            <summary>¿Qué diferencia hay entre ingeniería inversa e ingeniería directa en el modelado EER?</summary>
+            <p class="quiz-answer">La ingeniería inversa genera un diagrama a partir de una base de datos ya existente; la ingeniería directa genera el script SQL (<code>CREATE TABLE</code>) a partir de un diagrama diseñado.</p>
+          </details>
+        </section>
+
+        <section>
+          <h2 id="para-saber-mas">Para saber más</h2>
+          <ul class="resources-list">
+            <li><a href="https://dev.mysql.com/doc/workbench/en/" target="_blank" rel="noopener"><i class="bi bi-box-arrow-up-right"></i> Documentación oficial de MySQL Workbench</a></li>
+            <li><a href="https://dev.mysql.com/downloads/workbench/" target="_blank" rel="noopener"><i class="bi bi-box-arrow-up-right"></i> Descarga oficial de MySQL Workbench</a></li>
+          </ul>
+        </section>
+      </article>
+
+      <nav id="prev-next"></nav>
+    </main>
+
+    <aside class="toc d-none d-xl-block" id="toc-aside">
+      <div class="toc-inner">
+        <h6>En esta página</h6>
+        <nav id="toc-nav" class="nav flex-column"></nav>
+      </div>
+    </aside>
+  </div>
+</div>
+
+<button id="back-to-top" class="btn back-to-top" aria-label="Volver arriba"><i class="bi bi-arrow-up text-white"></i></button>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="../assets/js/nav-data.js"></script>
+<script src="../assets/js/search-index.js"></script>
+<script src="../assets/js/main.js"></script>
+</body>
+</html>

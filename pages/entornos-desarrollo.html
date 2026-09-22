@@ -1,0 +1,277 @@
+<!doctype html>
+<html lang="es" data-bs-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Entornos de Desarrollo · DAX Repaso</title>
+<meta name="description" content="Resumen de Entornos de Desarrollo: ciclo de vida del software, pruebas, control de versiones y UML.">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+<link href="../assets/css/style.css" rel="stylesheet">
+</head>
+<body data-page="entornos-desarrollo">
+<script>var BASE_PATH = "../"; var CURRENT_PAGE = "entornos-desarrollo";</script>
+
+<nav class="navbar topbar navbar-expand fixed-top">
+  <div class="topbar-inner">
+    <div class="topbar-brand-col">
+      <button class="btn-icon d-lg-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#sidebarOffcanvas" aria-label="Abrir menú">
+        <i class="bi bi-list"></i>
+      </button>
+      <a class="navbar-brand" href="../index.html"><i class="bi bi-mortarboard-fill"></i> DAX Repaso</a>
+    </div>
+    <div class="topbar-main">
+      <div class="topbar-search">
+        <i class="bi bi-search"></i>
+        <input type="search" class="search-input" placeholder="Buscar en el temario..." aria-label="Buscar en el temario" autocomplete="off">
+        <div class="search-results"></div>
+      </div>
+      <div class="topbar-actions">
+        <a class="btn-icon" href="https://github.com/benriosdev" target="_blank" rel="noopener" aria-label="Perfil de GitHub">
+          <i class="bi bi-github"></i>
+        </a>
+        <button class="btn-icon theme-toggle" type="button" aria-label="Cambiar tema">
+          <i class="bi bi-moon-stars"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<div class="layout">
+  <div class="layout-row">
+    <aside class="sidebar d-none d-lg-block">
+      <nav id="sidebar-nav"></nav>
+    </aside>
+
+    <div class="offcanvas offcanvas-start" tabindex="-1" id="sidebarOffcanvas">
+      <div class="offcanvas-header">
+        <h5 class="offcanvas-title"><i class="bi bi-mortarboard-fill"></i> DAX Repaso</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Cerrar"></button>
+      </div>
+      <div class="offcanvas-body">
+        <nav id="sidebar-nav-mobile"></nav>
+      </div>
+    </div>
+
+    <main class="content">
+      <nav aria-label="breadcrumb"><ol class="breadcrumb" id="breadcrumb"></ol></nav>
+
+      <article id="page-content">
+        <h1>Entornos de Desarrollo</h1>
+        <p class="lead">Recorre todo el ciclo de vida del software: desde qué es un programa y cómo se traduce a código ejecutable, hasta las pruebas, la documentación y el modelado con UML.</p>
+        <section>
+          <h2 id="u1">1. Desarrollo de software</h2>
+          <p>Un programa es un conjunto de instrucciones (código fuente) que hay que traducir a un formato que la máquina entienda. El <strong>código objeto</strong> es el resultado intermedio de compilar, y el <strong>código ejecutable</strong> es el binario final; en lenguajes como Java, una <strong>máquina virtual</strong> (JVM) ejecuta un código intermedio (bytecode) independiente del sistema operativo.</p>
+          <ul>
+            <li><strong>Tipos de lenguajes</strong>: compilados (se traducen enteros antes de ejecutar) frente a interpretados (se ejecutan línea a línea), y de bajo frente a alto nivel según su cercanía al hardware.</li>
+            <li><strong>Fases del desarrollo</strong>: análisis del problema, diseño de la solución, codificación, pruebas, documentación, mantenimiento y explotación — el mismo ciclo que se ve en Programación, aplicado a nivel de proyecto completo.</li>
+            <li><strong>Metodologías ágiles</strong> (Scrum, Kanban...): dividen el proyecto en iteraciones cortas con entregas frecuentes, frente a los modelos clásicos en cascada donde cada fase se cierra antes de pasar a la siguiente.</li>
+            <li><strong>Proceso de obtención de código</strong>: compiladores, intérpretes y las herramientas que transforman el código fuente en algo ejecutable.</li>
+          </ul>
+        </section>
+
+        <section>
+          <h2 id="u2">2. Instalación y uso de entornos de desarrollo</h2>
+          <p>Un IDE integra en una sola aplicación el editor de código, el compilador/intérprete, el depurador y el control de versiones, agilizando todo el flujo de trabajo frente a usar herramientas sueltas.</p>
+          <p>La instalación suele seguir tres pasos: descargar el IDE desde su web oficial, instalar (o configurar) el <strong>JDK</strong> u otro entorno de ejecución que el IDE necesite, y por último instalar los <strong>plugins</strong> específicos del lenguaje o framework con el que se vaya a trabajar (por ejemplo, soporte para Java, control de versiones Git o análisis de código). Elegir un IDE u otro (Eclipse, IntelliJ IDEA, Visual Studio Code...) depende sobre todo del lenguaje y del ecosistema del proyecto.</p>
+        </section>
+
+        <section>
+          <h2 id="u3">3. Diseño y realización de pruebas</h2>
+          <p>Antes de dar por bueno un programa hay que planificar qué se va a probar y cómo.</p>
+          <ul>
+            <li><strong>Estrategias y automatización</strong>: definir de antemano qué casos probar y automatizar su ejecución para repetirlos en cada cambio de código.</li>
+            <li><strong>Cobertura, valores límite y clases de equivalencia</strong>: técnicas para elegir qué casos de prueba merece la pena escribir sin tener que probar absolutamente todas las combinaciones posibles.</li>
+            <li><strong>Pruebas funcionales</strong> (¿hace lo que debe?), <strong>estructurales</strong> (¿se ejecuta bien el código internamente?) y <strong>de regresión</strong> (¿sigue funcionando lo que ya funcionaba, tras un cambio?).</li>
+            <li><strong>Calidad del software</strong>: métricas y buenas prácticas que van más allá de "que funcione", como mantenibilidad y legibilidad.</li>
+          </ul>
+        </section>
+
+        <section>
+          <h2 id="u4">4. Documentación y optimización</h2>
+          <ul>
+            <li><strong>Refactorización</strong>: reorganizar código existente para mejorar su estructura sin cambiar su comportamiento externo, aplicando patrones ya conocidos y evitando el "código espagueti".</li>
+            <li><strong>Control de versiones</strong> (Git): registra el historial de cambios de un proyecto y permite que varias personas trabajen a la vez sin pisarse el trabajo.</li>
+            <li><strong>Documentación y comentarios</strong>: explicar el porqué de decisiones no evidentes en el código, para quien lo mantenga en el futuro (incluido uno mismo).</li>
+          </ul>
+        </section>
+
+        <section>
+          <h2 id="u5">5. Introducción al UML</h2>
+          <p>UML (Unified Modeling Language) es un lenguaje gráfico estándar para representar el diseño de un sistema software antes o durante su construcción, independiente del lenguaje de programación que se use luego.</p>
+          <div class="callout">
+            <i class="bi bi-lightbulb"></i>
+            <div><strong>¿Sabías que...?</strong><p>UML no es un invento reciente: lo estandarizó en 1997 el OMG (Object Management Group) unificando varias notaciones de diseño distintas que competían entre sí en los años 90.</p></div>
+          </div>
+
+        </section>
+
+        <section>
+          <h2 id="u6">6. Ingeniería inversa de software</h2>
+          <p>Consiste en analizar un programa ya construido (a veces sin código fuente disponible) para entender cómo funciona por dentro, ya sea para documentarlo, migrarlo o auditarlo. Tiene implicaciones éticas y legales claras: solo es lícita sobre software propio o con autorización expresa.</p>
+        </section>
+
+        <section>
+          <h2 id="u7">7. Elaboración de diagramas de clases</h2>
+          <p>El diagrama de clases UML representa las clases de un sistema, sus atributos, métodos y las relaciones entre ellas (herencia, asociación, composición), de forma muy similar a como se diseña una clase en POO pero a nivel gráfico y antes de escribir una sola línea de código.</p>
+          <div class="diagram-wrap">
+            <svg viewBox="0 0 320 320" role="img" aria-label="Diagrama de clases UML: Perro hereda de Animal">
+              <rect x="70" y="20" width="180" height="100" class="dg-box"></rect>
+              <line x1="70" y1="50" x2="250" y2="50" class="dg-line"></line>
+              <line x1="70" y1="80" x2="250" y2="80" class="dg-line"></line>
+              <text x="160" y="35" class="dg-text">Animal</text>
+              <text x="80" y="65" class="dg-text-sm" text-anchor="start">- nombre: String</text>
+              <text x="80" y="100" class="dg-text-sm" text-anchor="start">+ hacerSonido()</text>
+
+              <rect x="70" y="200" width="180" height="100" class="dg-box"></rect>
+              <line x1="70" y1="230" x2="250" y2="230" class="dg-line"></line>
+              <line x1="70" y1="260" x2="250" y2="260" class="dg-line"></line>
+              <text x="160" y="215" class="dg-text">Perro</text>
+              <text x="80" y="245" class="dg-text-sm" text-anchor="start">- raza: String</text>
+              <text x="80" y="280" class="dg-text-sm" text-anchor="start">+ hacerSonido()</text>
+
+              <line x1="160" y1="200" x2="160" y2="135" class="dg-line"></line>
+              <polygon points="160,120 148,140 172,140" class="dg-box"></polygon>
+            </svg>
+          </div>
+          <p class="diagram-caption">Perro hereda de Animal (flecha con punta hueca = herencia en UML).</p>
+        </section>
+
+        <section>
+          <h2 id="u8">8. Elaboración de diagramas de comportamiento</h2>
+          <p>Mientras el diagrama de clases es estático, estos diagramas UML muestran cómo se comporta el sistema en el tiempo.</p>
+          <ul>
+            <li><strong>Diagramas de casos de uso</strong>: qué puede hacer cada actor (usuario o sistema externo) con la aplicación.</li>
+            <li><strong>Diagramas de interacción</strong>: cómo se comunican los objetos entre sí para llevar a cabo una operación.</li>
+            <li><strong>Diagramas de estados</strong>: los distintos estados por los que pasa un objeto y qué eventos provocan cada transición.</li>
+            <li><strong>Diagramas de actividades</strong>: el flujo de un proceso paso a paso, con decisiones y ramificaciones, similar a un diagrama de flujo.</li>
+          </ul>
+        </section>
+
+        <section class="one-more-thing">
+          <h2 id="one-more-thing"><i class="bi bi-plus-circle"></i>One more thing…</h2>
+          <p class="omt-meta">
+            <span>Git y GitHub en la práctica, de <a href="https://benrios.dev/hola-git/git/" target="_blank" rel="noopener">benrios.dev/hola-git/git</a> y <a href="https://benrios.dev/hola-git/github/" target="_blank" rel="noopener">benrios.dev/hola-git/github</a></span>
+          </p>
+
+          <h3 id="omt-git-no-es-lo-mismo-que-github">Git no es lo mismo que GitHub</h3>
+          <p><strong>Git</strong> es el sistema de control de versiones <strong>distribuido</strong> que funciona en tu ordenador: guarda el historial de cambios (qué cambió, quién y cuándo). <strong>GitHub</strong> es una plataforma en la nube que aloja repositorios Git y añade funciones para colaborar, como Pull Requests, forks y GitHub Pages.</p>
+          <p>Lo primero después de instalar Git es configurar tu identidad (usa el mismo nombre y email que en GitHub):</p>
+          <pre><code>git config --global user.name "Tu Nombre"
+git config --global user.email "tu@email.com"</code></pre>
+
+          <h3 id="omt-comandos-esenciales">Comandos esenciales</h3>
+          <table>
+            <thead><tr><th>Comando</th><th>Para qué sirve</th></tr></thead>
+            <tbody>
+              <tr><td><code>git init</code></td><td>Crear un repositorio en la carpeta actual</td></tr>
+              <tr><td><code>git clone URL</code></td><td>Copiar un repositorio remoto a tu equipo</td></tr>
+              <tr><td><code>git status</code></td><td>Ver el estado de los archivos</td></tr>
+              <tr><td><code>git add .</code></td><td>Pasar cambios al área de preparación (<em>staging</em>)</td></tr>
+              <tr><td><code>git commit -m "..."</code></td><td>Guardar una instantánea con un mensaje</td></tr>
+              <tr><td><code>git push origin main</code></td><td>Subir los commits al remoto</td></tr>
+              <tr><td><code>git pull origin main</code></td><td>Descargar y fusionar los cambios del remoto</td></tr>
+              <tr><td><code>git checkout -b rama</code></td><td>Crear una rama y cambiarse a ella</td></tr>
+              <tr><td><code>git merge rama</code></td><td>Fusionar una rama con la actual</td></tr>
+            </tbody>
+          </table>
+
+          <h3 id="omt-flujo-de-trabajo-en-equipo">Flujo de trabajo en equipo</h3>
+          <ol>
+            <li>Crear o clonar el repositorio.</li>
+            <li>Crear una <strong>rama</strong> para cada funcionalidad o corrección, por ejemplo <code>feature/login</code> o <code>fix/pago</code>.</li>
+            <li>Hacer cambios y guardarlos con <code>add</code> y <code>commit</code>, en commits pequeños y con mensajes claros.</li>
+            <li>Subir la rama con <code>push</code>.</li>
+            <li>Abrir un <strong>Pull Request</strong> para que el equipo revise los cambios.</li>
+            <li>Fusionar en la rama principal cuando esté aprobado.</li>
+          </ol>
+          <p>Para contribuir a un proyecto ajeno se hace un <strong>fork</strong> (tu propia copia del repositorio) y se abre el Pull Request contra el original.</p>
+
+          <h3 id="omt-gitflow-y-merge-vs-rebase">GitFlow y merge vs. rebase</h3>
+          <p>GitFlow organiza las ramas así:</p>
+          <ul>
+            <li><strong>main</strong>: el código en producción, siempre estable.</li>
+            <li><strong>develop</strong>: donde se integra el desarrollo.</li>
+            <li><strong>feature</strong> y <strong>release</strong>: salen de develop, para nuevas funcionalidades y para preparar lanzamientos.</li>
+            <li><strong>hotfix</strong>: sale de main, para correcciones urgentes.</li>
+          </ul>
+          <table>
+            <thead><tr><th></th><th><code>git merge</code></th><th><code>git rebase</code></th></tr></thead>
+            <tbody>
+              <tr><td>Historial</td><td>Lo conserva completo, con commits de fusión</td><td>Lo deja lineal y limpio (lo reescribe)</td></tr>
+              <tr><td>Riesgo</td><td>El historial se vuelve más complejo</td><td>Puede dar conflictos en ramas compartidas</td></tr>
+              <tr><td>Cuándo usarlo</td><td>Para integrar ramas públicas</td><td>Para limpiar ramas privadas</td></tr>
+            </tbody>
+          </table>
+
+          <h3 id="omt-buenas-practicas">Buenas prácticas</h3>
+          <ul>
+            <li>Nunca subir archivos sensibles (<code>.env</code>, credenciales). Usa <code>.gitignore</code>.</li>
+            <li>Revisar los cambios con <code>git diff</code> antes de hacer commit.</li>
+            <li>Hacer <code>pull</code> antes de <code>push</code> para evitar conflictos.</li>
+          </ul>
+        </section>
+
+        <section class="recap-box">
+          <h2><i class="bi bi-stars"></i> Puntos clave</h2>
+          <ul>
+            <li>El ciclo de vida del software se repite en cada proyecto: análisis, diseño, codificación, pruebas, documentación, mantenimiento.</li>
+            <li>Las metodologías ágiles entregan en iteraciones cortas, frente al modelo en cascada que cierra cada fase antes de la siguiente.</li>
+            <li>Cobertura, valores límite y clases de equivalencia ayudan a elegir qué casos de prueba merece la pena escribir.</li>
+            <li>Refactorizar cambia la estructura interna del código sin cambiar su comportamiento externo.</li>
+            <li>UML representa tanto la estructura estática (diagrama de clases) como el comportamiento dinámico (casos de uso, estados, actividades).</li>
+          </ul>
+        </section>
+
+        <section>
+          <h2 id="autoevaluacion">Ponte a prueba</h2>
+          <details class="quiz-item">
+            <summary>¿Qué diferencia hay entre una prueba funcional y una estructural?</summary>
+            <p class="quiz-answer">La funcional comprueba si el software hace lo que debe (desde fuera); la estructural comprueba cómo se ejecuta el código internamente.</p>
+          </details>
+          <details class="quiz-item">
+            <summary>¿Qué es una prueba de regresión?</summary>
+            <p class="quiz-answer">Comprobar que un cambio en el código no ha roto algo que ya funcionaba antes.</p>
+          </details>
+          <details class="quiz-item">
+            <summary>¿Qué representa un diagrama de casos de uso?</summary>
+            <p class="quiz-answer">Qué puede hacer cada actor (usuario o sistema externo) con la aplicación.</p>
+          </details>
+          <details class="quiz-item">
+            <summary>¿Qué significa refactorizar código?</summary>
+            <p class="quiz-answer">Reorganizar código existente para mejorar su estructura interna sin cambiar su comportamiento externo.</p>
+          </details>
+        </section>
+
+        <section>
+          <h2 id="para-saber-mas">Para saber más</h2>
+          <ul class="resources-list">
+            <li><a href="https://www.uml.org/" target="_blank" rel="noopener"><i class="bi bi-box-arrow-up-right"></i> UML — especificación oficial (OMG)</a></li>
+            <li><a href="https://git-scm.com/doc" target="_blank" rel="noopener"><i class="bi bi-box-arrow-up-right"></i> Documentación de Git</a></li>
+            <li><a href="https://benrios.dev/hola-git/git/" target="_blank" rel="noopener"><i class="bi bi-box-arrow-up-right"></i> Aprende Git desde cero (benrios.dev)</a></li>
+            <li><a href="https://benrios.dev/hola-git/github/" target="_blank" rel="noopener"><i class="bi bi-box-arrow-up-right"></i> Guía de GitHub (benrios.dev)</a></li>
+          </ul>
+        </section>
+      </article>
+
+      <nav id="prev-next"></nav>
+    </main>
+
+    <aside class="toc d-none d-xl-block" id="toc-aside">
+      <div class="toc-inner">
+        <h6>En esta página</h6>
+        <nav id="toc-nav" class="nav flex-column"></nav>
+      </div>
+    </aside>
+  </div>
+</div>
+
+<button id="back-to-top" class="btn back-to-top" aria-label="Volver arriba"><i class="bi bi-arrow-up text-white"></i></button>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="../assets/js/nav-data.js"></script>
+<script src="../assets/js/search-index.js"></script>
+<script src="../assets/js/main.js"></script>
+</body>
+</html>
