@@ -58,8 +58,32 @@
       <nav aria-label="breadcrumb"><ol class="breadcrumb" id="breadcrumb"></ol></nav>
 
       <section class="hero">
-        <h1>Temario y apuntes</h1>
-        <p>Resúmenes y temario de cada asignatura, organizados por bloques. Pensado para repasar rápido antes de un examen: qué se cubre en cada tema y dónde encontrar el PDF original.</p>
+        <div class="hero-grid">
+          <div class="hero-content">
+            <span class="hero-tag">FP · DAM · DAW</span>
+            <h1>Apuntes claros para DAM y DAW</h1>
+            <p>Resúmenes y apuntes por asignatura, con ejemplos prácticos y explicaciones claras para repasar rápido antes de un examen.</p>
+
+            <div class="hero-search topbar-search">
+              <i class="bi bi-search"></i>
+              <input type="search" class="search-input" placeholder="¿Qué estás buscando?" aria-label="Buscar en el temario" autocomplete="off">
+              <div class="search-results"></div>
+            </div>
+
+            <div class="hero-popular">
+              <span class="hero-popular-label">Búsquedas populares:</span>
+              <button type="button" class="popular-tag" data-query="Java">Java</button>
+              <button type="button" class="popular-tag" data-query="SQL">SQL</button>
+              <button type="button" class="popular-tag" data-query="Git">Git</button>
+              <button type="button" class="popular-tag" data-query="Docker">Docker</button>
+              <button type="button" class="popular-tag" data-query="HTML">HTML</button>
+            </div>
+          </div>
+
+          <div class="hero-illustration d-none d-lg-block">
+            <img src="assets/img/hero-illustration.webp" alt="" width="1671" height="941">
+          </div>
+        </div>
       </section>
 
       <section class="category-section d-none" id="recent-pages">

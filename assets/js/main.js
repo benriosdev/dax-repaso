@@ -221,6 +221,20 @@
     section.classList.remove("d-none");
   }
 
+  // ---------- Búsquedas populares del hero (home) ----------
+  function wirePopularTags() {
+    var heroInput = document.querySelector(".hero-search .search-input");
+    if (!heroInput) return;
+    document.querySelectorAll(".popular-tag").forEach(function (btn) {
+      btn.addEventListener("click", function (ev) {
+        ev.stopPropagation();
+        heroInput.value = btn.dataset.query;
+        heroInput.dispatchEvent(new Event("input"));
+        heroInput.focus();
+      });
+    });
+  }
+
   function initScrollSpy() {
     if (window.bootstrap && window.bootstrap.ScrollSpy) {
       var existing = window.bootstrap.ScrollSpy.getInstance(document.body);
@@ -378,6 +392,7 @@
     recordRecentPage();
     renderRecentPages();
     wireSearch();
+    wirePopularTags();
     initTheme();
     wireBackToTop();
   });
