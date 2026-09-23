@@ -174,6 +174,53 @@
     });
   }
 
+  // ---------- Temas recientes (localStorage, por visitante) ----------
+  var RECENT_KEY = "recentPages";
+  var RECENT_MAX = 6;
+
+  function recordRecentPage() {
+    if (currentPage === "home") return;
+    var found = findPage(currentPage);
+    var extra = (SITE.extras || []).find(function (e) { return e.id === currentPage; });
+    if (!found && !extra) return;
+
+    var list = [];
+    try { list = JSON.parse(localStorage.getItem(RECENT_KEY)) || []; } catch (e) {}
+    list = list.filter(function (id) { return id !== currentPage; });
+    list.unshift(currentPage);
+    list = list.slice(0, RECENT_MAX);
+    try { localStorage.setItem(RECENT_KEY, JSON.stringify(list)); } catch (e) {}
+  }
+
+  function renderRecentPages() {
+    var section = document.getElementById("recent-pages");
+    if (!section) return;
+
+    var list = [];
+    try { list = JSON.parse(localStorage.getItem(RECENT_KEY)) || []; } catch (e) {}
+    if (!list.length) return;
+
+    var html = "";
+    list.forEach(function (id) {
+      var found = findPage(id);
+      var extra = (SITE.extras || []).find(function (e) { return e.id === id; });
+      if (!found && !extra) return;
+      var title = found ? found.page.title : extra.title;
+      var href = found ? found.page.href : extra.href;
+      var catName = found ? found.category.name : "Glosario";
+      var catColor = found ? found.category.color : "";
+      html += '<a class="recent-item" href="' + href + '">' +
+        '<span class="badge-cat' + (catColor ? " " + catColor : "") + '">' + catName + "</span>" +
+        '<span class="recent-title">' + title + "</span>" +
+        '<i class="bi bi-arrow-right"></i>' +
+        "</a>";
+    });
+    if (!html) return;
+
+    section.querySelector(".recent-list").innerHTML = html;
+    section.classList.remove("d-none");
+  }
+
   function initScrollSpy() {
     if (window.bootstrap && window.bootstrap.ScrollSpy) {
       var existing = window.bootstrap.ScrollSpy.getInstance(document.body);
@@ -328,6 +375,8 @@
     renderRelatedTerms();
     wireFeedback();
     renderPrevNext();
+    recordRecentPage();
+    renderRecentPages();
     wireSearch();
     initTheme();
     wireBackToTop();

@@ -840,6 +840,21 @@ body[data-page="home"] .topbar .topbar-search { display: none; }
 .hero p { color: var(--text-muted); font-size: 1.05rem; max-width: 42rem; }
 
 .category-section { margin-bottom: 2.75rem; scroll-margin-top: 4.5rem; }
+.recent-list { display: flex; flex-direction: column; gap: 0.5rem; }
+.recent-item {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.75rem 1rem;
+  border: 1px solid var(--border-color);
+  border-radius: 0.6rem;
+  background-color: var(--bg-elevated);
+  color: var(--text);
+}
+.recent-item:hover { border-color: var(--accent); text-decoration: none; }
+.recent-item .badge-cat { margin-bottom: 0; flex-shrink: 0; }
+.recent-item .recent-title { flex: 1 1 auto; font-weight: 600; }
+.recent-item i { color: var(--text-muted); }
 .section-divider {
   border: none;
   border-top: 2px solid var(--border-color);
