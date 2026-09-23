@@ -903,6 +903,7 @@ a:hover {
 .badge-cat.sist { color: var(--cat-sist); background: color-mix(in srgb, var(--cat-sist) 16%, transparent); }
 .badge-cat.ing  { color: var(--cat-ing);  background: color-mix(in srgb, var(--cat-ing) 16%, transparent); }
 .badge-cat.trans{ color: var(--cat-trans);background: color-mix(in srgb, var(--cat-trans) 16%, transparent); }
+.badge-cat.herr { color: var(--cat-herr); background: color-mix(in srgb, var(--cat-herr) 16%, transparent); }
 
 /* ===== Volver arriba ===== */
 .back-to-top {
