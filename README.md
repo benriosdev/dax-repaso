@@ -22,6 +22,7 @@ Sitio web estático de repaso para **DAM y DAW**: resúmenes por asignatura, un 
 
 - **Buscador instantáneo** por título, unidad y palabras clave, disponible desde cualquier página.
 - **Navegación por categorías** con sidebar, breadcrumbs y tabla de contenidos con scroll activo.
+- **"Para profundizar"**: en cada asignatura, una sección de ampliación claramente diferenciada, con contenido adicional contrastado con fuentes oficiales enlazadas.
 - **Glosario con modo flashcards** para repasar términos.
 - **Temas recientes**: recuerda, en tu propio navegador y sin analítica ni servidor, las últimas páginas que visitaste.
 - **Herramientas de referencia**: Git, GitHub, Docker, MySQL Workbench y Supabase, con la misma estructura que las asignaturas.
