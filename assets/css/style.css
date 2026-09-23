@@ -130,6 +130,8 @@ a:hover {
   border-color: var(--accent);
 }
 
+body[data-page="home"] .topbar .topbar-search { display: none; }
+
 .topbar-search {
   grid-column: 2;
   width: 100%;
