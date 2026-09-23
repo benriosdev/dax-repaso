@@ -82,6 +82,8 @@ RUN npm install
 CMD ["npm", "start"]</code></pre>
           <h3>Instrucciones más comunes</h3>
           <p><code>FROM</code> define la imagen base de partida; <code>COPY</code> copia archivos del proyecto dentro de la imagen; <code>RUN</code> ejecuta un comando durante la construcción (como instalar dependencias); <code>CMD</code> indica el comando por defecto al arrancar el contenedor. <code>docker build -t nombre .</code> construye la imagen a partir del Dockerfile.</p>
+          <h3>Docker Hub y otros registries</h3>
+          <p>Un <em>registry</em> es un almacén de imágenes listas para descargar, como <code>FROM node:20</code> hace en el ejemplo anterior. Docker Hub es el registry público por defecto, con imágenes oficiales de la mayoría de lenguajes y bases de datos; <code>docker pull imagen</code> la descarga, y <code>docker push</code> sube una imagen propia (previo <code>docker login</code>). También existen registries privados, propios de cada empresa o de proveedores cloud.</p>
         </section>
 
         <section>

@@ -78,6 +78,8 @@
   .select("id, titulo, completada");</code></pre>
           <h3>Row Level Security (RLS)</h3>
           <p>Como la API queda expuesta directamente, Supabase se apoya en las políticas de seguridad a nivel de fila (RLS) de PostgreSQL: reglas que definen, para cada tabla, qué filas puede leer o modificar cada usuario. Sin una política activa, por defecto no se puede acceder a los datos desde el cliente.</p>
+          <h3>CLI y desarrollo local</h3>
+          <p>La CLI de Supabase (<code>supabase init</code>, <code>supabase start</code>) levanta una copia completa del stack (base de datos, Auth, Storage...) en el propio ordenador con Docker, para desarrollar y probar sin depender de internet ni tocar el proyecto real. Los cambios en el esquema se gestionan como <strong>migraciones</strong>: archivos SQL versionados que se aplican en orden, tanto en local como al desplegar a producción con <code>supabase link</code> y <code>supabase db push</code>.</p>
         </section>
 
         <section>

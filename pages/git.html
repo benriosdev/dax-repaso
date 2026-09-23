@@ -96,6 +96,11 @@ git commit -m "Primer commit"   # guarda el cambio en el historial</code></pre>
           <p>Git ofrece varias formas de deshacer, según en qué punto estés. <code>git restore archivo.txt</code> descarta cambios no confirmados en el directorio de trabajo, volviendo a la última versión guardada. <code>.gitignore</code> es un archivo de texto donde se listan patrones de archivos que Git debe ignorar siempre (como carpetas de dependencias o archivos de configuración local), para que nunca lleguen a un commit.</p>
           <h3>git reset vs. git revert</h3>
           <p><code>git reset</code> mueve el historial hacia atrás como si esos commits no hubieran existido (útil solo en ramas que no has compartido con nadie más, porque reescribe el historial). <code>git revert</code> es más seguro para trabajo compartido: crea un commit nuevo que deshace los cambios de un commit anterior, sin borrar el historial.</p>
+          <h3>git stash</h3>
+          <p>Guarda temporalmente los cambios sin confirmar (sin hacer un commit) y deja el directorio de trabajo limpio, como si nada estuviera modificado. Es útil cuando necesitas cambiar de rama rápido para atender otra cosa, sin perder lo que llevas a medias.</p>
+          <pre><code>git stash          # guarda los cambios y limpia el directorio
+git stash list     # muestra los stashes guardados
+git stash pop      # recupera el último stash y lo elimina de la lista</code></pre>
         </section>
 
         <section>
