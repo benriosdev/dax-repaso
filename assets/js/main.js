@@ -235,6 +235,21 @@
     });
   }
 
+  // ---------- Estadísticas reales del hero (home) ----------
+  function renderHeroStats() {
+    var el = document.getElementById("hero-stats");
+    if (!el) return;
+    var index = (typeof SITE !== "undefined" && SITE.searchIndex) ? SITE.searchIndex : [];
+    var values = {
+      pages: flatPages().length,
+      units: index.filter(function (e) { return e.pageId !== "glosario"; }).length,
+      terms: index.filter(function (e) { return e.pageId === "glosario"; }).length
+    };
+    el.querySelectorAll("[data-stat]").forEach(function (span) {
+      span.textContent = values[span.dataset.stat];
+    });
+  }
+
   function initScrollSpy() {
     if (window.bootstrap && window.bootstrap.ScrollSpy) {
       var existing = window.bootstrap.ScrollSpy.getInstance(document.body);
@@ -391,6 +406,7 @@
     renderPrevNext();
     recordRecentPage();
     renderRecentPages();
+    renderHeroStats();
     wireSearch();
     wirePopularTags();
     initTheme();

@@ -888,6 +888,38 @@ body[data-page="home"] .topbar .topbar-search { display: none; }
   transition: border-color 0.15s, color 0.15s;
 }
 .popular-tag:hover { border-color: var(--accent); color: var(--accent); }
+.hero-stats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  margin-top: 1.75rem;
+  padding-top: 1.25rem;
+  border-top: 1px solid var(--border-color);
+}
+.hero-stat {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+}
+.hero-stat i {
+  font-size: 1.2rem;
+  color: var(--accent);
+  flex-shrink: 0;
+}
+.hero-stat-num {
+  display: block;
+  font-size: 1.1rem;
+  font-weight: 800;
+  color: var(--text);
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+}
+.hero-stat-label {
+  display: block;
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  white-space: nowrap;
+}
 
 .category-section { margin-bottom: 2.75rem; scroll-margin-top: 4.5rem; }
 .recent-list { display: flex; flex-direction: column; gap: 0.5rem; }
