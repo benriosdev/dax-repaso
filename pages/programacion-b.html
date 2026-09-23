@@ -141,6 +141,26 @@ grafo.put("B", List.of("A"));
           <p>Cierre del módulo con Python como puerta de entrada a otro lenguaje. Frente a Java (tipado estático, hay que declarar el tipo de cada variable, y necesita compilarse), Python es de <strong>tipado dinámico</strong> (el tipo se infiere en tiempo de ejecución) e <strong>interpretado</strong> (se ejecuta línea a línea, sin paso de compilación), lo que suele traducirse en menos código para la misma tarea a cambio de perder algunas de las comprobaciones que Java hace antes de ejecutar.</p>
         </section>
 
+        <section class="deep-dive">
+          <h2 id="para-profundizar"><i class="bi bi-compass"></i> Para profundizar</h2>
+          <p class="dd-meta">
+            <span class="dd-badge"><i class="bi bi-patch-check"></i> Ampliación</span>
+            <span>Contenido adicional de investigación propia, contrastado con fuentes oficiales (enlazadas al final).</span>
+          </p>
+          <h3>PreparedStatement y la inyección SQL</h3>
+          <p>Cuando una consulta JDBC se construye pegando texto del usuario, un dato malicioso puede alterar la propia sentencia (inyección SQL). Un <code>PreparedStatement</code> lo evita: la sentencia se escribe con marcadores <code>?</code>, se precompila y los valores se envían aparte, de modo que nunca se interpretan como código SQL. Además, reutilizar una sentencia precompilada suele ser más eficiente. OWASP lo sitúa como la primera defensa recomendada, por delante de los procedimientos almacenados y de la validación con listas de valores permitidos; escapar a mano los caracteres especiales lo desaconseja.</p>
+          <pre><code>String sql = "SELECT * FROM usuarios WHERE email = ?";
+try (PreparedStatement ps = conn.prepareStatement(sql)) {
+    ps.setString(1, email);          // el valor va aparte, no dentro del SQL
+    ResultSet rs = ps.executeQuery();
+}</code></pre>
+          <h3>Transacciones en JDBC</h3>
+          <p>Por defecto, una conexión JDBC funciona en modo <strong>autocommit</strong>: cada sentencia SQL se confirma sola nada más ejecutarse. Eso es un problema cuando dos operaciones deben ir juntas (por ejemplo, restar stock e insertar el pedido): si la segunda falla, la primera ya está guardada y los datos quedan inconsistentes. La solución es desactivar el autocommit con <code>conn.setAutoCommit(false)</code>, de modo que las sentencias no se confirmen hasta llamar a <code>conn.commit()</code>, y usar <code>conn.rollback()</code> en el <code>catch</code> para deshacerlo todo si algo falla. Así el conjunto se ejecuta como una unidad: o todo, o nada.</p>
+          <h3>equals() y hashCode() van de la mano</h3>
+          <p>El contrato de <code>Object</code> exige que dos objetos iguales según <code>equals()</code> devuelvan el mismo <code>hashCode()</code>. Por eso, si una clase sobrescribe <code>equals()</code>, debe sobrescribir también <code>hashCode()</code>: si no, colecciones basadas en hash como <code>HashSet</code> o <code>HashMap</code> pueden tratar como distintos dos objetos que tú consideras iguales.</p>
+          <p class="dd-sources"><i class="bi bi-link-45deg"></i> Fuentes: <a href="https://docs.oracle.com/javase/tutorial/jdbc/basics/prepared.html" target="_blank" rel="noopener">Oracle: PreparedStatement</a> · <a href="https://cheatsheetseries.owasp.org/cheatsheets/SQL_Injection_Prevention_Cheat_Sheet.html" target="_blank" rel="noopener">OWASP: prevención de inyección SQL</a> · <a href="https://docs.oracle.com/javase/tutorial/jdbc/basics/transactions.html" target="_blank" rel="noopener">Oracle: transacciones JDBC</a> · <a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/Object.html" target="_blank" rel="noopener">Javadoc de Object</a></p>
+        </section>
+
         <section class="recap-box">
           <h2><i class="bi bi-stars"></i> Puntos clave</h2>
           <ul>

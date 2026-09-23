@@ -312,6 +312,26 @@ edades.get("Juan"); // 30 — se accede por clave</code></pre>
 // El objeto Persona en sí    → Heap</code></pre>
         </section>
 
+        <section class="deep-dive">
+          <h2 id="para-profundizar"><i class="bi bi-compass"></i> Para profundizar</h2>
+          <p class="dd-meta">
+            <span class="dd-badge"><i class="bi bi-patch-check"></i> Ampliación</span>
+            <span>Contenido adicional de investigación propia, contrastado con fuentes oficiales (enlazadas al final).</span>
+          </p>
+          <h3>Rangos de los tipos primitivos y dinero con BigDecimal</h3>
+          <p>Cada tipo entero tiene un tamaño fijo y, con él, un rango de valores: <code>byte</code> (8 bits) va de -128 a 127, <code>short</code> (16 bits) de -32.768 a 32.767, <code>int</code> (32 bits) de -2<sup>31</sup> a 2<sup>31</sup>-1 y <code>long</code> (64 bits) de -2<sup>63</sup> a 2<sup>63</sup>-1. Para decimales existen <code>float</code> y <code>double</code>, pero Oracle avisa de que <strong>nunca</strong> deben usarse para valores exactos como el dinero, porque representan los números de forma aproximada. Para esos casos se usa la clase <code>java.math.BigDecimal</code>.</p>
+          <pre><code>System.out.println(0.1 + 0.2);   // 0.30000000000000004 (double: aproximado)
+
+BigDecimal a = new BigDecimal("0.1");
+BigDecimal b = new BigDecimal("0.2");
+System.out.println(a.add(b));    // 0.3 (exacto)</code></pre>
+          <h3>Excepciones comprobadas y no comprobadas</h3>
+          <p>Java distingue tres clases de problemas. Las <strong>excepciones comprobadas</strong> (<em>checked</em>) representan condiciones razonables que un programa bien hecho debería prever, como un archivo que no existe: el compilador obliga a capturarlas con <code>try/catch</code> o a declararlas con <code>throws</code> (el requisito «catch or specify»). Los <strong>errores</strong> (<code>Error</code>) son condiciones externas graves que el programa normalmente no puede resolver, y las <strong>excepciones de ejecución</strong> (<code>RuntimeException</code>) suelen indicar fallos de programación, como acceder a un índice inexistente. Errores y excepciones de ejecución forman las <em>no comprobadas</em> (<em>unchecked</em>) y el compilador no obliga a tratarlas.</p>
+          <h3>String es inmutable, StringBuilder no</h3>
+          <p>Un objeto <code>String</code> no se puede modificar una vez creado: cada operación que parece cambiarlo (concatenar, pasar a mayúsculas) devuelve un objeto nuevo. Cuando hay que construir un texto a base de muchas concatenaciones, por ejemplo dentro de un bucle, <code>StringBuilder</code> es más eficiente porque es mutable y añade contenido sobre el mismo objeto.</p>
+          <p class="dd-sources"><i class="bi bi-link-45deg"></i> Fuentes: <a href="https://docs.oracle.com/javase/tutorial/java/nutsandbolts/datatypes.html" target="_blank" rel="noopener">Oracle: tipos de datos primitivos</a> · <a href="https://docs.oracle.com/javase/tutorial/essential/exceptions/catchOrDeclare.html" target="_blank" rel="noopener">Oracle: el requisito «catch or specify»</a> · <a href="https://docs.oracle.com/javase/tutorial/java/data/buffers.html" target="_blank" rel="noopener">Oracle: StringBuilder</a></p>
+        </section>
+
         <section class="recap-box">
           <h2><i class="bi bi-stars"></i> Puntos clave</h2>
           <ul>

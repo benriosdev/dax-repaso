@@ -178,6 +178,19 @@
           <p>Otro detalle: Peter Chen presentó el modelo en 1976 en el artículo <em>"The Entity-Relationship Model: Toward a Unified View of Data"</em>. Su objetivo era que los diseñadores de bases de datos pudieran comunicarse con los usuarios finales.</p>
         </section>
 
+        <section class="deep-dive">
+          <h2 id="para-profundizar"><i class="bi bi-compass"></i> Para profundizar</h2>
+          <p class="dd-meta">
+            <span class="dd-badge"><i class="bi bi-patch-check"></i> Ampliación</span>
+            <span>Contenido adicional de investigación propia, contrastado con fuentes oficiales (enlazadas al final).</span>
+          </p>
+          <h3>Notaciones de diagramas: pata de gallo y otras</h3>
+          <p>El mismo modelo E-R puede dibujarse con notaciones distintas. En la de <strong>pata de gallo</strong> (<em>crow's foot</em>, también llamada IE) la cardinalidad se dibuja en los extremos de la línea que une las entidades, y es el estilo por defecto de MySQL Workbench. La notación <strong>clásica</strong> usa un rombo para la relación, y <strong>UML</strong> emplea el estilo de los diagramas de clases. Conviene reconocer las tres, porque los enunciados y las herramientas no siempre usan la misma.</p>
+          <h3>Relaciones identificadoras y no identificadoras</h3>
+          <p>En un diagrama E-R de tablas, una relación es <strong>identificadora</strong> cuando la clave foránea forma parte de la clave primaria de la tabla hija (por ejemplo, una línea de pedido cuya clave incluye el pedido al que pertenece), y <strong>no identificadora</strong> cuando es un atributo más. MySQL Workbench las distingue visualmente: línea continua para las identificadoras y discontinua para las no identificadoras.</p>
+          <p class="dd-sources"><i class="bi bi-link-45deg"></i> Fuentes: <a href="https://dev.mysql.com/doc/workbench/en/wb-eer-diagrams-section.html" target="_blank" rel="noopener">MySQL Workbench: diagramas EER</a> · <a href="https://dev.mysql.com/doc/workbench/en/wb-relationship-tools.html" target="_blank" rel="noopener">MySQL Workbench: relaciones con clave foránea</a></p>
+        </section>
+
         <section class="recap-box">
           <h2><i class="bi bi-stars"></i> Puntos clave</h2>
           <ul>

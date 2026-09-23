@@ -296,6 +296,22 @@ sudo ufw status          # ver el estado</code></pre>
           <p><strong>IIS</strong> (<em>Internet Information Services</em>) es el servidor web de Microsoft para Windows Server, orientado a aplicaciones ASP.NET. Sus alternativas en Linux son Apache, Nginx y Tomcat (este último para Java).</p>
         </section>
 
+        <section class="deep-dive">
+          <h2 id="para-profundizar"><i class="bi bi-compass"></i> Para profundizar</h2>
+          <p class="dd-meta">
+            <span class="dd-badge"><i class="bi bi-patch-check"></i> Ampliación</span>
+            <span>Contenido adicional de investigación propia, contrastado con fuentes oficiales (enlazadas al final).</span>
+          </p>
+          <h3>Permisos en Linux: el modo numérico de chmod</h3>
+          <p>Cada archivo tiene permisos de lectura, escritura y ejecución para tres grupos: el propietario, el grupo y el resto. En el modo numérico de <code>chmod</code> cada permiso vale un número (<strong>4</strong> lectura, <strong>2</strong> escritura, <strong>1</strong> ejecución) y se suman, de modo que cada grupo se resume en una cifra del 0 al 7. Las cifras se escriben en el orden propietario, grupo y otros.</p>
+          <pre><code>chmod 755 script.sh   # propietario 7 (4+2+1), grupo 5 (4+1), otros 5 (4+1)</code></pre>
+          <h3>IPv6 frente a IPv4</h3>
+          <p>IPv6, definido en el RFC 8200, sustituye las direcciones de 32 bits de IPv4 por direcciones de 128 bits, lo que resuelve el agotamiento de direcciones. Además simplifica la cabecera del paquete, mueve las opciones a cabeceras de extensión opcionales, incorpora un campo de etiqueta de flujo para identificar paquetes de una misma comunicación y contempla extensiones de seguridad.</p>
+          <h3>Copias de seguridad: la regla 3-2-1</h3>
+          <p>Una pauta sencilla y muy extendida para proteger los datos es la regla <strong>3-2-1</strong>: tener <strong>3</strong> copias de los archivos importantes, guardadas en <strong>2</strong> tipos distintos de soporte (por ejemplo, un disco duro y la nube) y con <strong>1</strong> copia fuera del lugar de trabajo. La agencia estadounidense CISA recomienda además probar periódicamente que los datos se pueden restaurar, porque una copia que nunca se ha probado no garantiza nada.</p>
+          <p class="dd-sources"><i class="bi bi-link-45deg"></i> Fuentes: <a href="https://man7.org/linux/man-pages/man1/chmod.1.html" target="_blank" rel="noopener">man7: chmod</a> · <a href="https://www.rfc-editor.org/rfc/rfc8200" target="_blank" rel="noopener">RFC 8200: IPv6</a> · <a href="https://www.cisa.gov/audiences/small-and-medium-businesses/secure-your-business/back-up-business-data" target="_blank" rel="noopener">CISA: copias de seguridad</a></p>
+        </section>
+
         <section class="recap-box">
           <h2><i class="bi bi-stars"></i> Puntos clave</h2>
           <ul>

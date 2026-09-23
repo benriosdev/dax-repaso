@@ -153,6 +153,19 @@
           <p>El resto del documento (a partir de la página 6) recoge un glosario distinto, centrado en modelado 3D y entornos interactivos (mesh, rigging, shading, rendering, LOD, NURBS...); no forma parte del temario de DAM/DAW/ASIR pero está incluido en el mismo archivo como referencia.</p>
         </section>
 
+        <section class="deep-dive">
+          <h2 id="para-profundizar"><i class="bi bi-compass"></i> Para profundizar</h2>
+          <p class="dd-meta">
+            <span class="dd-badge"><i class="bi bi-patch-check"></i> Ampliación</span>
+            <span>Contenido adicional de investigación propia, contrastado con fuentes oficiales (enlazadas al final).</span>
+          </p>
+          <h3>Terminología inclusiva en documentación técnica</h3>
+          <p>Varias guías de estilo, como la de Google para documentación de desarrolladores, recomiendan sustituir términos con connotaciones innecesarias por alternativas más claras: <em>allowlist</em> y <em>denylist</em> en lugar de <em>whitelist</em> y <em>blacklist</em>, o <em>parent</em> y <em>replica</em> en lugar de <em>master</em> y <em>slave</em>. Si el término antiguo es de uso muy extendido, la guía sugiere mencionarlo entre paréntesis la primera vez, para que se entienda: <em>allowlist (sometimes called a whitelist)</em>. Conviene conocer ambos, porque en documentación y código antiguos aparecen los dos.</p>
+          <h3>Mensajes de commit en imperativo</h3>
+          <p>La guía de contribución del propio proyecto Git pide redactar los mensajes de commit en <strong>modo imperativo</strong>, como si se diera una orden al código: <em>make xyzzy do frotz</em>, no <em>changes xyzzy</em> ni <em>I changed xyzzy</em>. La primera línea es un resumen breve (unos 50 caracteres como límite orientativo, sin punto final) y el cuerpo explica el problema que resuelve el cambio y por qué el resultado es mejor, es decir, el <em>porqué</em> y no solo el <em>qué</em>.</p>
+          <p class="dd-sources"><i class="bi bi-link-45deg"></i> Fuentes: <a href="https://developers.google.com/style/inclusive-documentation" target="_blank" rel="noopener">Google: documentación inclusiva</a> · <a href="https://git-scm.com/docs/SubmittingPatches" target="_blank" rel="noopener">Git: SubmittingPatches</a></p>
+        </section>
+
         <section class="recap-box">
           <h2><i class="bi bi-stars"></i> Puntos clave</h2>
           <ul>

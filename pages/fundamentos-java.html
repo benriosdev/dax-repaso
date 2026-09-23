@@ -162,6 +162,21 @@
           <p>La recursividad consume <strong>más memoria</strong> que la solución iterativa equivalente, porque cada llamada ocupa un hueco en la pila.</p>
         </section>
 
+        <section class="deep-dive">
+          <h2 id="para-profundizar"><i class="bi bi-compass"></i> Para profundizar</h2>
+          <p class="dd-meta">
+            <span class="dd-badge"><i class="bi bi-patch-check"></i> Ampliación</span>
+            <span>Contenido adicional de investigación propia, contrastado con fuentes oficiales (enlazadas al final).</span>
+          </p>
+          <h3>Del código fuente al bytecode</h3>
+          <p>Un programa Java no se compila directamente a código de máquina: el compilador <code>javac</code> traduce los archivos <code>.java</code> a <strong>bytecode</strong> guardado en archivos <code>.class</code>, y la <strong>máquina virtual de Java (JVM)</strong> lo ejecuta. Como el bytecode es el mismo para todos, se puede ejecutar en cualquier sistema que tenga una JVM, y de ahí viene la portabilidad de Java entre sistemas operativos.</p>
+          <h3>Enumerados (enum)</h3>
+          <p>Un <code>enum</code> define un tipo con un conjunto fijo de constantes, como los días de la semana o los estados de un pedido. Por convención sus nombres van en mayúsculas. Se usan cuando todos los valores posibles se conocen en tiempo de compilación, y son más seguros que usar números o textos sueltos porque el compilador rechaza cualquier valor que no sea una de las constantes. Un enum también puede tener campos y métodos, y el método <code>values()</code> devuelve todas sus constantes.</p>
+          <h3>Autoboxing y clases envoltorio</h3>
+          <p>Cada tipo primitivo tiene una clase envoltorio (<code>int</code> → <code>Integer</code>, <code>double</code> → <code>Double</code>, <code>boolean</code> → <code>Boolean</code>...). El <strong>autoboxing</strong> es la conversión automática de un primitivo a su envoltorio, y el <em>unboxing</em> la inversa. Es lo que permite, por ejemplo, guardar números en una <code>List&lt;Integer&gt;</code>, ya que las colecciones solo admiten objetos.</p>
+          <p class="dd-sources"><i class="bi bi-link-45deg"></i> Fuentes: <a href="https://docs.oracle.com/javase/tutorial/getStarted/cupojava/index.html" target="_blank" rel="noopener">Oracle: primer programa y ciclo compilar-ejecutar</a> · <a href="https://docs.oracle.com/javase/tutorial/java/javaOO/enum.html" target="_blank" rel="noopener">Oracle: tipos enum</a> · <a href="https://docs.oracle.com/javase/tutorial/java/data/autoboxing.html" target="_blank" rel="noopener">Oracle: autoboxing y unboxing</a></p>
+        </section>
+
         <section class="recap-box">
           <h2><i class="bi bi-stars"></i> Puntos clave</h2>
           <ul>

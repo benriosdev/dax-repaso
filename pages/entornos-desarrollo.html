@@ -213,6 +213,21 @@ git config --global user.email "tu@email.com"</code></pre>
           </ul>
         </section>
 
+        <section class="deep-dive">
+          <h2 id="para-profundizar"><i class="bi bi-compass"></i> Para profundizar</h2>
+          <p class="dd-meta">
+            <span class="dd-badge"><i class="bi bi-patch-check"></i> Ampliación</span>
+            <span>Contenido adicional de investigación propia, contrastado con fuentes oficiales (enlazadas al final).</span>
+          </p>
+          <h3>Versionado semántico</h3>
+          <p>El versionado semántico (SemVer) numera las versiones como <code>MAYOR.MENOR.PARCHE</code> y da significado a cada cifra: se incrementa <strong>MAYOR</strong> cuando se hacen cambios incompatibles en la API, <strong>MENOR</strong> cuando se añade funcionalidad compatible con lo anterior y <strong>PARCHE</strong> cuando se corrigen errores sin cambiar la API. También admite etiquetas de preversión (como <code>1.0.0-alpha</code>) y metadatos de compilación. Así, quien depende de tu software sabe si actualizar es seguro solo con mirar el número.</p>
+          <h3>Integración continua</h3>
+          <p>Según la definición de Martin Fowler, la integración continua consiste en que cada miembro del equipo integra sus cambios en el código común al menos una vez al día, y cada integración se verifica con una compilación automática que incluye las pruebas. Su beneficio principal es detectar los errores de integración lo antes posible: al haber cambiado poco código entre una integración y otra, es mucho más fácil localizar y resolver el problema.</p>
+          <h3>La pirámide de pruebas</h3>
+          <p>La pirámide de pruebas propone tener muchas pruebas unitarias en la base, menos pruebas de integración o de servicio en el medio y muy pocas pruebas de interfaz de usuario de extremo a extremo en la cima. La razón es que las pruebas de interfaz son lentas, frágiles y caras de mantener, mientras que las unitarias son rápidas y señalan exactamente dónde está el fallo.</p>
+          <p class="dd-sources"><i class="bi bi-link-45deg"></i> Fuentes: <a href="https://semver.org/lang/es/" target="_blank" rel="noopener">Versionado Semántico 2.0.0</a> · <a href="https://martinfowler.com/articles/continuousIntegration.html" target="_blank" rel="noopener">Martin Fowler: Continuous Integration</a> · <a href="https://martinfowler.com/bliki/TestPyramid.html" target="_blank" rel="noopener">Martin Fowler: Test Pyramid</a></p>
+        </section>
+
         <section class="recap-box">
           <h2><i class="bi bi-stars"></i> Puntos clave</h2>
           <ul>

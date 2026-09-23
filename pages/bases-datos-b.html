@@ -116,6 +116,27 @@ END;</code></pre>
           <p>Cierre del módulo con SQLite como puerta de entrada a otro motor relacional. A diferencia de Oracle, MySQL o PostgreSQL (que funcionan como servidor independiente), SQLite guarda toda la base de datos en un único archivo y no necesita instalar ni arrancar ningún servicio, lo que lo hace muy habitual en aplicaciones móviles y de escritorio.</p>
         </section>
 
+        <section class="deep-dive">
+          <h2 id="para-profundizar"><i class="bi bi-compass"></i> Para profundizar</h2>
+          <p class="dd-meta">
+            <span class="dd-badge"><i class="bi bi-patch-check"></i> Ampliación</span>
+            <span>Contenido adicional de investigación propia, contrastado con fuentes oficiales (enlazadas al final).</span>
+          </p>
+          <h3>Tipos de JOIN</h3>
+          <p>Un <code>JOIN</code> combina filas de dos tablas según una condición. El <strong>INNER JOIN</strong> solo devuelve las filas que tienen pareja en ambas tablas. El <strong>LEFT JOIN</strong> devuelve todas las filas de la tabla de la izquierda y, cuando no hay pareja en la derecha, rellena sus columnas con <code>NULL</code>; el <strong>RIGHT JOIN</strong> hace lo mismo conservando la tabla de la derecha. El <strong>FULL JOIN</strong> conserva las filas de ambos lados, pero MySQL no lo soporta de forma nativa y suele simularse uniendo un LEFT JOIN y un RIGHT JOIN con <code>UNION</code>. Un truco muy útil del LEFT JOIN es filtrar con <code>IS NULL</code> para encontrar filas sin correspondencia:</p>
+          <pre><code>-- Clientes que no han hecho ningún pedido
+SELECT c.nombre
+FROM clientes c
+LEFT JOIN pedidos p ON p.id_cliente = c.id_cliente
+WHERE p.id_pedido IS NULL;</code></pre>
+          <h3>Niveles de aislamiento y anomalías de concurrencia</h3>
+          <p>Los niveles de aislamiento del estándar SQL definen qué anomalías se toleran cuando varias transacciones se ejecutan a la vez. Las tres clásicas son la <strong>lectura sucia</strong> (leer datos que otra transacción ha escrito pero aún no ha confirmado), la <strong>lectura no repetible</strong> (releer una fila y encontrar que otra transacción ya confirmada la ha modificado) y la <strong>lectura fantasma</strong> (repetir una consulta y obtener un conjunto de filas distinto porque otra transacción confirmada ha añadido o quitado filas). De menos a más aislamiento: <code>READ UNCOMMITTED</code> permite las tres; <code>READ COMMITTED</code> evita las lecturas sucias; <code>REPEATABLE READ</code> evita además las no repetibles; y <code>SERIALIZABLE</code> las evita todas, garantizando un resultado equivalente a haber ejecutado las transacciones una detrás de otra.</p>
+          <p>Más aislamiento significa más garantías, pero también más contención entre transacciones, y cada motor implementa los niveles a su manera: por ejemplo, PostgreSQL usa <code>READ COMMITTED</code> por defecto y no permite lecturas sucias ni siquiera en <code>READ UNCOMMITTED</code>.</p>
+          <h3>Índices: leer más rápido, escribir más despacio</h3>
+          <p>Un índice es una estructura auxiliar (normalmente un árbol de búsqueda) que permite localizar filas sin recorrer toda la tabla, igual que el índice alfabético de un libro. Acelera las consultas con <code>WHERE</code> y los <code>JOIN</code> sobre las columnas indexadas, pero tiene un coste: cada <code>INSERT</code>, <code>UPDATE</code> o <code>DELETE</code> obliga también a mantener el índice al día. Por eso conviene indexar las columnas que se consultan o se unen con frecuencia (por ejemplo, las claves foráneas) y no todas indiscriminadamente.</p>
+          <p class="dd-sources"><i class="bi bi-link-45deg"></i> Fuentes: <a href="https://www.postgresql.org/docs/current/transaction-iso.html" target="_blank" rel="noopener">PostgreSQL: niveles de aislamiento</a> · <a href="https://dev.mysql.com/doc/refman/8.0/en/join.html" target="_blank" rel="noopener">MySQL: sintaxis de JOIN</a> · <a href="https://www.postgresql.org/docs/current/indexes-intro.html" target="_blank" rel="noopener">PostgreSQL: introducción a los índices</a> Los conceptos son del estándar SQL; la documentación enlazada es la de PostgreSQL y MySQL.</p>
+        </section>
+
         <section class="recap-box">
           <h2><i class="bi bi-stars"></i> Puntos clave</h2>
           <ul>

@@ -279,6 +279,23 @@ INNER JOIN Pedidos p ON c.id_cliente = p.id_cliente;</code></pre>
           <p>El <code>INNER JOIN</code> del ejemplo deja fuera a los clientes que no tienen pedidos.</p>
         </section>
 
+        <section class="deep-dive">
+          <h2 id="para-profundizar"><i class="bi bi-compass"></i> Para profundizar</h2>
+          <p class="dd-meta">
+            <span class="dd-badge"><i class="bi bi-patch-check"></i> Ampliación</span>
+            <span>Contenido adicional de investigación propia, contrastado con fuentes oficiales (enlazadas al final).</span>
+          </p>
+          <h3>Restricciones y acciones referenciales</h3>
+          <p>Además de la clave primaria, una tabla puede llevar restricciones que protegen la calidad de los datos: <code>NOT NULL</code> (la columna no admite nulos), <code>UNIQUE</code> (sin valores repetidos), <code>CHECK</code> (una condición que cada fila debe cumplir) y <code>FOREIGN KEY</code>. En las claves foráneas se puede indicar qué ocurre al borrar la fila referenciada con <code>ON DELETE</code>: <code>RESTRICT</code>/<code>NO ACTION</code> impiden el borrado, <code>CASCADE</code> borra también las filas que la referencian y <code>SET NULL</code> pone la clave foránea a nulo. PostgreSQL añade <code>SET DEFAULT</code>; la misma idea existe para <code>ON UPDATE</code>.</p>
+          <h3>Vistas</h3>
+          <p>Una vista es una consulta con nombre que se comporta como una tabla virtual. No duplica los datos: cada vez que se consulta, se ejecuta la consulta que la define. Sirven para reutilizar consultas complejas y para abstraer la estructura de las tablas, mostrando solo las columnas que interesan.</p>
+          <pre><code>CREATE VIEW clientes_activos AS
+  SELECT id_cliente, nombre FROM clientes WHERE activo = 1;</code></pre>
+          <h3>El orden lógico de una consulta SELECT</h3>
+          <p>Aunque se escribe empezando por <code>SELECT</code>, una consulta se evalúa lógicamente en otro orden: primero <code>FROM</code> (y los <code>JOIN</code>), luego <code>WHERE</code>, <code>GROUP BY</code> y <code>HAVING</code>, después se calcula la lista del <code>SELECT</code>, luego <code>DISTINCT</code>, y al final <code>ORDER BY</code> y <code>LIMIT</code>. Esto explica por qué <code>WHERE</code> filtra filas antes de agrupar y <code>HAVING</code> después, y por qué un alias definido en el <code>SELECT</code> no se puede usar en el <code>WHERE</code>. Es el orden conceptual: el optimizador puede ejecutar la consulta de otra forma siempre que el resultado sea el mismo.</p>
+          <p class="dd-sources"><i class="bi bi-link-45deg"></i> Fuentes: <a href="https://www.postgresql.org/docs/current/ddl-constraints.html" target="_blank" rel="noopener">PostgreSQL: restricciones</a> · <a href="https://www.postgresql.org/docs/current/tutorial-views.html" target="_blank" rel="noopener">PostgreSQL: vistas</a> · <a href="https://www.postgresql.org/docs/current/sql-select.html" target="_blank" rel="noopener">PostgreSQL: SELECT</a> Los conceptos son del estándar SQL; la documentación enlazada es la de PostgreSQL.</p>
+        </section>
+
         <section class="recap-box">
           <h2><i class="bi bi-stars"></i> Puntos clave</h2>
           <ul>
