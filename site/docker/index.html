@@ -1,0 +1,169 @@
+<!doctype html>
+<html lang="es" data-bs-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Docker · DAX Repaso</title>
+<meta name="description" content="Docker: contenedores, imágenes, Dockerfile, volúmenes y Docker Compose.">
+<link href="../assets/vendor/bootstrap/bootstrap.min.css" rel="stylesheet">
+<link href="../assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+<link href="../assets/css/style.css" rel="stylesheet">
+</head>
+<body data-page="docker">
+<script>var BASE_PATH = "../"; var CURRENT_PAGE = "docker";</script>
+
+<nav class="navbar topbar navbar-expand fixed-top">
+  <div class="topbar-inner">
+    <div class="topbar-brand-col">
+      <button class="btn-icon d-lg-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#sidebarOffcanvas" aria-label="Abrir menú">
+        <i class="bi bi-list"></i>
+      </button>
+      <a class="navbar-brand" href="../"><i class="bi bi-mortarboard-fill"></i> DAX Repaso</a>
+    </div>
+    <div class="topbar-main">
+      <div class="topbar-search">
+        <i class="bi bi-search"></i>
+        <input type="search" class="search-input" placeholder="Buscar en el temario..." aria-label="Buscar en el temario" autocomplete="off">
+        <div class="search-results"></div>
+      </div>
+      <div class="topbar-actions">
+        <a class="btn-icon" href="https://github.com/benriosdev" target="_blank" rel="noopener" aria-label="Perfil de GitHub">
+          <i class="bi bi-github"></i>
+        </a>
+        <button class="btn-icon theme-toggle" type="button" aria-label="Cambiar tema">
+          <i class="bi bi-moon-stars"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<div class="layout">
+  <div class="layout-row">
+    <aside class="sidebar d-none d-lg-block">
+      <nav id="sidebar-nav"></nav>
+    </aside>
+
+    <div class="offcanvas offcanvas-start" tabindex="-1" id="sidebarOffcanvas">
+      <div class="offcanvas-header">
+        <h5 class="offcanvas-title"><i class="bi bi-mortarboard-fill"></i> DAX Repaso</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Cerrar"></button>
+      </div>
+      <div class="offcanvas-body">
+        <nav id="sidebar-nav-mobile"></nav>
+      </div>
+    </div>
+
+    <main class="content">
+      <nav aria-label="breadcrumb"><ol class="breadcrumb" id="breadcrumb"></ol></nav>
+
+      <article id="page-content">
+        <h1>Docker</h1>
+        <p class="lead">Contenedores para empaquetar una aplicación con todo lo que necesita para ejecutarse igual en cualquier máquina, evitando el clásico "en mi ordenador funciona".</p>
+
+        <section>
+          <h2 id="u0">0. Qué es un contenedor</h2>
+          <p>Un contenedor empaqueta una aplicación junto con sus dependencias (librerías, variables de entorno, versión del lenguaje) en una unidad aislada y reproducible. A diferencia de una máquina virtual, un contenedor no incluye un sistema operativo completo: comparte el kernel del sistema operativo anfitrión, lo que lo hace mucho más ligero y rápido de arrancar.</p>
+          <div class="callout">
+            <i class="bi bi-lightbulb"></i>
+            <div><strong>¿Sabías que...?</strong><p>El nombre y el logo de Docker (una ballena cargando cajas) hacen referencia a los contenedores de transporte marítimo: igual que un contenedor estándar se puede cargar en cualquier barco o camión sin importar lo que lleve dentro, un contenedor Docker se ejecuta igual en cualquier máquina.</p></div>
+          </div>
+          <h3>Imagen vs. contenedor</h3>
+          <p>Una <strong>imagen</strong> es la plantilla de solo lectura (el "molde") con la aplicación y sus dependencias; un <strong>contenedor</strong> es una instancia en ejecución de esa imagen. De la misma imagen se pueden lanzar varios contenedores independientes.</p>
+        </section>
+
+        <section>
+          <h2 id="u1">1. Imágenes y el Dockerfile</h2>
+          <p>Un <code>Dockerfile</code> es un archivo de texto con las instrucciones para construir una imagen paso a paso. Cada instrucción añade una capa a la imagen, y Docker reutiliza las capas que no han cambiado para acelerar construcciones posteriores.</p>
+          <pre><code>FROM node:20
+WORKDIR /app
+COPY . .
+RUN npm install
+CMD ["npm", "start"]</code></pre>
+          <h3>Instrucciones más comunes</h3>
+          <p><code>FROM</code> define la imagen base de partida; <code>COPY</code> copia archivos del proyecto dentro de la imagen; <code>RUN</code> ejecuta un comando durante la construcción (como instalar dependencias); <code>CMD</code> indica el comando por defecto al arrancar el contenedor. <code>docker build -t nombre .</code> construye la imagen a partir del Dockerfile.</p>
+          <h3>Docker Hub y otros registries</h3>
+          <p>Un <em>registry</em> es un almacén de imágenes listas para descargar, como <code>FROM node:20</code> hace en el ejemplo anterior. Docker Hub es el registry público por defecto, con imágenes oficiales de la mayoría de lenguajes y bases de datos; <code>docker pull imagen</code> la descarga, y <code>docker push</code> sube una imagen propia (previo <code>docker login</code>). También existen registries privados, propios de cada empresa o de proveedores cloud.</p>
+        </section>
+
+        <section>
+          <h2 id="u2">2. Ejecutar contenedores</h2>
+          <p><code>docker run nombre-imagen</code> crea y arranca un contenedor a partir de una imagen; <code>docker ps</code> lista los contenedores en ejecución; <code>docker stop id</code> lo detiene y <code>docker rm id</code> lo elimina.</p>
+          <h3>Puertos y variables de entorno</h3>
+          <p>Un contenedor está aislado de la red del host por defecto: <code>-p 8080:80</code> mapea el puerto 80 del contenedor al 8080 de la máquina para poder acceder desde fuera. <code>-e VARIABLE=valor</code> pasa variables de entorno al contenedor, útil para configuración sin tocar la imagen (como credenciales de una base de datos).</p>
+        </section>
+
+        <section>
+          <h2 id="u3">3. Volúmenes y persistencia</h2>
+          <p>Un contenedor es efímero por naturaleza: si se elimina, se pierde todo lo que se haya escrito dentro de él. Para persistir datos (los archivos de una base de datos, por ejemplo) se usan <strong>volúmenes</strong>, gestionados por Docker y que sobreviven aunque el contenedor se borre y se vuelva a crear.</p>
+          <h3>Bind mounts</h3>
+          <p>Un <em>bind mount</em> es parecido pero conecta directamente una carpeta del host con una del contenedor (por ejemplo, el código fuente durante el desarrollo, para ver los cambios sin reconstruir la imagen), mientras que un volumen lo gestiona Docker de forma independiente del sistema de archivos del host.</p>
+        </section>
+
+        <section>
+          <h2 id="u4">4. Docker Compose</h2>
+          <p>Una aplicación real suele necesitar varios contenedores a la vez (por ejemplo, la aplicación y su base de datos). Docker Compose permite definir todos esos servicios en un único archivo <code>docker-compose.yml</code> y levantarlos juntos con un solo comando: <code>docker compose up</code>.</p>
+          <h3>Por qué usarlo</h3>
+          <p>Evita tener que recordar y encadenar a mano varios comandos <code>docker run</code> con sus puertos, volúmenes y redes; además, describe la infraestructura del proyecto como código, versionable junto al resto del repositorio.</p>
+        </section>
+
+        <section class="recap-box">
+          <h2><i class="bi bi-stars"></i> Puntos clave</h2>
+          <ul>
+            <li>Un contenedor comparte el kernel del host (a diferencia de una VM), por eso es más ligero.</li>
+            <li>Una imagen es la plantilla; un contenedor es una instancia en ejecución de esa imagen.</li>
+            <li>El Dockerfile define cómo construir la imagen, capa a capa (<code>FROM</code>, <code>COPY</code>, <code>RUN</code>, <code>CMD</code>).</li>
+            <li>Los contenedores son efímeros: los volúmenes se usan para persistir datos entre reinicios.</li>
+            <li>Docker Compose orquesta varios contenedores relacionados desde un único archivo YAML.</li>
+          </ul>
+        </section>
+
+        <section>
+          <h2 id="autoevaluacion">Ponte a prueba</h2>
+          <details class="quiz-item">
+            <summary>¿Qué diferencia hay entre un contenedor y una máquina virtual?</summary>
+            <p class="quiz-answer">El contenedor comparte el kernel del sistema operativo anfitrión y no incluye un SO completo, por lo que es mucho más ligero y rápido de arrancar que una máquina virtual.</p>
+          </details>
+          <details class="quiz-item">
+            <summary>¿Qué diferencia hay entre una imagen y un contenedor?</summary>
+            <p class="quiz-answer">La imagen es la plantilla de solo lectura con la aplicación y sus dependencias; el contenedor es una instancia en ejecución de esa imagen. De una misma imagen pueden lanzarse varios contenedores.</p>
+          </details>
+          <details class="quiz-item">
+            <summary>¿Por qué se necesitan volúmenes si ya se pueden guardar archivos dentro del contenedor?</summary>
+            <p class="quiz-answer">Porque un contenedor es efímero: si se elimina, se pierde todo lo escrito dentro. Los volúmenes persisten los datos independientemente del ciclo de vida del contenedor.</p>
+          </details>
+          <details class="quiz-item">
+            <summary>¿Para qué sirve Docker Compose?</summary>
+            <p class="quiz-answer">Para definir y levantar varios contenedores relacionados (por ejemplo, aplicación y base de datos) desde un único archivo <code>docker-compose.yml</code>, en vez de encadenar varios comandos <code>docker run</code> a mano.</p>
+          </details>
+        </section>
+
+        <section>
+          <h2 id="para-saber-mas">Para saber más</h2>
+          <ul class="resources-list">
+            <li><a href="https://docs.docker.com/" target="_blank" rel="noopener"><i class="bi bi-box-arrow-up-right"></i> Documentación oficial de Docker</a></li>
+            <li><a href="https://docs.docker.com/compose/" target="_blank" rel="noopener"><i class="bi bi-box-arrow-up-right"></i> Documentación de Docker Compose</a></li>
+          </ul>
+        </section>
+      </article>
+
+      <nav id="prev-next"></nav>
+    </main>
+
+    <aside class="toc d-none d-xl-block" id="toc-aside">
+      <div class="toc-inner">
+        <h6>En esta página</h6>
+        <nav id="toc-nav" class="nav flex-column"></nav>
+      </div>
+    </aside>
+  </div>
+</div>
+
+<button id="back-to-top" class="btn back-to-top" aria-label="Volver arriba"><i class="bi bi-arrow-up text-white"></i></button>
+
+<script src="../assets/vendor/bootstrap/bootstrap.bundle.min.js"></script>
+<script src="../assets/js/nav-data.js"></script>
+<script src="../assets/js/search-index.js"></script>
+<script src="../assets/js/main.js"></script>
+</body>
+</html>

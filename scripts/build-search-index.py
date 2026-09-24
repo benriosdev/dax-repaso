@@ -17,7 +17,7 @@ import json
 import re
 from pathlib import Path
 
-ROOT = Path(__file__).resolve().parent.parent
+ROOT = Path(__file__).resolve().parent.parent / "site"
 SKIP_IDS = {"autoevaluacion", "para-saber-mas"}
 
 # Las etiquetas de asignatura del glosario no siempre coinciden con el título de nav-data.js.
@@ -34,7 +34,7 @@ def clean(html):
 def subject_pages():
     nav = (ROOT / "assets/js/nav-data.js").read_text(encoding="utf-8")
     cats = nav.split("extras:")[0]
-    return re.findall(r'id:\s*"([^"]+)",\s*title:\s*"([^"]+)",\s*href:\s*"pages/([^"]+)"', cats)
+    return re.findall(r'id:\s*"([^"]+)",\s*title:\s*"([^"]+)",\s*href:\s*"([^"]+)"', cats)
 
 
 def entry(page_id, page_title, href, unit_id, unit_title, keywords=None):
@@ -62,7 +62,7 @@ def main():
     title_to_id.update(TAG_ALIASES)
 
     for page_id, page_title, href in pages:
-        html = (ROOT / "pages" / href).read_text(encoding="utf-8")
+        html = (ROOT / href / "index.html").read_text(encoding="utf-8")
         body = re.search(r'<article id="page-content">(.*?)</article>', html, re.S)
         if not body:
             continue
@@ -79,12 +79,12 @@ def main():
             index.append(entry(page_id, title, href, uid, clean(text), keywords_of(block)))
 
     related_terms = {}
-    glosario = (ROOT / "pages/glosario.html").read_text(encoding="utf-8")
+    glosario = (ROOT / "glosario/index.html").read_text(encoding="utf-8")
     for letter_id, body in re.findall(r'<h2 id="(letra-[a-z])">.*?</h2>(.*?)</section>', glosario, re.S):
         for term, tags in re.findall(
             r'<dt><strong>([^<]+)</strong>\s*<span class="text-muted">\(([^)]+)\)</span></dt>', body
         ):
-            index.append(entry("glosario", "Glosario", "glosario.html", letter_id, term.strip()))
+            index.append(entry("glosario", "Glosario", "glosario/", letter_id, term.strip()))
             for tag in tags.split(","):
                 pid = title_to_id.get(tag.strip())
                 if not pid:

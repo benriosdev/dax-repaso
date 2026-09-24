@@ -1,0 +1,228 @@
+<!doctype html>
+<html lang="es" data-bs-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Programación B · DAX Repaso</title>
+<meta name="description" content="Resumen de Programación B: POO avanzada, estructuras de datos y CRUD con bases de datos.">
+<link href="../assets/vendor/bootstrap/bootstrap.min.css" rel="stylesheet">
+<link href="../assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+<link href="../assets/css/style.css" rel="stylesheet">
+</head>
+<body data-page="programacion-b">
+<script>var BASE_PATH = "../"; var CURRENT_PAGE = "programacion-b";</script>
+
+<nav class="navbar topbar navbar-expand fixed-top">
+  <div class="topbar-inner">
+    <div class="topbar-brand-col">
+      <button class="btn-icon d-lg-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#sidebarOffcanvas" aria-label="Abrir menú">
+        <i class="bi bi-list"></i>
+      </button>
+      <a class="navbar-brand" href="../"><i class="bi bi-mortarboard-fill"></i> DAX Repaso</a>
+    </div>
+    <div class="topbar-main">
+      <div class="topbar-search">
+        <i class="bi bi-search"></i>
+        <input type="search" class="search-input" placeholder="Buscar en el temario..." aria-label="Buscar en el temario" autocomplete="off">
+        <div class="search-results"></div>
+      </div>
+      <div class="topbar-actions">
+        <a class="btn-icon" href="https://github.com/benriosdev" target="_blank" rel="noopener" aria-label="Perfil de GitHub">
+          <i class="bi bi-github"></i>
+        </a>
+        <button class="btn-icon theme-toggle" type="button" aria-label="Cambiar tema">
+          <i class="bi bi-moon-stars"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<div class="layout">
+  <div class="layout-row">
+    <aside class="sidebar d-none d-lg-block">
+      <nav id="sidebar-nav"></nav>
+    </aside>
+
+    <div class="offcanvas offcanvas-start" tabindex="-1" id="sidebarOffcanvas">
+      <div class="offcanvas-header">
+        <h5 class="offcanvas-title"><i class="bi bi-mortarboard-fill"></i> DAX Repaso</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Cerrar"></button>
+      </div>
+      <div class="offcanvas-body">
+        <nav id="sidebar-nav-mobile"></nav>
+      </div>
+    </div>
+
+    <main class="content">
+      <nav aria-label="breadcrumb"><ol class="breadcrumb" id="breadcrumb"></ol></nav>
+
+      <article id="page-content">
+        <h1>Programación B</h1>
+        <p class="lead">Continuación de Programación A: se profundiza en la orientación a objetos, se estudian las estructuras de datos clásicas y se conecta Java con bases de datos reales mediante operaciones CRUD.</p>
+        <section>
+          <h2 id="u6">6. Programación orientada a objetos II</h2>
+          <p>Amplía la POO con los mecanismos que permiten reutilizar y generalizar código entre clases: herencia, polimorfismo y casting entre tipos.</p>
+          <h3>Métodos y variables estáticas</h3>
+          <p>Con <code>static</code>, un miembro pertenece a la clase y no a cada objeto: se comparte entre todas las instancias y se puede usar sin crear ningún objeto (<code>Clase.metodo()</code>). Es típico para constantes globales o clases utilitarias.</p>
+          <h3>Herencia</h3>
+          <p>Permite que una clase (subclase) reutilice atributos y métodos de otra (superclase) con <code>extends</code>, modelando relaciones jerárquicas (por ejemplo, <code>Perro extends Animal</code>). La palabra clave <code>super</code> permite llamar al método original de la clase base antes de ampliarlo.</p>
+          <pre><code>class Animal {
+    public void hacerSonido() { System.out.println("Sonido genérico"); }
+}
+class Perro extends Animal {
+    @Override
+    public void hacerSonido() { System.out.println("El perro ladra"); }
+}</code></pre>
+          <h3>Interfaces</h3>
+          <p>Una interfaz define un contrato de métodos que una clase se compromete a implementar, sin imponer una jerarquía de herencia única (una clase puede implementar varias interfaces con <code>implements</code>).</p>
+          <h3>Métodos y variables abstractas</h3>
+          <p>Una clase <code>abstract</code> no se puede instanciar directamente y puede declarar métodos sin implementación, obligando a las subclases a definirlos.</p>
+          <h3>Sobreescritura de métodos y polimorfismo</h3>
+          <p>Sobreescribir (<code>@Override</code>) significa redefinir en la subclase un método heredado de la superclase. El polimorfismo es la consecuencia directa: una misma referencia de tipo superclase puede comportarse de forma distinta según el objeto real que contenga en tiempo de ejecución.</p>
+          <h3>Casting entre tipos de referencia</h3>
+          <p>Igual que con tipos primitivos, un objeto puede convertirse entre su tipo y el de una superclase o interfaz que implemente, siempre dentro de la misma jerarquía de herencia.</p>
+        </section>
+
+        <section>
+          <h2 id="u7">7. Estructuras de datos</h2>
+          <p>Formas de organizar información en memoria más allá de una simple variable, cada una pensada para un patrón de acceso distinto.</p>
+          <h3>Arrays y genericidad</h3>
+          <p>Un array almacena un número fijo de elementos del mismo tipo en posiciones consecutivas. La genericidad (<code>&lt;T&gt;</code>) permite escribir clases y métodos que funcionan con cualquier tipo de dato sin duplicar código, como hace <code>ArrayList&lt;String&gt;</code>.</p>
+          <h3>Listas enlazadas</h3>
+          <p>Cada elemento (nodo) guarda su valor y una referencia al siguiente nodo. A diferencia de un array, su tamaño crece dinámicamente y no requiere memoria contigua, aunque el acceso a un elemento concreto es más lento.</p>
+          <h3>Pilas (stacks)</h3>
+          <p>Estructura LIFO (Last In, First Out): el último elemento en entrar es el primero en salir. Se usa, por ejemplo, para deshacer acciones o gestionar llamadas recursivas. En Java, la clase <code>Deque</code> se recomienda para implementar una pila en vez de la antigua clase <code>Stack</code>.</p>
+          <pre><code>Deque&lt;String&gt; pila = new ArrayDeque&lt;&gt;();
+pila.push("A");
+pila.push("B");
+System.out.println(pila.pop()); // "B" (el último en entrar)</code></pre>
+          <h3>Colas (queues)</h3>
+          <p>Estructura FIFO (First In, First Out): el primer elemento en entrar es el primero en salir, como una cola de impresión o de tareas pendientes.</p>
+          <pre><code>Queue&lt;String&gt; cola = new LinkedList&lt;&gt;();
+cola.offer("A");
+cola.offer("B");
+System.out.println(cola.poll()); // "A" (el primero en entrar)</code></pre>
+          <h3>Grafos y otras estructuras</h3>
+          <p>Un grafo modela nodos (vértices) conectados por aristas, con o sin dirección y con o sin peso, útil para representar redes, rutas o relaciones complejas entre elementos. Una forma sencilla de representarlo en código es una <strong>lista de adyacencia</strong>: un mapa donde cada nodo guarda la lista de nodos a los que está conectado.</p>
+          <pre><code>Map&lt;String, List&lt;String&gt;&gt; grafo = new HashMap&lt;&gt;();
+grafo.put("A", List.of("B", "C"));
+grafo.put("B", List.of("A"));
+// "A" está conectado con "B" y "C"</code></pre>
+          <p>Los algoritmos más habituales sobre grafos son el recorrido en anchura (<strong>BFS</strong>) y en profundidad (<strong>DFS</strong>), usados por ejemplo para encontrar el camino más corto o comprobar si dos nodos están conectados.</p>
+        </section>
+
+        <section>
+          <h2 id="u8">8. Programación y bases de datos</h2>
+          <p>Cómo conectar una aplicación Java con distintos motores de bases de datos mediante JDBC (Java Database Connectivity), la API estándar de Java para hablar con un SGBD.</p>
+          <h3>Conexión a SQLite</h3>
+          <p>SQLite es un motor de base de datos ligero que no necesita servidor: la base de datos es un único archivo, ideal para aplicaciones pequeñas o de escritorio.</p>
+          <h3>Conexión a MySQL y PostgreSQL</h3>
+          <p>Ambos son SGBD cliente-servidor: la aplicación Java se conecta a un servidor de base de datos (local o remoto) mediante una cadena de conexión (URL, usuario y contraseña) y un driver JDBC específico para cada motor.</p>
+          <h3>Docker</h3>
+          <p>Docker permite levantar un contenedor con el SGBD ya instalado y configurado (por ejemplo, MySQL o PostgreSQL) sin instalar nada directamente en el sistema operativo, lo que facilita reproducir el mismo entorno en cualquier máquina.</p>
+        </section>
+
+        <section>
+          <h2 id="u9">9. CRUD con bases de datos</h2>
+          <p><strong>CRUD</strong> son las cuatro operaciones básicas sobre datos persistentes: <strong>C</strong>reate (insertar), <strong>R</strong>ead (consultar), <strong>U</strong>pdate (actualizar) y <strong>D</strong>elete (borrar). Este bloque las implementa en Java sobre distintos motores.</p>
+          <ul>
+            <li>CRUD con SQLite, MySQL y PostgreSQL usando JDBC y sentencias SQL</li>
+            <li>CRUD con db4o, una base de datos orientada a objetos que guarda directamente objetos Java sin necesidad de mapearlos a tablas</li>
+          </ul>
+          <div class="callout">
+            <i class="bi bi-lightbulb"></i>
+            <div><strong>¿Sabías que...?</strong><p>db4o es una base de datos orientada a objetos: guarda directamente instancias de tus clases Java, sin tener que traducirlas a filas y columnas como en SQL.</p></div>
+          </div>
+        </section>
+
+        <section>
+          <h2 id="u10">10. Próximos pasos</h2>
+          <p>Cierre del módulo con Python como puerta de entrada a otro lenguaje. Frente a Java (tipado estático, hay que declarar el tipo de cada variable, y necesita compilarse), Python es de <strong>tipado dinámico</strong> (el tipo se infiere en tiempo de ejecución) e <strong>interpretado</strong> (se ejecuta línea a línea, sin paso de compilación), lo que suele traducirse en menos código para la misma tarea a cambio de perder algunas de las comprobaciones que Java hace antes de ejecutar.</p>
+        </section>
+
+        <section class="deep-dive">
+          <h2 id="para-profundizar"><i class="bi bi-compass"></i> Para profundizar</h2>
+          <p class="dd-meta">
+            <span class="dd-badge"><i class="bi bi-patch-check"></i> Ampliación</span>
+            <span>Contenido adicional de investigación propia, contrastado con fuentes oficiales (enlazadas al final).</span>
+          </p>
+          <h3>PreparedStatement y la inyección SQL</h3>
+          <p>Cuando una consulta JDBC se construye pegando texto del usuario, un dato malicioso puede alterar la propia sentencia (inyección SQL). Un <code>PreparedStatement</code> lo evita: la sentencia se escribe con marcadores <code>?</code>, se precompila y los valores se envían aparte, de modo que nunca se interpretan como código SQL. Además, reutilizar una sentencia precompilada suele ser más eficiente. OWASP lo sitúa como la primera defensa recomendada, por delante de los procedimientos almacenados y de la validación con listas de valores permitidos; escapar a mano los caracteres especiales lo desaconseja.</p>
+          <pre><code>String sql = "SELECT * FROM usuarios WHERE email = ?";
+try (PreparedStatement ps = conn.prepareStatement(sql)) {
+    ps.setString(1, email);          // el valor va aparte, no dentro del SQL
+    ResultSet rs = ps.executeQuery();
+}</code></pre>
+          <h3>Transacciones en JDBC</h3>
+          <p>Por defecto, una conexión JDBC funciona en modo <strong>autocommit</strong>: cada sentencia SQL se confirma sola nada más ejecutarse. Eso es un problema cuando dos operaciones deben ir juntas (por ejemplo, restar stock e insertar el pedido): si la segunda falla, la primera ya está guardada y los datos quedan inconsistentes. La solución es desactivar el autocommit con <code>conn.setAutoCommit(false)</code>, de modo que las sentencias no se confirmen hasta llamar a <code>conn.commit()</code>, y usar <code>conn.rollback()</code> en el <code>catch</code> para deshacerlo todo si algo falla. Así el conjunto se ejecuta como una unidad: o todo, o nada.</p>
+          <h3>equals() y hashCode() van de la mano</h3>
+          <p>El contrato de <code>Object</code> exige que dos objetos iguales según <code>equals()</code> devuelvan el mismo <code>hashCode()</code>. Por eso, si una clase sobrescribe <code>equals()</code>, debe sobrescribir también <code>hashCode()</code>: si no, colecciones basadas en hash como <code>HashSet</code> o <code>HashMap</code> pueden tratar como distintos dos objetos que tú consideras iguales.</p>
+          <p class="dd-sources"><i class="bi bi-link-45deg"></i> Fuentes: <a href="https://docs.oracle.com/javase/tutorial/jdbc/basics/prepared.html" target="_blank" rel="noopener">Oracle: PreparedStatement</a> · <a href="https://cheatsheetseries.owasp.org/cheatsheets/SQL_Injection_Prevention_Cheat_Sheet.html" target="_blank" rel="noopener">OWASP: prevención de inyección SQL</a> · <a href="https://docs.oracle.com/javase/tutorial/jdbc/basics/transactions.html" target="_blank" rel="noopener">Oracle: transacciones JDBC</a> · <a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/Object.html" target="_blank" rel="noopener">Javadoc de Object</a></p>
+        </section>
+
+        <section class="recap-box">
+          <h2><i class="bi bi-stars"></i> Puntos clave</h2>
+          <ul>
+            <li>Herencia, polimorfismo e interfaces permiten reutilizar y generalizar comportamiento entre clases.</li>
+            <li>Las estructuras de datos (pilas, colas, listas enlazadas, grafos) se eligen según el patrón de acceso que necesites.</li>
+            <li>JDBC es la API estándar de Java para conectar con SQLite, MySQL o PostgreSQL.</li>
+            <li>CRUD resume las cuatro operaciones básicas sobre datos: Create, Read, Update, Delete.</li>
+            <li>Docker permite levantar un SGBD ya configurado en un contenedor, sin instalar nada en el sistema.</li>
+          </ul>
+        </section>
+
+        <section>
+          <h2 id="autoevaluacion">Ponte a prueba</h2>
+          <details class="quiz-item">
+            <summary>¿Qué diferencia hay entre una pila y una cola?</summary>
+            <p class="quiz-answer">La pila es LIFO (el último en entrar es el primero en salir); la cola es FIFO (el primero en entrar es el primero en salir).</p>
+          </details>
+          <details class="quiz-item">
+            <summary>¿Qué palabra clave usa Java para heredar de otra clase?</summary>
+            <p class="quiz-answer"><code>extends</code>.</p>
+          </details>
+          <details class="quiz-item">
+            <summary>¿Qué significa cada letra de CRUD?</summary>
+            <p class="quiz-answer">Create (crear), Read (leer), Update (actualizar), Delete (borrar).</p>
+          </details>
+          <details class="quiz-item">
+            <summary>¿Qué ventaja tiene usar Docker para levantar una base de datos?</summary>
+            <p class="quiz-answer">Tener el mismo entorno reproducible en cualquier máquina, sin instalar el SGBD directamente en el sistema operativo.</p>
+          </details>
+          <details class="quiz-item">
+            <summary>¿Qué es el polimorfismo?</summary>
+            <p class="quiz-answer">Que una misma referencia de tipo superclase se comporte de forma distinta según el objeto real que contenga en tiempo de ejecución.</p>
+          </details>
+        </section>
+
+        <section>
+          <h2 id="para-saber-mas">Para saber más</h2>
+          <ul class="resources-list">
+            <li><a href="https://docs.oracle.com/javase/tutorial/jdbc/" target="_blank" rel="noopener"><i class="bi bi-box-arrow-up-right"></i> Guía de JDBC (Oracle)</a></li>
+            <li><a href="https://docs.docker.com/" target="_blank" rel="noopener"><i class="bi bi-box-arrow-up-right"></i> Documentación de Docker</a></li>
+            <li><a href="https://docs.python.org/es/3/" target="_blank" rel="noopener"><i class="bi bi-box-arrow-up-right"></i> Python — documentación oficial</a></li>
+          </ul>
+        </section>
+      </article>
+
+      <nav id="prev-next"></nav>
+    </main>
+
+    <aside class="toc d-none d-xl-block" id="toc-aside">
+      <div class="toc-inner">
+        <h6>En esta página</h6>
+        <nav id="toc-nav" class="nav flex-column"></nav>
+      </div>
+    </aside>
+  </div>
+</div>
+
+<button id="back-to-top" class="btn back-to-top" aria-label="Volver arriba"><i class="bi bi-arrow-up text-white"></i></button>
+
+<script src="../assets/vendor/bootstrap/bootstrap.bundle.min.js"></script>
+<script src="../assets/js/nav-data.js"></script>
+<script src="../assets/js/search-index.js"></script>
+<script src="../assets/js/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,241 @@
+<!doctype html>
+<html lang="es" data-bs-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Anexo: Modelo Entidad-Relación · DAX Repaso</title>
+<meta name="description" content="Notación gráfica del modelo entidad-relación: entidades, atributos, relaciones y cardinalidad.">
+<link href="../assets/vendor/bootstrap/bootstrap.min.css" rel="stylesheet">
+<link href="../assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+<link href="../assets/css/style.css" rel="stylesheet">
+</head>
+<body data-page="anexo-entidad-relacion">
+<script>var BASE_PATH = "../"; var CURRENT_PAGE = "anexo-entidad-relacion";</script>
+
+<nav class="navbar topbar navbar-expand fixed-top">
+  <div class="topbar-inner">
+    <div class="topbar-brand-col">
+      <button class="btn-icon d-lg-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#sidebarOffcanvas" aria-label="Abrir menú">
+        <i class="bi bi-list"></i>
+      </button>
+      <a class="navbar-brand" href="../"><i class="bi bi-mortarboard-fill"></i> DAX Repaso</a>
+    </div>
+    <div class="topbar-main">
+      <div class="topbar-search">
+        <i class="bi bi-search"></i>
+        <input type="search" class="search-input" placeholder="Buscar en el temario..." aria-label="Buscar en el temario" autocomplete="off">
+        <div class="search-results"></div>
+      </div>
+      <div class="topbar-actions">
+        <a class="btn-icon" href="https://github.com/benriosdev" target="_blank" rel="noopener" aria-label="Perfil de GitHub">
+          <i class="bi bi-github"></i>
+        </a>
+        <button class="btn-icon theme-toggle" type="button" aria-label="Cambiar tema">
+          <i class="bi bi-moon-stars"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<div class="layout">
+  <div class="layout-row">
+    <aside class="sidebar d-none d-lg-block">
+      <nav id="sidebar-nav"></nav>
+    </aside>
+
+    <div class="offcanvas offcanvas-start" tabindex="-1" id="sidebarOffcanvas">
+      <div class="offcanvas-header">
+        <h5 class="offcanvas-title"><i class="bi bi-mortarboard-fill"></i> DAX Repaso</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Cerrar"></button>
+      </div>
+      <div class="offcanvas-body">
+        <nav id="sidebar-nav-mobile"></nav>
+      </div>
+    </div>
+
+    <main class="content">
+      <nav aria-label="breadcrumb"><ol class="breadcrumb" id="breadcrumb"></ol></nav>
+
+      <article id="page-content">
+        <h1>Anexo: Modelo Entidad-Relación</h1>
+        <p class="lead">Guía visual muy breve (chuleta) con la notación gráfica estándar para dibujar diagramas entidad-relación: cómo se representa cada elemento del modelo.</p>
+        <section>
+          <h2 id="u1">Entidades</h2>
+          <p>Elementos básicos del modelo: representan algo del mundo real, tangible o no. Se dibujan como un rectángulo con su nombre (en singular) en el interior.</p>
+          <ul>
+            <li>Entidad fuerte: rectángulo simple</li>
+            <li>Entidad débil: doble rectángulo, cuando su existencia depende de otra entidad</li>
+            <li>Dependencia en identificación: cuando la entidad débil no puede identificarse sin la entidad fuerte de la que depende</li>
+          </ul>
+        </section>
+
+        <section>
+          <h2 id="u2">Atributos</h2>
+          <p>Las propiedades que describen a una entidad o relación, representadas como óvalos unidos al elemento correspondiente. Pueden clasificarse en varios ejes:</p>
+          <ul>
+            <li><strong>Simples o compuestos</strong>: indivisibles, o divisibles en otros atributos con significado propio (por ejemplo, "dirección" en calle, número y ciudad).</li>
+            <li><strong>Univaluados o multivaluados</strong>: toman un único valor o varios para cada ocurrencia de la entidad.</li>
+            <li><strong>Obligatorios u opcionales</strong>: necesitan un valor para que la entidad exista, o pueden quedar sin informar (nulos).</li>
+            <li><strong>Identificadores</strong> (clave primaria o alternativa): sus valores son únicos para cada instancia de la entidad, como el DNI de una persona.</li>
+          </ul>
+        </section>
+
+        <section>
+          <h2 id="u3">Relaciones</h2>
+          <p>Los vínculos entre entidades, representados como rombos con el nombre (normalmente un verbo) conectados por líneas a las entidades implicadas. El número de entidades que participan en una relación se llama <strong>grado</strong>: una relación <strong>binaria</strong> (grado 2, la más habitual) conecta dos entidades, mientras que una relación <strong>unaria</strong> (grado 1) conecta una entidad consigo misma (por ejemplo, un "Empleado" que supervisa a otro "Empleado").</p>
+          <div class="callout">
+            <i class="bi bi-lightbulb"></i>
+            <div><strong>¿Sabías que...?</strong><p>Esta notación la propuso el informático Peter Chen en 1976, en un artículo que sentó las bases de cómo diseñamos bases de datos desde entonces.</p></div>
+          </div>
+
+        </section>
+
+        <section>
+          <h2 id="u4">Cardinalidad y participaciones</h2>
+          <p>La notación que indica cuántas instancias de una entidad pueden asociarse con cuántas instancias de otra, y si esa participación es obligatoria u opcional.</p>
+        </section>
+
+        <section>
+          <h2 id="u5">Ejemplo completo</h2>
+          <p>Un cliente puede realizar varios pedidos, pero cada pedido pertenece a un único cliente: una relación 1:N.</p>
+          <div class="diagram-wrap">
+            <svg viewBox="0 0 620 220" role="img" aria-label="Diagrama entidad-relación: Cliente realiza Pedido">
+              <line x1="70" y1="110" x2="70" y2="150" class="dg-line"></line>
+              <line x1="170" y1="110" x2="170" y2="150" class="dg-line"></line>
+              <ellipse cx="70" cy="85" rx="52" ry="22" class="dg-oval"></ellipse>
+              <text x="70" y="85" class="dg-text-sm">dni</text>
+              <ellipse cx="170" cy="85" rx="52" ry="22" class="dg-oval"></ellipse>
+              <text x="170" y="85" class="dg-text-sm">nombre</text>
+
+              <rect x="40" y="150" width="160" height="50" rx="4" class="dg-box"></rect>
+              <text x="120" y="175" class="dg-text">CLIENTE</text>
+
+              <ellipse cx="460" cy="85" rx="55" ry="22" class="dg-oval"></ellipse>
+              <text x="460" y="85" class="dg-text-sm">num_pedido</text>
+              <ellipse cx="560" cy="85" rx="52" ry="22" class="dg-oval"></ellipse>
+              <text x="560" y="85" class="dg-text-sm">fecha</text>
+              <line x1="460" y1="107" x2="460" y2="150" class="dg-line"></line>
+              <line x1="560" y1="107" x2="560" y2="150" class="dg-line"></line>
+
+              <rect x="420" y="150" width="160" height="50" rx="4" class="dg-box"></rect>
+              <text x="500" y="175" class="dg-text">PEDIDO</text>
+
+              <polygon points="280,140 350,175 280,210 210,175" class="dg-diamond"></polygon>
+              <text x="280" y="175" class="dg-text-sm">realiza</text>
+
+              <line x1="200" y1="175" x2="210" y2="175" class="dg-line"></line>
+              <line x1="350" y1="175" x2="420" y2="175" class="dg-line"></line>
+              <text x="215" y="165" class="dg-text-label">1</text>
+              <text x="405" y="165" class="dg-text-label">N</text>
+            </svg>
+          </div>
+          <p class="diagram-caption">Cardinalidad 1:N entre CLIENTE y PEDIDO a través de la relación "realiza".</p>
+        </section>
+
+        <section class="one-more-thing">
+          <h2 id="one-more-thing"><i class="bi bi-plus-circle"></i>One more thing…</h2>
+          <p class="omt-meta">
+            <span>Ampliación basada en <a href="https://benrios.dev/modelo-er/" target="_blank" rel="noopener">benrios.dev/modelo-er</a></span>
+          </p>
+
+          <h3 id="omt-el-modelo-e-r-extendido-eer">El modelo E-R extendido (EER)</h3>
+          <p>Añade conceptos para modelar casos más complejos:</p>
+          <ul>
+            <li><strong>Generalización</strong>: agrupar entidades concretas bajo una general. Por ejemplo, TÉCNICO, GERENTE y SECRETARIO se generalizan en EMPLEADO.</li>
+            <li><strong>Especialización</strong>: el proceso inverso, que divide una entidad general en subtipos. Por ejemplo, VEHÍCULO se especializa en COCHE, MOTO y CAMIÓN. Se representa con una relación <strong>ES-UN</strong> (<em>ISA</em>).</li>
+            <li><strong>Herencia</strong>: los subtipos heredan los atributos y relaciones del supertipo y añaden los suyos. ESTUDIANTE hereda de PERSONA el nombre y la fecha de nacimiento, y añade la matrícula y la carrera.</li>
+            <li><strong>Agregación</strong>: trata una relación como si fuera una entidad de nivel superior. Es útil en relaciones ternarias complejas.</li>
+          </ul>
+          <table>
+            <thead><tr><th>Restricción</th><th>Significado</th><th>Notación</th></tr></thead>
+            <tbody>
+              <tr><td>Disjunta</td><td>Una instancia pertenece como mucho a un subtipo (empleado <em>o</em> cliente)</td><td><code>d</code></td></tr>
+              <tr><td>Solapada</td><td>Puede pertenecer a varios subtipos (empleado <em>y</em> cliente)</td><td><code>o</code></td></tr>
+              <tr><td>Total</td><td>Toda instancia del supertipo pertenece a algún subtipo</td><td>Doble línea</td></tr>
+              <tr><td>Parcial</td><td>Puede haber instancias que no estén en ningún subtipo</td><td>Línea simple</td></tr>
+            </tbody>
+          </table>
+
+          <h3 id="omt-metodo-para-construir-un-modelo-e-r">Método para construir un modelo E-R</h3>
+          <ol>
+            <li><strong>Analizar los requisitos</strong>: qué datos hay que guardar y para qué se van a usar.</li>
+            <li><strong>Identificar entidades</strong>: suelen ser los <em>sustantivos</em> del enunciado que tienen atributos propios y varias instancias.</li>
+            <li><strong>Definir atributos</strong>: elegir la clave primaria, clasificar los atributos (simples, compuestos, multivaluados) e indicar si son obligatorios.</li>
+            <li><strong>Identificar relaciones</strong>: suelen ser los <em>verbos</em> que conectan entidades. Hay que nombrarlas con verbos descriptivos.</li>
+            <li><strong>Fijar cardinalidades</strong> a partir de las reglas de negocio, teniendo en cuenta los casos límite.</li>
+            <li><strong>Validar el modelo</strong>: comprobar que es completo y coherente, y contrastarlo con los usuarios.</li>
+          </ol>
+
+          <h3 id="omt-errores-comunes">Errores comunes</h3>
+          <ul>
+            <li>Confundir entidades con atributos.</li>
+            <li>Poner cardinalidades incorrectas o sin justificar.</li>
+            <li>Olvidar restricciones importantes.</li>
+            <li>Usar nombres ambiguos o genéricos.</li>
+            <li>Complicar el modelo más de lo necesario.</li>
+          </ul>
+          <p>Otro detalle: Peter Chen presentó el modelo en 1976 en el artículo <em>"The Entity-Relationship Model: Toward a Unified View of Data"</em>. Su objetivo era que los diseñadores de bases de datos pudieran comunicarse con los usuarios finales.</p>
+        </section>
+
+        <section class="deep-dive">
+          <h2 id="para-profundizar"><i class="bi bi-compass"></i> Para profundizar</h2>
+          <p class="dd-meta">
+            <span class="dd-badge"><i class="bi bi-patch-check"></i> Ampliación</span>
+            <span>Contenido adicional de investigación propia, contrastado con fuentes oficiales (enlazadas al final).</span>
+          </p>
+          <h3>Notaciones de diagramas: pata de gallo y otras</h3>
+          <p>El mismo modelo E-R puede dibujarse con notaciones distintas. En la de <strong>pata de gallo</strong> (<em>crow's foot</em>, también llamada IE) la cardinalidad se dibuja en los extremos de la línea que une las entidades, y es el estilo por defecto de MySQL Workbench. La notación <strong>clásica</strong> usa un rombo para la relación, y <strong>UML</strong> emplea el estilo de los diagramas de clases. Conviene reconocer las tres, porque los enunciados y las herramientas no siempre usan la misma.</p>
+          <h3>Relaciones identificadoras y no identificadoras</h3>
+          <p>En un diagrama E-R de tablas, una relación es <strong>identificadora</strong> cuando la clave foránea forma parte de la clave primaria de la tabla hija (por ejemplo, una línea de pedido cuya clave incluye el pedido al que pertenece), y <strong>no identificadora</strong> cuando es un atributo más. MySQL Workbench las distingue visualmente: línea continua para las identificadoras y discontinua para las no identificadoras.</p>
+          <p class="dd-sources"><i class="bi bi-link-45deg"></i> Fuentes: <a href="https://dev.mysql.com/doc/workbench/en/wb-eer-diagrams-section.html" target="_blank" rel="noopener">MySQL Workbench: diagramas EER</a> · <a href="https://dev.mysql.com/doc/workbench/en/wb-relationship-tools.html" target="_blank" rel="noopener">MySQL Workbench: relaciones con clave foránea</a></p>
+        </section>
+
+        <section class="recap-box">
+          <h2><i class="bi bi-stars"></i> Puntos clave</h2>
+          <ul>
+            <li>Entidad = rectángulo; atributo = óvalo; relación = rombo.</li>
+            <li>Una entidad débil (doble rectángulo) depende de otra para poder existir.</li>
+            <li>Los atributos pueden ser simples/compuestos, univaluados/multivaluados, obligatorios/opcionales.</li>
+            <li>El grado de una relación indica cuántas entidades participan en ella (binaria = 2, unaria = 1).</li>
+            <li>La cardinalidad indica cuántas instancias de una entidad se asocian con cuántas de otra (1:1, 1:N, N:M).</li>
+          </ul>
+        </section>
+
+        <section>
+          <h2 id="autoevaluacion">Ponte a prueba</h2>
+          <details class="quiz-item">
+            <summary>¿Cómo se representa gráficamente una entidad débil?</summary>
+            <p class="quiz-answer">Con un rectángulo doble, distinto del rectángulo simple de una entidad fuerte.</p>
+          </details>
+          <details class="quiz-item">
+            <summary>¿Qué figura representa una relación en el modelo E-R?</summary>
+            <p class="quiz-answer">Un rombo, con el nombre de la relación (normalmente un verbo) en su interior.</p>
+          </details>
+          <details class="quiz-item">
+            <summary>¿Qué es el grado de una relación?</summary>
+            <p class="quiz-answer">El número de entidades que participan en ella.</p>
+          </details>
+        </section>
+      </article>
+
+      <nav id="prev-next"></nav>
+    </main>
+
+    <aside class="toc d-none d-xl-block" id="toc-aside">
+      <div class="toc-inner">
+        <h6>En esta página</h6>
+        <nav id="toc-nav" class="nav flex-column"></nav>
+      </div>
+    </aside>
+  </div>
+</div>
+
+<button id="back-to-top" class="btn back-to-top" aria-label="Volver arriba"><i class="bi bi-arrow-up text-white"></i></button>
+
+<script src="../assets/vendor/bootstrap/bootstrap.bundle.min.js"></script>
+<script src="../assets/js/nav-data.js"></script>
+<script src="../assets/js/search-index.js"></script>
+<script src="../assets/js/main.js"></script>
+</body>
+</html>

@@ -41,25 +41,30 @@ Sitio web estático de repaso para **DAM y DAW**: resúmenes por asignatura, un 
 ## Estructura
 
 ```
-index.html                     Portada: hero, buscador, estadísticas y tarjetas por categoría
-pages/*.html                   Una página por asignatura o herramienta + glosario
-assets/css/style.css           Estilos propios
-assets/js/nav-data.js          Fuente única de navegación (categorías, páginas, rutas)
-assets/js/search-index.js      Índice de búsqueda (generado)
-assets/js/main.js              Sidebar, breadcrumbs, TOC, búsqueda, tema, temas recientes
-assets/vendor/                 Bootstrap y Bootstrap Icons auto-alojados
-scripts/build-search-index.py  Regenera el índice de búsqueda
+site/                              Todo lo que se publica
+  index.html                       Portada: hero, buscador, estadísticas y tarjetas por categoría
+  <id>/index.html                  Una carpeta por asignatura o herramienta + glosario/ (URLs limpias)
+  assets/css/style.css             Estilos propios
+  assets/js/nav-data.js            Fuente única de navegación (categorías, páginas, rutas)
+  assets/js/search-index.js        Índice de búsqueda (generado)
+  assets/js/main.js                Sidebar, breadcrumbs, TOC, búsqueda, tema, temas recientes
+  assets/vendor/                   Bootstrap y Bootstrap Icons auto-alojados
+scripts/build-search-index.py      Regenera el índice de búsqueda
 ```
 
 ## Ver en local
 
-Al ser un sitio 100% estático, basta con abrir `index.html` directamente en el navegador. Si en algún navegador ves que algo no carga (poco probable, aquí no se usa `fetch` ni módulos ES), sírvelo por HTTP como alternativa:
+Al ser un sitio 100% estático, basta con servir la carpeta con cualquier servidor HTTP, por ejemplo:
 
 ```bash
-python3 -m http.server 8743
+python3 -m http.server 8743 -d site
 ```
 
 Y abre `http://localhost:8743` en el navegador.
+
+## Publicar
+
+Sube el **contenido** de `site/` (no la carpeta `site/` en sí) a la ruta del servidor donde vaya a vivir el sitio.
 
 ## Regenerar el índice de búsqueda
 

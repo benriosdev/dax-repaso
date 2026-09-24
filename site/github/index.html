@@ -1,0 +1,172 @@
+<!doctype html>
+<html lang="es" data-bs-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>GitHub · DAX Repaso</title>
+<meta name="description" content="GitHub: repositorios remotos, pull requests, issues y automatización con Actions.">
+<link href="../assets/vendor/bootstrap/bootstrap.min.css" rel="stylesheet">
+<link href="../assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+<link href="../assets/css/style.css" rel="stylesheet">
+</head>
+<body data-page="github">
+<script>var BASE_PATH = "../"; var CURRENT_PAGE = "github";</script>
+
+<nav class="navbar topbar navbar-expand fixed-top">
+  <div class="topbar-inner">
+    <div class="topbar-brand-col">
+      <button class="btn-icon d-lg-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#sidebarOffcanvas" aria-label="Abrir menú">
+        <i class="bi bi-list"></i>
+      </button>
+      <a class="navbar-brand" href="../"><i class="bi bi-mortarboard-fill"></i> DAX Repaso</a>
+    </div>
+    <div class="topbar-main">
+      <div class="topbar-search">
+        <i class="bi bi-search"></i>
+        <input type="search" class="search-input" placeholder="Buscar en el temario..." aria-label="Buscar en el temario" autocomplete="off">
+        <div class="search-results"></div>
+      </div>
+      <div class="topbar-actions">
+        <a class="btn-icon" href="https://github.com/benriosdev" target="_blank" rel="noopener" aria-label="Perfil de GitHub">
+          <i class="bi bi-github"></i>
+        </a>
+        <button class="btn-icon theme-toggle" type="button" aria-label="Cambiar tema">
+          <i class="bi bi-moon-stars"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<div class="layout">
+  <div class="layout-row">
+    <aside class="sidebar d-none d-lg-block">
+      <nav id="sidebar-nav"></nav>
+    </aside>
+
+    <div class="offcanvas offcanvas-start" tabindex="-1" id="sidebarOffcanvas">
+      <div class="offcanvas-header">
+        <h5 class="offcanvas-title"><i class="bi bi-mortarboard-fill"></i> DAX Repaso</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Cerrar"></button>
+      </div>
+      <div class="offcanvas-body">
+        <nav id="sidebar-nav-mobile"></nav>
+      </div>
+    </div>
+
+    <main class="content">
+      <nav aria-label="breadcrumb"><ol class="breadcrumb" id="breadcrumb"></ol></nav>
+
+      <article id="page-content">
+        <h1>GitHub</h1>
+        <p class="lead">La plataforma de alojamiento de repositorios Git más usada, con herramientas de colaboración: pull requests, issues y automatización con Actions. No es la única (existen GitLab, Bitbucket...), pero es el estándar de facto en el software de código abierto.</p>
+
+        <section>
+          <h2 id="u0">0. GitHub no es lo mismo que Git</h2>
+          <p>Git es la herramienta de control de versiones que se ejecuta en tu ordenador; GitHub es un servicio que aloja repositorios Git en la nube y añade una capa de colaboración por encima: interfaz web, pull requests, gestión de tareas y automatización. Un repositorio de GitHub sigue siendo, por debajo, un repositorio Git normal.</p>
+          <div class="callout">
+            <i class="bi bi-lightbulb"></i>
+            <div><strong>¿Sabías que...?</strong><p>Microsoft compró GitHub en 2018 por 7.500 millones de dólares, pero la plataforma sigue funcionando de forma independiente y sigue siendo el punto de encuentro de la inmensa mayoría de proyectos open source.</p></div>
+          </div>
+          <h3>Alternativas a GitHub</h3>
+          <p>GitLab (que además se puede instalar en un servidor propio) y Bitbucket son las alternativas más usadas; todas hablan el mismo protocolo Git por debajo, así que un mismo repositorio local puede, en teoría, subirse a cualquiera de ellas.</p>
+        </section>
+
+        <section>
+          <h2 id="u1">1. Repositorios remotos</h2>
+          <p>Un repositorio en GitHub puede ser público (cualquiera lo ve) o privado (solo las personas invitadas). Al crearlo, GitHub ofrece generar automáticamente un <code>README.md</code> (la portada del proyecto), un <code>.gitignore</code> según el lenguaje y un archivo de licencia.</p>
+          <h3>Fork</h3>
+          <p>Hacer un <em>fork</em> crea una copia independiente de un repositorio ajeno en tu propia cuenta. Es el mecanismo habitual para contribuir a un proyecto en el que no tienes permisos de escritura directos: haces fork, cambias tu copia y luego propones esos cambios al original mediante un pull request.</p>
+          <h3>GitHub Pages</h3>
+          <p>Permite publicar gratis un sitio web estático directamente desde un repositorio, sin contratar ningún hosting: activándolo en la configuración del repositorio, el contenido de una rama (normalmente <code>main</code> o una carpeta <code>docs/</code>) queda accesible en una URL del tipo <code>usuario.github.io/repositorio</code>. Es la forma más rápida de publicar un proyecto de HTML/CSS/JS sin backend.</p>
+        </section>
+
+        <section>
+          <h2 id="u2">2. Pull requests</h2>
+          <p>Un pull request (PR) es una propuesta para fusionar los cambios de una rama dentro de otra (normalmente hacia <code>main</code>), acompañada de una descripción, comentarios y revisión de código antes de aceptarla. Es el mecanismo central de colaboración en GitHub.</p>
+          <h3>Flujo típico</h3>
+          <p>Crear una rama para la tarea → hacer commits en ella → subirla con <code>git push</code> → abrir un pull request desde esa rama hacia <code>main</code> → otra persona revisa el código y deja comentarios → cuando está aprobado, se fusiona (merge) y la rama puede borrarse.</p>
+        </section>
+
+        <section>
+          <h2 id="u3">3. Issues y proyectos</h2>
+          <p>Los issues son el sistema de seguimiento de tareas y errores de GitHub: cada uno describe un problema o una funcionalidad pendiente, y se le pueden asignar personas, etiquetas (<em>labels</em>) como <code>bug</code> o <code>enhancement</code>, y un hito (<em>milestone</em>) para agruparlo dentro de una entrega.</p>
+          <h3>GitHub Projects</h3>
+          <p>Es un tablero tipo Kanban integrado en el repositorio, donde los issues y pull requests se organizan en columnas (por ejemplo, "Por hacer", "En progreso", "Hecho") para visualizar el estado del trabajo de un vistazo.</p>
+        </section>
+
+        <section>
+          <h2 id="u4">4. GitHub Actions</h2>
+          <p>GitHub Actions permite automatizar tareas del repositorio (ejecutar tests, desplegar la aplicación, revisar el estilo del código) cada vez que ocurre un evento, como un push o la apertura de un pull request. Cada automatización se define en un archivo YAML dentro de la carpeta <code>.github/workflows/</code>.</p>
+          <pre><code>name: Tests
+on: [push]
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: npm test</code></pre>
+          <h3>Cuándo usarlo</h3>
+          <p>Es habitual usarlo para integración continua (CI): que las pruebas se ejecuten automáticamente en cada cambio, antes de permitir fusionar un pull request, evitando que se rompa algo que ya funcionaba.</p>
+        </section>
+
+        <section class="recap-box">
+          <h2><i class="bi bi-stars"></i> Puntos clave</h2>
+          <ul>
+            <li>GitHub aloja repositorios Git y añade colaboración (PRs, issues, Actions); Git funciona igual sin GitHub.</li>
+            <li>Un fork crea una copia propia de un repositorio ajeno, base habitual para contribuir sin permisos directos.</li>
+            <li>Un pull request propone fusionar una rama y permite revisar el código antes de aceptarlo.</li>
+            <li>Los issues siguen tareas y errores; GitHub Projects los organiza en un tablero Kanban.</li>
+            <li>GitHub Actions automatiza tareas (tests, despliegues) a partir de eventos del repositorio, definidas en YAML.</li>
+          </ul>
+        </section>
+
+        <section>
+          <h2 id="autoevaluacion">Ponte a prueba</h2>
+          <details class="quiz-item">
+            <summary>¿Qué diferencia hay entre Git y GitHub?</summary>
+            <p class="quiz-answer">Git es la herramienta de control de versiones que corre en tu ordenador; GitHub es una plataforma que aloja repositorios Git en remoto y añade colaboración (pull requests, issues, Actions) por encima.</p>
+          </details>
+          <details class="quiz-item">
+            <summary>¿Para qué se usa un fork?</summary>
+            <p class="quiz-answer">Para crear una copia propia de un repositorio ajeno cuando no tienes permisos de escritura directos, y así poder proponer cambios mediante un pull request.</p>
+          </details>
+          <details class="quiz-item">
+            <summary>¿Qué es un pull request?</summary>
+            <p class="quiz-answer">Una propuesta para fusionar los cambios de una rama en otra, que permite revisar y comentar el código antes de aceptarla.</p>
+          </details>
+          <details class="quiz-item">
+            <summary>¿Para qué sirve GitHub Actions?</summary>
+            <p class="quiz-answer">Para automatizar tareas del repositorio (como ejecutar tests o desplegar la aplicación) cada vez que ocurre un evento, como un push, definiendo el flujo en un archivo YAML.</p>
+          </details>
+        </section>
+
+        <section>
+          <h2 id="para-saber-mas">Para saber más</h2>
+          <ul class="resources-list">
+            <li><a href="https://docs.github.com/es" target="_blank" rel="noopener"><i class="bi bi-box-arrow-up-right"></i> Documentación oficial de GitHub</a></li>
+            <li><a href="https://docs.github.com/es/actions" target="_blank" rel="noopener"><i class="bi bi-box-arrow-up-right"></i> Documentación de GitHub Actions</a></li>
+          </ul>
+        </section>
+      </article>
+
+      <nav id="prev-next"></nav>
+    </main>
+
+    <aside class="toc d-none d-xl-block" id="toc-aside">
+      <div class="toc-inner">
+        <h6>En esta página</h6>
+        <nav id="toc-nav" class="nav flex-column"></nav>
+      </div>
+    </aside>
+  </div>
+</div>
+
+<button id="back-to-top" class="btn back-to-top" aria-label="Volver arriba"><i class="bi bi-arrow-up text-white"></i></button>
+
+<script src="../assets/vendor/bootstrap/bootstrap.bundle.min.js"></script>
+<script src="../assets/js/nav-data.js"></script>
+<script src="../assets/js/search-index.js"></script>
+<script src="../assets/js/main.js"></script>
+</body>
+</html>
