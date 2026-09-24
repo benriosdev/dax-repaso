@@ -1,5 +1,5 @@
 // Fuente única de navegación: categorías, asignaturas, rutas y PDFs de origen.
-// Las rutas (href/pdf) son relativas a la raíz del proyecto; main.js les añade BASE_PATH.
+// Las rutas (href) son relativas a la raíz del proyecto; main.js les añade BASE_PATH.
 const SITE = {
   categories: [
     {
@@ -96,9 +96,9 @@ const SITE = {
         },
         {
           id: "ingles-diapositivas",
-          title: "Inglés — clases",
+          title: "Inglés — Gramática y destrezas",
           href: "ingles-diapositivas/",
-          card: "Diapositivas de las clases: dinámica del curso, evaluación y gramática organizada por bloques (bloques 1 a 5)."
+          card: "Mapa de las cinco destrezas del inglés profesional y del bloque de gramática asociado a cada una."
         },
         {
           id: "vocabulary",
