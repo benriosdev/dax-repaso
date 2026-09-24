@@ -22,6 +22,7 @@
   --cat-ing: #ec6cb9;
   --cat-trans: #b18cff;
   --cat-herr: #2dd4bf;
+  --cat-chul: #fb7185;
   --ampl: #f2c94c;
 }
 
@@ -42,6 +43,7 @@
   --cat-ing: #d1428f;
   --cat-trans: #7a53e0;
   --cat-herr: #0d9488;
+  --cat-chul: #e11d48;
   --ampl: #a16207;
 }
 
@@ -291,6 +293,7 @@ body[data-page="home"] .topbar .topbar-search { display: none; }
 .side-group[data-cat="ing"] summary i.side-icon { color: var(--cat-ing); }
 .side-group[data-cat="trans"] summary i.side-icon { color: var(--cat-trans); }
 .side-group[data-cat="herr"] summary i.side-icon { color: var(--cat-herr); }
+.side-group[data-cat="chul"] summary i.side-icon { color: var(--cat-chul); }
 
 .side-chevron {
   margin-left: auto;
@@ -1051,6 +1054,7 @@ body[data-page="home"] .topbar .topbar-search { display: none; }
 .badge-cat.ing  { color: var(--cat-ing);  background: color-mix(in srgb, var(--cat-ing) 16%, transparent); }
 .badge-cat.trans{ color: var(--cat-trans);background: color-mix(in srgb, var(--cat-trans) 16%, transparent); }
 .badge-cat.herr { color: var(--cat-herr); background: color-mix(in srgb, var(--cat-herr) 16%, transparent); }
+.badge-cat.chul { color: var(--cat-chul); background: color-mix(in srgb, var(--cat-chul) 16%, transparent); }
 
 /* ===== Volver arriba ===== */
 .back-to-top {

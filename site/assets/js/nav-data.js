@@ -164,6 +164,43 @@ const SITE = {
           card: "Backend as a Service sobre PostgreSQL: base de datos, autenticación, almacenamiento y APIs generadas automáticamente."
         }
       ]
+    },
+    {
+      name: "Chuletas",
+      icon: "bi-lightning-charge",
+      color: "chul",
+      pages: [
+        {
+          id: "chuleta-sql",
+          title: "SQL",
+          href: "chuleta-sql/",
+          card: "Referencia rápida: SELECT, filtros, INSERT/UPDATE/DELETE, agregaciones, JOIN y errores frecuentes."
+        },
+        {
+          id: "chuleta-git",
+          title: "Comandos de Git",
+          href: "chuleta-git/",
+          card: "Referencia rápida: ciclo diario, ramas, deshacer cambios (restore, reset, revert, stash) y remotos."
+        },
+        {
+          id: "chuleta-java",
+          title: "Sintaxis de Java",
+          href: "chuleta-java/",
+          card: "Referencia rápida: tipos, control de flujo, Strings, arrays y colecciones, clases, herencia y excepciones."
+        },
+        {
+          id: "chuleta-linux",
+          title: "Comandos de Linux",
+          href: "chuleta-linux/",
+          card: "Referencia rápida: navegación, archivos, búsqueda, permisos (chmod), procesos, redirecciones y errores frecuentes."
+        },
+        {
+          id: "chuleta-http",
+          title: "HTTP",
+          href: "chuleta-http/",
+          card: "Referencia rápida: peticiones y respuestas, métodos, códigos de estado, cabeceras y una API REST de ejemplo."
+        }
+      ]
     }
   ],
   extras: [

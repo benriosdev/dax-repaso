@@ -1,0 +1,257 @@
+<!doctype html>
+<html lang="es" data-bs-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sintaxis de Java · DAX Repaso</title>
+<meta name="description" content="Chuleta de Java: estructura, tipos, control de flujo, Strings, arrays, colecciones, clases, herencia y excepciones.">
+<link href="../assets/vendor/bootstrap/bootstrap.min.css" rel="stylesheet">
+<link href="../assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+<link href="../assets/css/style.css" rel="stylesheet">
+</head>
+<body data-page="chuleta-java">
+<script>var BASE_PATH = "../"; var CURRENT_PAGE = "chuleta-java";</script>
+
+<nav class="navbar topbar navbar-expand fixed-top">
+  <div class="topbar-inner">
+    <div class="topbar-brand-col">
+      <button class="btn-icon d-lg-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#sidebarOffcanvas" aria-label="Abrir menú">
+        <i class="bi bi-list"></i>
+      </button>
+      <a class="navbar-brand" href="../"><i class="bi bi-mortarboard-fill"></i> DAX Repaso</a>
+    </div>
+    <div class="topbar-main">
+      <div class="topbar-search">
+        <i class="bi bi-search"></i>
+        <input type="search" class="search-input" placeholder="Buscar en el temario..." aria-label="Buscar en el temario" autocomplete="off">
+        <div class="search-results"></div>
+      </div>
+      <div class="topbar-actions">
+        <a class="btn-icon" href="https://github.com/benriosdev" target="_blank" rel="noopener" aria-label="Perfil de GitHub">
+          <i class="bi bi-github"></i>
+        </a>
+        <button class="btn-icon theme-toggle" type="button" aria-label="Cambiar tema">
+          <i class="bi bi-moon-stars"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<div class="layout">
+  <div class="layout-row">
+    <aside class="sidebar d-none d-lg-block">
+      <nav id="sidebar-nav"></nav>
+    </aside>
+
+    <div class="offcanvas offcanvas-start" tabindex="-1" id="sidebarOffcanvas">
+      <div class="offcanvas-header">
+        <h5 class="offcanvas-title"><i class="bi bi-mortarboard-fill"></i> DAX Repaso</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Cerrar"></button>
+      </div>
+      <div class="offcanvas-body">
+        <nav id="sidebar-nav-mobile"></nav>
+      </div>
+    </div>
+
+    <main class="content">
+      <nav aria-label="breadcrumb"><ol class="breadcrumb" id="breadcrumb"></ol></nav>
+
+      <article id="page-content">
+        <h1>Sintaxis de Java — Chuleta</h1>
+        <p class="lead">Referencia rápida de la sintaxis y las clases de Java que más se usan. Sin teoría: solo la forma de escribirlo y lo que suele fallar.</p>
+
+        <section>
+          <h2 id="u1">Estructura de un programa</h2>
+          <pre><code>public class Main {
+    public static void main(String[] args) {
+        System.out.println("Hola Mundo");
+    }
+}</code></pre>
+          <p>El archivo se llama igual que la clase pública (<code>Main.java</code>). <code>javac</code> lo compila a bytecode y <code>java Main</code> lo ejecuta.</p>
+        </section>
+
+        <section>
+          <h2 id="u2">Tipos y variables</h2>
+          <table>
+            <thead><tr><th>Tipo</th><th>Tamaño</th><th>Rango o uso</th></tr></thead>
+            <tbody>
+              <tr><td><code>byte</code></td><td>8 bits</td><td>-128 a 127</td></tr>
+              <tr><td><code>short</code></td><td>16 bits</td><td>-32.768 a 32.767</td></tr>
+              <tr><td><code>int</code></td><td>32 bits</td><td>-2<sup>31</sup> a 2<sup>31</sup>-1 (el entero por defecto)</td></tr>
+              <tr><td><code>long</code></td><td>64 bits</td><td>-2<sup>63</sup> a 2<sup>63</sup>-1</td></tr>
+              <tr><td><code>float</code>, <code>double</code></td><td>32 y 64 bits</td><td>Decimales (IEEE 754)</td></tr>
+              <tr><td><code>boolean</code>, <code>char</code></td><td>—</td><td><code>true</code>/<code>false</code> y un carácter</td></tr>
+            </tbody>
+          </table>
+          <pre><code>int edad = 25;
+double precio = 9.99;
+String nombre = "Ana";      // String NO es primitivo: es una clase
+final int MAX = 100;        // constante</code></pre>
+          <p><code>float</code> y <code>double</code> no deben usarse para valores exactos como el dinero: para eso está <code>java.math.BigDecimal</code>.</p>
+        </section>
+
+        <section>
+          <h2 id="u3">Operadores</h2>
+          <ul>
+            <li>Aritméticos: <code>+</code> <code>-</code> <code>*</code> <code>/</code> <code>%</code>. Con dos enteros, <code>/</code> devuelve un entero: <code>7 / 2</code> es <code>3</code>.</li>
+            <li>Dividir un entero entre cero lanza <code>ArithmeticException</code>.</li>
+            <li>Comparación: <code>==</code> <code>!=</code> <code>&lt;</code> <code>&gt;</code> <code>&lt;=</code> <code>&gt;=</code>. Lógicos: <code>&amp;&amp;</code> <code>||</code> <code>!</code>.</li>
+            <li>Incremento: <code>i++</code>, <code>i--</code>, <code>i += 5</code>.</li>
+          </ul>
+        </section>
+
+        <section>
+          <h2 id="u4">Control de flujo</h2>
+          <pre><code>if (nota &gt;= 5) { ... } else if (nota &gt;= 3) { ... } else { ... }
+
+for (int i = 0; i &lt; 10; i++) { ... }       // contador
+for (int n : numeros) { ... }                // recorrer array o colección
+while (condicion) { ... }                    // 0 o más veces
+do { ... } while (condicion);                // al menos una vez
+
+switch (dia) {
+    case 1:  System.out.println("Lunes"); break;
+    case 2:  System.out.println("Martes"); break;
+    default: System.out.println("Otro");
+}</code></pre>
+          <ul>
+            <li>Sin <code>break</code>, un <code>switch</code> <strong>sigue ejecutando</strong> los <code>case</code> siguientes (<em>fall-through</em>).</li>
+            <li>El <code>switch</code> admite <code>byte</code>, <code>short</code>, <code>char</code>, <code>int</code>, enumerados y <code>String</code>. Si la expresión es <code>null</code>, lanza <code>NullPointerException</code>.</li>
+          </ul>
+        </section>
+
+        <section>
+          <h2 id="u5">Strings</h2>
+          <table>
+            <thead><tr><th>Método</th><th>Qué hace</th></tr></thead>
+            <tbody>
+              <tr><td><code>s.length()</code></td><td>Número de caracteres</td></tr>
+              <tr><td><code>s.charAt(i)</code></td><td>Carácter en la posición <code>i</code> (desde 0)</td></tr>
+              <tr><td><code>s.substring(a, b)</code></td><td>Desde <code>a</code> (incluido) hasta <code>b</code> (excluido)</td></tr>
+              <tr><td><code>s.indexOf("x")</code></td><td>Posición de la primera aparición, o <code>-1</code></td></tr>
+              <tr><td><code>s.contains("x")</code></td><td>Si contiene ese texto</td></tr>
+              <tr><td><code>s.equals(t)</code> / <code>s.equalsIgnoreCase(t)</code></td><td>Comparar el contenido</td></tr>
+              <tr><td><code>s.toUpperCase()</code> / <code>s.toLowerCase()</code></td><td>Cambiar mayúsculas y minúsculas</td></tr>
+              <tr><td><code>s.trim()</code> / <code>s.strip()</code></td><td>Quitar espacios de los extremos</td></tr>
+              <tr><td><code>s.split(",")</code></td><td>Trocear en un array (el argumento es una expresión regular)</td></tr>
+              <tr><td><code>s.isEmpty()</code></td><td>Si su longitud es 0</td></tr>
+            </tbody>
+          </table>
+          <p>Los <code>String</code> son <strong>inmutables</strong>: sus métodos devuelven un texto nuevo, no modifican el original.</p>
+        </section>
+
+        <section>
+          <h2 id="u6">Arrays y colecciones</h2>
+          <pre><code>int[] notas = new int[3];              // tamaño fijo; índices 0..2
+int[] pares = {2, 4, 6};
+notas.length                           // 3 (sin paréntesis)
+
+ArrayList&lt;String&gt; lista = new ArrayList&lt;&gt;();
+lista.add("Ana");                      // añadir al final
+lista.get(0);                          // leer por posición
+lista.set(0, "Luis");                  // reemplazar
+lista.remove(0);                       // borrar por posición
+lista.size();  lista.contains("Ana");  lista.isEmpty();  lista.clear();
+
+HashMap&lt;String, Integer&gt; edades = new HashMap&lt;&gt;();
+edades.put("Ana", 30);                 // asociar clave y valor
+edades.get("Ana");                     // 30; null si la clave no existe
+edades.containsKey("Ana");  edades.remove("Ana");  edades.size();</code></pre>
+          <ul>
+            <li>Un array tiene tamaño fijo; un <code>ArrayList</code> crece solo.</li>
+            <li>Un <code>HashMap</code> no garantiza ningún orden y admite clave y valores <code>null</code>.</li>
+          </ul>
+        </section>
+
+        <section>
+          <h2 id="u7">Clases, herencia e interfaces</h2>
+          <pre><code>public class Persona {
+    private String nombre;                       // atributo privado
+
+    public Persona(String nombre) {              // constructor: mismo nombre que la clase
+        this.nombre = nombre;
+    }
+    public String getNombre() { return nombre; } // getter
+}
+
+public class Alumno extends Persona {            // herencia
+    public Alumno(String nombre) {
+        super(nombre);                           // llama al constructor del padre
+    }
+}
+
+public class Coche implements Vehiculo { ... }   // implementa una interfaz
+
+Persona p = new Persona("Ana");                  // crear un objeto</code></pre>
+          <table>
+            <thead><tr><th>Modificador</th><th>Misma clase</th><th>Mismo paquete</th><th>Subclase</th><th>Cualquiera</th></tr></thead>
+            <tbody>
+              <tr><td><code>public</code></td><td>Sí</td><td>Sí</td><td>Sí</td><td>Sí</td></tr>
+              <tr><td><code>protected</code></td><td>Sí</td><td>Sí</td><td>Sí</td><td>No</td></tr>
+              <tr><td>(ninguno)</td><td>Sí</td><td>Sí</td><td>No</td><td>No</td></tr>
+              <tr><td><code>private</code></td><td>Sí</td><td>No</td><td>No</td><td>No</td></tr>
+            </tbody>
+          </table>
+          <ul>
+            <li>Si no escribes ningún constructor, el compilador crea uno sin argumentos.</li>
+            <li>Una clase tiene una sola superclase directa (<code>extends</code>); los constructores no se heredan.</li>
+            <li>Regla práctica: usa el modificador más restrictivo posible, normalmente <code>private</code>.</li>
+          </ul>
+        </section>
+
+        <section>
+          <h2 id="u8">Excepciones</h2>
+          <pre><code>try {
+    int x = Integer.parseInt(texto);
+} catch (NumberFormatException e) {
+    System.out.println("No es un número");
+} finally {
+    // se ejecuta siempre
+}
+
+void leer() throws IOException { ... }   // declara que puede lanzarla</code></pre>
+          <p>Las excepciones <strong>comprobadas</strong> obligan a capturarlas o declararlas con <code>throws</code>. Los <code>Error</code> y las <code>RuntimeException</code> (como <code>NullPointerException</code> o <code>ArithmeticException</code>) no.</p>
+        </section>
+
+        <section>
+          <h2 id="u9">Errores frecuentes</h2>
+          <ul>
+            <li><strong>Comparar Strings con <code>==</code>.</strong> En objetos, <code>==</code> comprueba si son <em>el mismo objeto</em>, no si tienen el mismo texto. Usa <code>equals()</code>.</li>
+            <li><strong>Olvidar el <code>break</code> en un <code>switch</code>.</strong> Se ejecutan también los casos siguientes.</li>
+            <li><strong>División entera inesperada.</strong> <code>7 / 2</code> da <code>3</code>; para obtener decimales, uno de los operandos debe ser <code>double</code>.</li>
+            <li><strong>Índice fuera de rango.</strong> Un array de 3 elementos llega hasta el índice 2; un <code>ArrayList</code> lanza <code>IndexOutOfBoundsException</code> si el índice no existe.</li>
+            <li><strong>Usar <code>double</code> para dinero.</strong> Usa <code>BigDecimal</code>.</li>
+            <li><strong>Sobrescribir <code>equals()</code> sin <code>hashCode()</code>.</strong> Los dos deben ir juntos.</li>
+          </ul>
+        </section>
+
+        <section>
+          <h2 id="para-saber-mas">Para saber más</h2>
+          <ul class="resources-list">
+            <li><a href="https://docs.oracle.com/javase/tutorial/" target="_blank" rel="noopener"><i class="bi bi-box-arrow-up-right"></i> Tutoriales oficiales de Java (Oracle)</a></li>
+            <li><a href="https://docs.oracle.com/en/java/javase/21/docs/api/index.html" target="_blank" rel="noopener"><i class="bi bi-box-arrow-up-right"></i> Documentación de la API de Java SE 21</a></li>
+          </ul>
+        </section>
+      </article>
+
+      <nav id="prev-next"></nav>
+    </main>
+
+    <aside class="toc d-none d-xl-block" id="toc-aside">
+      <div class="toc-inner">
+        <h6>En esta página</h6>
+        <nav id="toc-nav" class="nav flex-column"></nav>
+      </div>
+    </aside>
+  </div>
+</div>
+
+<button id="back-to-top" class="btn back-to-top" aria-label="Volver arriba"><i class="bi bi-arrow-up text-white"></i></button>
+
+<script src="../assets/vendor/bootstrap/bootstrap.bundle.min.js"></script>
+<script src="../assets/js/nav-data.js"></script>
+<script src="../assets/js/search-index.js"></script>
+<script src="../assets/js/main.js"></script>
+</body>
+</html>

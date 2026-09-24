@@ -94,7 +94,7 @@
                   <i class="bi bi-journal-text"></i>
                   <div>
                     <span class="hero-stat-num" data-stat="pages">0</span>
-                    <span class="hero-stat-label">asignaturas y herramientas</span>
+                    <span class="hero-stat-label">asignaturas y guías</span>
                   </div>
                 </div>
                 <div class="hero-stat">
@@ -158,6 +158,11 @@
             <div class="row g-3" data-cat-grid="Herramientas"></div>
           </section>
 
+          <section class="category-section" id="cat-chuletas">
+            <h2 class="category-title"><i class="bi bi-lightning-charge" style="color:var(--cat-chul)"></i> Chuletas</h2>
+            <div class="row g-3" data-cat-grid="Chuletas"></div>
+          </section>
+
         </article>
       </main>
 
@@ -180,7 +185,7 @@
   <script>
     // Home: construye las tarjetas de cada categoría y el TOC de categorías (no depende de h2 en el contenido).
     document.addEventListener("DOMContentLoaded", function () {
-      var colorMap = { "Programación": "prog", "Bases de Datos": "bbdd", "Sistemas y Redes": "sist", "Inglés": "ing", "Herramientas": "herr", "Transversales": "trans" };
+      var colorMap = { "Programación": "prog", "Bases de Datos": "bbdd", "Sistemas y Redes": "sist", "Inglés": "ing", "Herramientas": "herr", "Chuletas": "chul", "Transversales": "trans" };
       document.querySelectorAll("[data-cat-grid]").forEach(function (grid) {
         var catName = grid.getAttribute("data-cat-grid");
         var cat = SITE.categories.find(function (c) { return c.name === catName; });
@@ -204,6 +209,7 @@
         "Sistemas y Redes": "cat-sistemas-y-redes",
         "Inglés": "cat-ingles",
         "Herramientas": "cat-herramientas",
+        "Chuletas": "cat-chuletas",
         "Transversales": "cat-transversales"
       };
       var tocNav = document.getElementById("toc-nav");

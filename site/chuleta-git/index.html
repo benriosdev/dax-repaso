@@ -1,0 +1,165 @@
+<!doctype html>
+<html lang="es" data-bs-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Comandos de Git · DAX Repaso</title>
+<meta name="description" content="Chuleta de Git: ciclo diario, ramas, deshacer cambios (restore, reset, revert, stash) y remotos.">
+<link href="../assets/vendor/bootstrap/bootstrap.min.css" rel="stylesheet">
+<link href="../assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+<link href="../assets/css/style.css" rel="stylesheet">
+</head>
+<body data-page="chuleta-git">
+<script>var BASE_PATH = "../"; var CURRENT_PAGE = "chuleta-git";</script>
+
+<nav class="navbar topbar navbar-expand fixed-top">
+  <div class="topbar-inner">
+    <div class="topbar-brand-col">
+      <button class="btn-icon d-lg-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#sidebarOffcanvas" aria-label="Abrir menú">
+        <i class="bi bi-list"></i>
+      </button>
+      <a class="navbar-brand" href="../"><i class="bi bi-mortarboard-fill"></i> DAX Repaso</a>
+    </div>
+    <div class="topbar-main">
+      <div class="topbar-search">
+        <i class="bi bi-search"></i>
+        <input type="search" class="search-input" placeholder="Buscar en el temario..." aria-label="Buscar en el temario" autocomplete="off">
+        <div class="search-results"></div>
+      </div>
+      <div class="topbar-actions">
+        <a class="btn-icon" href="https://github.com/benriosdev" target="_blank" rel="noopener" aria-label="Perfil de GitHub">
+          <i class="bi bi-github"></i>
+        </a>
+        <button class="btn-icon theme-toggle" type="button" aria-label="Cambiar tema">
+          <i class="bi bi-moon-stars"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<div class="layout">
+  <div class="layout-row">
+    <aside class="sidebar d-none d-lg-block">
+      <nav id="sidebar-nav"></nav>
+    </aside>
+
+    <div class="offcanvas offcanvas-start" tabindex="-1" id="sidebarOffcanvas">
+      <div class="offcanvas-header">
+        <h5 class="offcanvas-title"><i class="bi bi-mortarboard-fill"></i> DAX Repaso</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Cerrar"></button>
+      </div>
+      <div class="offcanvas-body">
+        <nav id="sidebar-nav-mobile"></nav>
+      </div>
+    </div>
+
+    <main class="content">
+      <nav aria-label="breadcrumb"><ol class="breadcrumb" id="breadcrumb"></ol></nav>
+
+      <article id="page-content">
+        <h1>Comandos de Git — Chuleta</h1>
+        <p class="lead">Referencia rápida de los comandos de Git que más se usan, organizados por lo que quieres hacer. Para entender cómo funciona Git, mira la página de Git en Herramientas.</p>
+
+        <section>
+          <h2 id="u1">Empezar</h2>
+          <pre><code>git config --global user.name "Tu Nombre"
+git config --global user.email "tu@correo.com"
+
+git init                    # crear un repositorio en la carpeta actual
+git clone &lt;url&gt;             # copiar un repositorio remoto</code></pre>
+        </section>
+
+        <section>
+          <h2 id="u2">El ciclo diario</h2>
+          <pre><code>git status                  # qué ha cambiado
+git diff                    # ver los cambios aún sin preparar
+git add archivo.txt         # preparar un archivo (git add . = todos)
+git commit -m "Añade el formulario de contacto"
+git log --oneline           # historial en una línea por commit</code></pre>
+          <p>Un buen mensaje de commit se escribe en <strong>imperativo</strong> («Añade…», «Corrige…») y explica qué cambia y, si no es evidente, por qué.</p>
+        </section>
+
+        <section>
+          <h2 id="u3">Ramas</h2>
+          <pre><code>git branch                  # listar las ramas
+git switch nombre           # cambiar a una rama existente
+git switch -c nueva         # crear una rama y cambiar a ella
+git switch -                # volver a la rama anterior
+git merge nombre            # fusionar esa rama en la actual
+git branch -d nombre        # borrar una rama ya fusionada</code></pre>
+        </section>
+
+        <section>
+          <h2 id="u4">Deshacer cambios</h2>
+          <p>Qué comando usar depende de <strong>dónde</strong> está el cambio que quieres deshacer:</p>
+          <table>
+            <thead><tr><th>Situación</th><th>Comando</th></tr></thead>
+            <tbody>
+              <tr><td>Descartar los cambios de un archivo sin preparar</td><td><code>git restore archivo</code></td></tr>
+              <tr><td>Sacar un archivo del área de preparación (sigue modificado)</td><td><code>git restore --staged archivo</code></td></tr>
+              <tr><td>Corregir el último commit, si aún no lo has subido</td><td><code>git commit --amend</code></td></tr>
+              <tr><td>Deshacer el último commit, conservando los cambios preparados</td><td><code>git reset --soft HEAD~1</code></td></tr>
+              <tr><td>Deshacer el último commit y sacar los cambios de la preparación (siguen en los archivos)</td><td><code>git reset HEAD~1</code></td></tr>
+              <tr><td>Deshacer un commit ya publicado, sin reescribir el historial</td><td><code>git revert &lt;commit&gt;</code></td></tr>
+              <tr><td>Guardar cambios a medias para cambiar de tarea</td><td><code>git stash</code> (después <code>git stash pop</code>)</td></tr>
+            </tbody>
+          </table>
+          <ul>
+            <li><code>git reset</code> mueve la rama a otro commit. Con <code>--soft</code> el índice y los archivos quedan igual; por defecto (<code>--mixed</code>) se actualiza el índice y los archivos no cambian; con <code>--hard</code> se sobrescriben también los archivos.</li>
+            <li><strong><code>git reset --hard</code> descarta los cambios de forma definitiva</strong>, incluso puede sobrescribir archivos sin seguimiento. No lo uses sobre commits que ya has compartido.</li>
+            <li><code>git revert</code> no borra nada: crea un commit nuevo que invierte el efecto del anterior.</li>
+            <li><code>git stash list</code> muestra los guardados; <code>git stash apply</code> recupera uno sin borrarlo de la lista y <code>git stash pop</code> lo recupera y lo borra.</li>
+          </ul>
+        </section>
+
+        <section>
+          <h2 id="u5">Trabajar con remotos</h2>
+          <pre><code>git remote add origin &lt;url&gt;   # asociar un remoto (suele llamarse origin)
+git remote -v                  # ver los remotos configurados
+git push -u origin main        # subir la rama y recordar su destino
+git push                       # subir los commits (tras el primer push -u)
+git fetch                      # traer los cambios sin integrarlos
+git pull                       # traerlos e integrarlos en la rama actual</code></pre>
+          <p><code>git pull</code> equivale a un <code>git fetch</code> seguido de la integración de esos cambios en tu rama.</p>
+        </section>
+
+        <section>
+          <h2 id="u6">Errores frecuentes</h2>
+          <ul>
+            <li><strong>Olvidar <code>git add</code>.</strong> Solo entra en el commit lo que has preparado. Comprueba con <code>git status</code>.</li>
+            <li><strong>Commitear archivos que no deben subirse</strong> (claves, <code>.env</code>, dependencias). Añádelos a <code>.gitignore</code> <em>antes</em> del primer commit.</li>
+            <li><strong>Reescribir historial ya compartido.</strong> Con commits ya subidos, deshaz con <code>git revert</code>, no con <code>reset</code> ni <code>--amend</code>.</li>
+            <li><strong>Hacer <code>pull</code> con cambios sin guardar.</strong> Haz commit o <code>git stash</code> antes.</li>
+          </ul>
+        </section>
+
+        <section>
+          <h2 id="para-saber-mas">Para saber más</h2>
+          <ul class="resources-list">
+            <li><a href="https://git-scm.com/docs" target="_blank" rel="noopener"><i class="bi bi-box-arrow-up-right"></i> Referencia oficial de comandos de Git</a></li>
+            <li><a href="https://git-scm.com/book/es/v2" target="_blank" rel="noopener"><i class="bi bi-box-arrow-up-right"></i> Pro Git (libro oficial, gratuito, en español)</a></li>
+          </ul>
+        </section>
+      </article>
+
+      <nav id="prev-next"></nav>
+    </main>
+
+    <aside class="toc d-none d-xl-block" id="toc-aside">
+      <div class="toc-inner">
+        <h6>En esta página</h6>
+        <nav id="toc-nav" class="nav flex-column"></nav>
+      </div>
+    </aside>
+  </div>
+</div>
+
+<button id="back-to-top" class="btn back-to-top" aria-label="Volver arriba"><i class="bi bi-arrow-up text-white"></i></button>
+
+<script src="../assets/vendor/bootstrap/bootstrap.bundle.min.js"></script>
+<script src="../assets/js/nav-data.js"></script>
+<script src="../assets/js/search-index.js"></script>
+<script src="../assets/js/main.js"></script>
+</body>
+</html>

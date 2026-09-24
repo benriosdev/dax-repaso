@@ -1,0 +1,206 @@
+<!doctype html>
+<html lang="es" data-bs-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SQL · DAX Repaso</title>
+<meta name="description" content="Chuleta de SQL: SELECT, filtros, INSERT/UPDATE/DELETE, agregaciones, JOIN, creación de tablas y errores frecuentes.">
+<link href="../assets/vendor/bootstrap/bootstrap.min.css" rel="stylesheet">
+<link href="../assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+<link href="../assets/css/style.css" rel="stylesheet">
+</head>
+<body data-page="chuleta-sql">
+<script>var BASE_PATH = "../"; var CURRENT_PAGE = "chuleta-sql";</script>
+
+<nav class="navbar topbar navbar-expand fixed-top">
+  <div class="topbar-inner">
+    <div class="topbar-brand-col">
+      <button class="btn-icon d-lg-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#sidebarOffcanvas" aria-label="Abrir menú">
+        <i class="bi bi-list"></i>
+      </button>
+      <a class="navbar-brand" href="../"><i class="bi bi-mortarboard-fill"></i> DAX Repaso</a>
+    </div>
+    <div class="topbar-main">
+      <div class="topbar-search">
+        <i class="bi bi-search"></i>
+        <input type="search" class="search-input" placeholder="Buscar en el temario..." aria-label="Buscar en el temario" autocomplete="off">
+        <div class="search-results"></div>
+      </div>
+      <div class="topbar-actions">
+        <a class="btn-icon" href="https://github.com/benriosdev" target="_blank" rel="noopener" aria-label="Perfil de GitHub">
+          <i class="bi bi-github"></i>
+        </a>
+        <button class="btn-icon theme-toggle" type="button" aria-label="Cambiar tema">
+          <i class="bi bi-moon-stars"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<div class="layout">
+  <div class="layout-row">
+    <aside class="sidebar d-none d-lg-block">
+      <nav id="sidebar-nav"></nav>
+    </aside>
+
+    <div class="offcanvas offcanvas-start" tabindex="-1" id="sidebarOffcanvas">
+      <div class="offcanvas-header">
+        <h5 class="offcanvas-title"><i class="bi bi-mortarboard-fill"></i> DAX Repaso</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Cerrar"></button>
+      </div>
+      <div class="offcanvas-body">
+        <nav id="sidebar-nav-mobile"></nav>
+      </div>
+    </div>
+
+    <main class="content">
+      <nav aria-label="breadcrumb"><ol class="breadcrumb" id="breadcrumb"></ol></nav>
+
+      <article id="page-content">
+        <h1>SQL — Chuleta</h1>
+        <p class="lead">Referencia rápida de las sentencias SQL que más se usan. Sin teoría: solo la sintaxis y lo que suele olvidarse. Los ejemplos usan la sintaxis de MySQL y PostgreSQL.</p>
+
+        <section>
+          <h2 id="u1">Consultar datos (SELECT)</h2>
+          <pre><code>SELECT columna1, columna2      -- qué columnas (* = todas)
+FROM tabla                     -- de qué tabla
+WHERE condición                -- qué filas (opcional)
+ORDER BY columna1 DESC         -- en qué orden (ASC por defecto)
+LIMIT 10;                      -- cuántas filas</code></pre>
+          <ul>
+            <li><code>SELECT DISTINCT columna</code> elimina las filas duplicadas del resultado.</li>
+            <li><code>columna AS alias</code> da otro nombre a una columna en el resultado.</li>
+            <li><code>LIMIT</code> existe en MySQL y PostgreSQL; otros motores usan otra sintaxis (por ejemplo, <code>TOP</code> en SQL Server).</li>
+          </ul>
+        </section>
+
+        <section>
+          <h2 id="u2">Filtrar filas (WHERE)</h2>
+          <table>
+            <thead><tr><th>Operador</th><th>Significado</th><th>Ejemplo</th></tr></thead>
+            <tbody>
+              <tr><td><code>=</code> <code>&lt;&gt;</code></td><td>Igual, distinto</td><td><code>estado &lt;&gt; 'cerrado'</code></td></tr>
+              <tr><td><code>&lt;</code> <code>&gt;</code> <code>&lt;=</code> <code>&gt;=</code></td><td>Comparaciones</td><td><code>precio &gt;= 10</code></td></tr>
+              <tr><td><code>AND</code> <code>OR</code> <code>NOT</code></td><td>Combinar condiciones</td><td><code>edad &gt; 18 AND activo = 1</code></td></tr>
+              <tr><td><code>BETWEEN</code></td><td>Rango, con los extremos incluidos</td><td><code>precio BETWEEN 5 AND 10</code></td></tr>
+              <tr><td><code>IN</code></td><td>Uno de una lista</td><td><code>ciudad IN ('Madrid', 'Sevilla')</code></td></tr>
+              <tr><td><code>LIKE</code></td><td>Patrón: <code>%</code> = cualquier texto, <code>_</code> = un carácter</td><td><code>nombre LIKE 'Ana%'</code></td></tr>
+              <tr><td><code>IS NULL</code></td><td>Valor nulo (o <code>IS NOT NULL</code>)</td><td><code>telefono IS NULL</code></td></tr>
+            </tbody>
+          </table>
+        </section>
+
+        <section>
+          <h2 id="u3">Modificar datos (INSERT, UPDATE, DELETE)</h2>
+          <pre><code>INSERT INTO clientes (nombre, email)
+VALUES ('Ana', 'ana@ejemplo.com'),
+       ('Luis', 'luis@ejemplo.com');    -- varias filas a la vez
+
+UPDATE clientes
+SET email = 'nuevo@ejemplo.com'
+WHERE id_cliente = 3;                   -- sin WHERE cambia TODAS las filas
+
+DELETE FROM clientes
+WHERE id_cliente = 3;                   -- sin WHERE borra TODAS las filas</code></pre>
+        </section>
+
+        <section>
+          <h2 id="u4">Agrupar y resumir</h2>
+          <pre><code>SELECT ciudad, COUNT(*) AS total, AVG(edad) AS edad_media
+FROM clientes
+WHERE activo = 1              -- filtra filas ANTES de agrupar
+GROUP BY ciudad
+HAVING COUNT(*) &gt; 5           -- filtra grupos DESPUÉS de agrupar
+ORDER BY total DESC;</code></pre>
+          <ul>
+            <li>Funciones de agregación: <code>COUNT</code>, <code>SUM</code>, <code>AVG</code>, <code>MIN</code>, <code>MAX</code>.</li>
+            <li><code>COUNT(*)</code> cuenta todas las filas; <code>COUNT(columna)</code> solo las que no son nulas. <code>SUM</code>, <code>AVG</code>, <code>MIN</code> y <code>MAX</code> también ignoran los nulos.</li>
+            <li>Toda columna del <code>SELECT</code> que no sea una función de agregación debe estar en el <code>GROUP BY</code>.</li>
+          </ul>
+        </section>
+
+        <section>
+          <h2 id="u5">Unir tablas (JOIN)</h2>
+          <pre><code>SELECT c.nombre, p.total
+FROM clientes c
+INNER JOIN pedidos p ON p.id_cliente = c.id_cliente;</code></pre>
+          <table>
+            <thead><tr><th>Tipo</th><th>Devuelve</th></tr></thead>
+            <tbody>
+              <tr><td><code>INNER JOIN</code></td><td>Solo las filas que tienen pareja en ambas tablas</td></tr>
+              <tr><td><code>LEFT JOIN</code></td><td>Todas las de la izquierda; sin pareja, columnas de la derecha a <code>NULL</code></td></tr>
+              <tr><td><code>RIGHT JOIN</code></td><td>Todas las de la derecha; sin pareja, columnas de la izquierda a <code>NULL</code></td></tr>
+            </tbody>
+          </table>
+          <p>Para encontrar filas sin correspondencia: <code>LEFT JOIN</code> y filtrar con <code>WHERE tabla_derecha.clave IS NULL</code>.</p>
+        </section>
+
+        <section>
+          <h2 id="u6">Crear y cambiar la estructura</h2>
+          <pre><code>CREATE TABLE clientes (
+  id_cliente INT AUTO_INCREMENT PRIMARY KEY,   -- AUTO_INCREMENT es de MySQL
+  nombre     VARCHAR(80) NOT NULL,
+  email      VARCHAR(120) UNIQUE,
+  alta       DATE
+);
+
+CREATE TABLE pedidos (
+  id_pedido  INT PRIMARY KEY,
+  id_cliente INT NOT NULL,
+  total      DECIMAL(10,2),
+  FOREIGN KEY (id_cliente) REFERENCES clientes(id_cliente)
+);
+
+ALTER TABLE clientes ADD COLUMN telefono VARCHAR(20);
+ALTER TABLE clientes DROP COLUMN telefono;
+DROP TABLE pedidos;</code></pre>
+        </section>
+
+        <section>
+          <h2 id="u7">En qué orden se evalúa una consulta</h2>
+          <p>Se escribe empezando por <code>SELECT</code>, pero lógicamente se evalúa así:</p>
+          <p><code>FROM</code> / <code>JOIN</code> → <code>WHERE</code> → <code>GROUP BY</code> → <code>HAVING</code> → <code>SELECT</code> → <code>DISTINCT</code> → <code>ORDER BY</code> → <code>LIMIT</code></p>
+          <p>Por eso un alias definido en el <code>SELECT</code> no se puede usar en el <code>WHERE</code>.</p>
+        </section>
+
+        <section>
+          <h2 id="u8">Errores frecuentes</h2>
+          <ul>
+            <li><strong><code>= NULL</code> no funciona.</strong> Un valor nulo no es igual a nada, ni siquiera a otro nulo: usa <code>IS NULL</code>.</li>
+            <li><strong><code>UPDATE</code> o <code>DELETE</code> sin <code>WHERE</code>.</strong> Afecta a todas las filas de la tabla. Escribe el <code>WHERE</code> primero.</li>
+            <li><strong><code>WHERE</code> con una función de agregación.</strong> No se puede: para filtrar por el resultado de <code>COUNT</code> o <code>SUM</code> se usa <code>HAVING</code>.</li>
+            <li><strong>Columna fuera del <code>GROUP BY</code>.</strong> Si no es una agregación, hay que agruparla o quitarla del <code>SELECT</code>.</li>
+            <li><strong>Comillas.</strong> El texto y las fechas van entre comillas simples (<code>'Madrid'</code>); los números, sin comillas.</li>
+          </ul>
+        </section>
+
+        <section>
+          <h2 id="para-saber-mas">Para saber más</h2>
+          <ul class="resources-list">
+            <li><a href="https://www.postgresql.org/docs/current/sql.html" target="_blank" rel="noopener"><i class="bi bi-box-arrow-up-right"></i> Lenguaje SQL en la documentación de PostgreSQL</a></li>
+            <li><a href="https://dev.mysql.com/doc/refman/8.0/en/sql-statements.html" target="_blank" rel="noopener"><i class="bi bi-box-arrow-up-right"></i> Sentencias SQL en el manual de MySQL</a></li>
+          </ul>
+        </section>
+      </article>
+
+      <nav id="prev-next"></nav>
+    </main>
+
+    <aside class="toc d-none d-xl-block" id="toc-aside">
+      <div class="toc-inner">
+        <h6>En esta página</h6>
+        <nav id="toc-nav" class="nav flex-column"></nav>
+      </div>
+    </aside>
+  </div>
+</div>
+
+<button id="back-to-top" class="btn back-to-top" aria-label="Volver arriba"><i class="bi bi-arrow-up text-white"></i></button>
+
+<script src="../assets/vendor/bootstrap/bootstrap.bundle.min.js"></script>
+<script src="../assets/js/nav-data.js"></script>
+<script src="../assets/js/search-index.js"></script>
+<script src="../assets/js/main.js"></script>
+</body>
+</html>

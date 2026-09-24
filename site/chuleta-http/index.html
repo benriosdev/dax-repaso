@@ -1,0 +1,208 @@
+<!doctype html>
+<html lang="es" data-bs-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>HTTP · DAX Repaso</title>
+<meta name="description" content="Chuleta de HTTP: peticiones y respuestas, métodos, códigos de estado, cabeceras habituales y una API REST de ejemplo.">
+<link href="../assets/vendor/bootstrap/bootstrap.min.css" rel="stylesheet">
+<link href="../assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+<link href="../assets/css/style.css" rel="stylesheet">
+</head>
+<body data-page="chuleta-http">
+<script>var BASE_PATH = "../"; var CURRENT_PAGE = "chuleta-http";</script>
+
+<nav class="navbar topbar navbar-expand fixed-top">
+  <div class="topbar-inner">
+    <div class="topbar-brand-col">
+      <button class="btn-icon d-lg-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#sidebarOffcanvas" aria-label="Abrir menú">
+        <i class="bi bi-list"></i>
+      </button>
+      <a class="navbar-brand" href="../"><i class="bi bi-mortarboard-fill"></i> DAX Repaso</a>
+    </div>
+    <div class="topbar-main">
+      <div class="topbar-search">
+        <i class="bi bi-search"></i>
+        <input type="search" class="search-input" placeholder="Buscar en el temario..." aria-label="Buscar en el temario" autocomplete="off">
+        <div class="search-results"></div>
+      </div>
+      <div class="topbar-actions">
+        <a class="btn-icon" href="https://github.com/benriosdev" target="_blank" rel="noopener" aria-label="Perfil de GitHub">
+          <i class="bi bi-github"></i>
+        </a>
+        <button class="btn-icon theme-toggle" type="button" aria-label="Cambiar tema">
+          <i class="bi bi-moon-stars"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<div class="layout">
+  <div class="layout-row">
+    <aside class="sidebar d-none d-lg-block">
+      <nav id="sidebar-nav"></nav>
+    </aside>
+
+    <div class="offcanvas offcanvas-start" tabindex="-1" id="sidebarOffcanvas">
+      <div class="offcanvas-header">
+        <h5 class="offcanvas-title"><i class="bi bi-mortarboard-fill"></i> DAX Repaso</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Cerrar"></button>
+      </div>
+      <div class="offcanvas-body">
+        <nav id="sidebar-nav-mobile"></nav>
+      </div>
+    </div>
+
+    <main class="content">
+      <nav aria-label="breadcrumb"><ol class="breadcrumb" id="breadcrumb"></ol></nav>
+
+      <article id="page-content">
+        <h1>HTTP — Chuleta</h1>
+        <p class="lead">Referencia rápida de cómo hablan el navegador y el servidor: la forma de una petición y una respuesta, los métodos, los códigos de estado y las cabeceras que más se ven.</p>
+
+        <section>
+          <h2 id="u1">Petición y respuesta</h2>
+          <p>Una <strong>petición</strong> lleva una línea inicial (método, destino y versión), cabeceras, una línea vacía y, a veces, un cuerpo:</p>
+          <pre><code>POST /users HTTP/1.1
+Host: example.com
+Content-Type: application/json
+
+{"name": "Ana"}</code></pre>
+          <p>Una <strong>respuesta</strong> lleva una línea de estado (versión, código y texto), cabeceras, una línea vacía y, a veces, un cuerpo:</p>
+          <pre><code>HTTP/1.1 201 Created
+Content-Type: application/json
+Location: http://example.com/users/123
+
+{"id": 123, "name": "Ana"}</code></pre>
+          <p>Las cabeceras son pares <code>Nombre: valor</code> y no distinguen mayúsculas en el nombre.</p>
+        </section>
+
+        <section>
+          <h2 id="u2">Métodos</h2>
+          <table>
+            <thead><tr><th>Método</th><th>Para qué sirve</th><th>Seguro</th><th>Idempotente</th></tr></thead>
+            <tbody>
+              <tr><td><code>GET</code></td><td>Pedir un recurso. Solo lee datos y no debe llevar cuerpo</td><td>Sí</td><td>Sí</td></tr>
+              <tr><td><code>POST</code></td><td>Enviar datos al recurso, normalmente para crear algo o provocar un cambio</td><td>No</td><td>No</td></tr>
+              <tr><td><code>PUT</code></td><td>Reemplazar el recurso por completo con el cuerpo enviado</td><td>No</td><td>Sí</td></tr>
+              <tr><td><code>PATCH</code></td><td>Aplicar una modificación parcial</td><td>No</td><td>No</td></tr>
+              <tr><td><code>DELETE</code></td><td>Borrar el recurso</td><td>No</td><td>Sí</td></tr>
+              <tr><td><code>HEAD</code></td><td>Como <code>GET</code>, pero solo devuelve las cabeceras</td><td>Sí</td><td>Sí</td></tr>
+            </tbody>
+          </table>
+          <ul>
+            <li><strong>Seguro</strong>: no cambia nada en el servidor. <strong>Idempotente</strong>: repetir la misma petición produce el mismo efecto que hacerla una vez, así que se puede reintentar sin miedo.</li>
+            <li>Repetir un <code>DELETE</code> puede devolver un código distinto (la primera vez éxito y después <code>404</code>, porque el recurso ya no existe), aunque el efecto sea el mismo.</li>
+          </ul>
+        </section>
+
+        <section>
+          <h2 id="u3">Códigos de estado</h2>
+          <table>
+            <thead><tr><th>Grupo</th><th>Significado</th></tr></thead>
+            <tbody>
+              <tr><td><code>1xx</code></td><td>Informativas</td></tr>
+              <tr><td><code>2xx</code></td><td>Éxito</td></tr>
+              <tr><td><code>3xx</code></td><td>Redirección</td></tr>
+              <tr><td><code>4xx</code></td><td>Error del cliente</td></tr>
+              <tr><td><code>5xx</code></td><td>Error del servidor</td></tr>
+            </tbody>
+          </table>
+          <table>
+            <thead><tr><th>Código</th><th>Significado</th></tr></thead>
+            <tbody>
+              <tr><td><code>200</code></td><td>La petición ha tenido éxito</td></tr>
+              <tr><td><code>201</code></td><td>Éxito y se ha creado un recurso nuevo</td></tr>
+              <tr><td><code>204</code></td><td>Sin contenido que devolver</td></tr>
+              <tr><td><code>301</code></td><td>El recurso se ha movido de forma permanente</td></tr>
+              <tr><td><code>302</code></td><td>El recurso se ha movido de forma temporal</td></tr>
+              <tr><td><code>304</code></td><td>No ha cambiado: se puede seguir usando la copia en caché</td></tr>
+              <tr><td><code>400</code></td><td>La petición no se puede procesar por un error del cliente</td></tr>
+              <tr><td><code>401</code></td><td>No autenticado: faltan credenciales válidas</td></tr>
+              <tr><td><code>403</code></td><td>Prohibido: el servidor rechaza dar el recurso al cliente</td></tr>
+              <tr><td><code>404</code></td><td>No se encuentra el recurso</td></tr>
+              <tr><td><code>409</code></td><td>La petición entra en conflicto con el estado actual del servidor</td></tr>
+              <tr><td><code>429</code></td><td>Demasiadas peticiones en poco tiempo</td></tr>
+              <tr><td><code>500</code></td><td>Error interno del servidor</td></tr>
+              <tr><td><code>502</code></td><td>Una pasarela recibió una respuesta no válida</td></tr>
+              <tr><td><code>503</code></td><td>El servidor no está listo para atender la petición</td></tr>
+            </tbody>
+          </table>
+          <p><strong><code>401</code> frente a <code>403</code>:</strong> un <code>401</code> significa «no sé quién eres» (faltan credenciales válidas); un <code>403</code> significa «sé quién eres, pero no tienes permiso».</p>
+        </section>
+
+        <section>
+          <h2 id="u4">Cabeceras habituales</h2>
+          <table>
+            <thead><tr><th>Cabecera</th><th>Qué indica</th></tr></thead>
+            <tbody>
+              <tr><td><code>Content-Type</code></td><td>El tipo de contenido del cuerpo (por ejemplo <code>application/json</code>)</td></tr>
+              <tr><td><code>Content-Length</code></td><td>El tamaño del cuerpo, en bytes</td></tr>
+              <tr><td><code>Accept</code></td><td>Los tipos de datos que el cliente acepta recibir</td></tr>
+              <tr><td><code>Authorization</code></td><td>Las credenciales para autenticarse en el servidor</td></tr>
+              <tr><td><code>Cache-Control</code></td><td>Directivas de caché, en peticiones y respuestas</td></tr>
+              <tr><td><code>Location</code></td><td>La URL a la que redirigir, o la del recurso recién creado</td></tr>
+              <tr><td><code>User-Agent</code></td><td>Qué programa hace la petición (navegador, versión, sistema)</td></tr>
+              <tr><td><code>Cookie</code> / <code>Set-Cookie</code></td><td>Las cookies que el cliente envía, y las que el servidor le manda guardar</td></tr>
+            </tbody>
+          </table>
+        </section>
+
+        <section>
+          <h2 id="u5">Ejemplo: una API REST</h2>
+          <p>Convención habitual: la <strong>ruta</strong> nombra el recurso y el <strong>método</strong> indica la acción.</p>
+          <table>
+            <thead><tr><th>Acción</th><th>Petición</th><th>Respuesta típica</th></tr></thead>
+            <tbody>
+              <tr><td>Listar usuarios</td><td><code>GET /users</code></td><td><code>200</code> y la lista</td></tr>
+              <tr><td>Ver un usuario</td><td><code>GET /users/123</code></td><td><code>200</code>, o <code>404</code> si no existe</td></tr>
+              <tr><td>Crear un usuario</td><td><code>POST /users</code></td><td><code>201</code> y su <code>Location</code></td></tr>
+              <tr><td>Reemplazar un usuario</td><td><code>PUT /users/123</code></td><td><code>200</code> o <code>204</code></td></tr>
+              <tr><td>Modificar parte de un usuario</td><td><code>PATCH /users/123</code></td><td><code>200</code> o <code>204</code></td></tr>
+              <tr><td>Borrar un usuario</td><td><code>DELETE /users/123</code></td><td><code>204</code> (o <code>200</code>)</td></tr>
+            </tbody>
+          </table>
+        </section>
+
+        <section>
+          <h2 id="u6">Errores frecuentes</h2>
+          <ul>
+            <li><strong>Confundir <code>401</code> y <code>403</code>.</strong> Sin credenciales válidas es <code>401</code>; con credenciales válidas pero sin permiso es <code>403</code>.</li>
+            <li><strong>Usar <code>GET</code> para modificar datos.</strong> <code>GET</code> debe ser solo lectura y seguro; para cambiar algo usa <code>POST</code>, <code>PUT</code>, <code>PATCH</code> o <code>DELETE</code>.</li>
+            <li><strong>Enviar JSON sin <code>Content-Type</code>.</strong> El servidor necesita saber el tipo del cuerpo: <code>Content-Type: application/json</code>.</li>
+            <li><strong>Devolver <code>200</code> con un mensaje de error dentro.</strong> El código de estado debe reflejar el resultado real.</li>
+            <li><strong>Confundir <code>4xx</code> con <code>5xx</code>.</strong> Un <code>4xx</code> es un fallo de la petición (del cliente); un <code>5xx</code>, del servidor.</li>
+          </ul>
+        </section>
+
+        <section>
+          <h2 id="para-saber-mas">Para saber más</h2>
+          <ul class="resources-list">
+            <li><a href="https://developer.mozilla.org/es/docs/Web/HTTP" target="_blank" rel="noopener"><i class="bi bi-box-arrow-up-right"></i> HTTP en MDN Web Docs</a></li>
+            <li><a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Status" target="_blank" rel="noopener"><i class="bi bi-box-arrow-up-right"></i> Referencia de códigos de estado (MDN)</a></li>
+            <li><a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Methods" target="_blank" rel="noopener"><i class="bi bi-box-arrow-up-right"></i> Referencia de métodos HTTP (MDN)</a></li>
+          </ul>
+        </section>
+      </article>
+
+      <nav id="prev-next"></nav>
+    </main>
+
+    <aside class="toc d-none d-xl-block" id="toc-aside">
+      <div class="toc-inner">
+        <h6>En esta página</h6>
+        <nav id="toc-nav" class="nav flex-column"></nav>
+      </div>
+    </aside>
+  </div>
+</div>
+
+<button id="back-to-top" class="btn back-to-top" aria-label="Volver arriba"><i class="bi bi-arrow-up text-white"></i></button>
+
+<script src="../assets/vendor/bootstrap/bootstrap.bundle.min.js"></script>
+<script src="../assets/js/nav-data.js"></script>
+<script src="../assets/js/search-index.js"></script>
+<script src="../assets/js/main.js"></script>
+</body>
+</html>

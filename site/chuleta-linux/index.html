@@ -1,0 +1,203 @@
+<!doctype html>
+<html lang="es" data-bs-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Comandos de Linux · DAX Repaso</title>
+<meta name="description" content="Chuleta de Linux: navegación, archivos, búsqueda, permisos, procesos, redirecciones y errores frecuentes.">
+<link href="../assets/vendor/bootstrap/bootstrap.min.css" rel="stylesheet">
+<link href="../assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+<link href="../assets/css/style.css" rel="stylesheet">
+</head>
+<body data-page="chuleta-linux">
+<script>var BASE_PATH = "../"; var CURRENT_PAGE = "chuleta-linux";</script>
+
+<nav class="navbar topbar navbar-expand fixed-top">
+  <div class="topbar-inner">
+    <div class="topbar-brand-col">
+      <button class="btn-icon d-lg-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#sidebarOffcanvas" aria-label="Abrir menú">
+        <i class="bi bi-list"></i>
+      </button>
+      <a class="navbar-brand" href="../"><i class="bi bi-mortarboard-fill"></i> DAX Repaso</a>
+    </div>
+    <div class="topbar-main">
+      <div class="topbar-search">
+        <i class="bi bi-search"></i>
+        <input type="search" class="search-input" placeholder="Buscar en el temario..." aria-label="Buscar en el temario" autocomplete="off">
+        <div class="search-results"></div>
+      </div>
+      <div class="topbar-actions">
+        <a class="btn-icon" href="https://github.com/benriosdev" target="_blank" rel="noopener" aria-label="Perfil de GitHub">
+          <i class="bi bi-github"></i>
+        </a>
+        <button class="btn-icon theme-toggle" type="button" aria-label="Cambiar tema">
+          <i class="bi bi-moon-stars"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<div class="layout">
+  <div class="layout-row">
+    <aside class="sidebar d-none d-lg-block">
+      <nav id="sidebar-nav"></nav>
+    </aside>
+
+    <div class="offcanvas offcanvas-start" tabindex="-1" id="sidebarOffcanvas">
+      <div class="offcanvas-header">
+        <h5 class="offcanvas-title"><i class="bi bi-mortarboard-fill"></i> DAX Repaso</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Cerrar"></button>
+      </div>
+      <div class="offcanvas-body">
+        <nav id="sidebar-nav-mobile"></nav>
+      </div>
+    </div>
+
+    <main class="content">
+      <nav aria-label="breadcrumb"><ol class="breadcrumb" id="breadcrumb"></ol></nav>
+
+      <article id="page-content">
+        <h1>Comandos de Linux — Chuleta</h1>
+        <p class="lead">Referencia rápida de los comandos de terminal que más se usan. Sin teoría: el comando, sus opciones habituales y lo que suele fallar.</p>
+
+        <section>
+          <h2 id="u1">Moverse y listar</h2>
+          <pre><code>pwd                 # en qué carpeta estás
+ls                  # listar el contenido
+ls -l               # formato largo (permisos, propietario, tamaño, fecha)
+ls -a               # incluir los archivos ocultos (empiezan por .)
+ls -lh              # formato largo con tamaños legibles (K, M, G)
+ls -R               # listar también las subcarpetas
+cd carpeta          # entrar en una carpeta
+cd ..               # subir un nivel</code></pre>
+        </section>
+
+        <section>
+          <h2 id="u2">Crear, copiar, mover y borrar</h2>
+          <pre><code>mkdir proyecto              # crear una carpeta
+mkdir -p a/b/c              # crear también las carpetas intermedias que falten
+touch notas.txt             # crear un archivo vacío
+
+cp origen.txt copia.txt     # copiar un archivo
+cp -r carpeta copia/        # copiar una carpeta con todo su contenido
+mv notas.txt viejo.txt      # renombrar
+mv notas.txt carpeta/       # mover a una carpeta
+
+rm notas.txt                # borrar un archivo
+rm -r carpeta               # borrar una carpeta y su contenido</code></pre>
+          <ul>
+            <li><code>rm</code> no borra carpetas por defecto: hace falta <code>-r</code>. Con <code>-f</code> ignora los archivos que no existen y nunca pregunta.</li>
+            <li><code>rm</code> borra directamente, sin papelera. Comprueba la ruta antes de ejecutarlo.</li>
+          </ul>
+        </section>
+
+        <section>
+          <h2 id="u3">Ver el contenido de un archivo</h2>
+          <pre><code>cat archivo.txt             # mostrarlo entero
+head archivo.txt            # primeras 10 líneas
+tail archivo.txt            # últimas 10 líneas
+tail -n 50 archivo.txt      # últimas 50 líneas
+tail -f registro.log        # seguir el archivo mientras crece (logs)</code></pre>
+        </section>
+
+        <section>
+          <h2 id="u4">Buscar</h2>
+          <pre><code>find . -name "*.txt"            # archivos cuyo nombre encaja con el patrón
+find . -type f -name "*.log"    # solo archivos (d = carpetas)
+
+grep "error" registro.log       # líneas que contienen "error"
+grep -i "error" registro.log    # sin distinguir mayúsculas
+grep -n "error" registro.log    # con el número de línea
+grep -v "error" registro.log    # las líneas que NO lo contienen
+grep -c "error" registro.log    # cuántas líneas lo contienen
+grep -r "error" carpeta/        # buscar en todos los archivos de una carpeta</code></pre>
+          <ul>
+            <li><code>find</code> busca por <em>nombre o tipo de archivo</em>; <code>grep</code> busca <em>dentro</em> de los archivos.</li>
+          </ul>
+        </section>
+
+        <section>
+          <h2 id="u5">Permisos y propietarios</h2>
+          <p>Cada archivo tiene permisos para tres grupos: el <strong>propietario</strong>, el <strong>grupo</strong> y <strong>otros</strong>. En <code>chmod</code> numérico, cada permiso vale un número: <strong>4</strong> lectura, <strong>2</strong> escritura, <strong>1</strong> ejecución. Se suman y se escribe una cifra por grupo.</p>
+          <table>
+            <thead><tr><th>Número</th><th>Permisos</th><th>Cálculo</th></tr></thead>
+            <tbody>
+              <tr><td><code>7</code></td><td>Leer, escribir y ejecutar</td><td>4 + 2 + 1</td></tr>
+              <tr><td><code>6</code></td><td>Leer y escribir</td><td>4 + 2</td></tr>
+              <tr><td><code>5</code></td><td>Leer y ejecutar</td><td>4 + 1</td></tr>
+              <tr><td><code>4</code></td><td>Solo leer</td><td>4</td></tr>
+              <tr><td><code>0</code></td><td>Ninguno</td><td>—</td></tr>
+            </tbody>
+          </table>
+          <pre><code>chmod 755 script.sh          # propietario 7, grupo 5, otros 5
+chmod 644 notas.txt          # propietario 6, grupo 4, otros 4
+chown ana archivo.txt        # cambiar el propietario
+chown ana:grupo archivo.txt  # cambiar propietario y grupo
+chown -R ana carpeta/        # aplicarlo también al contenido</code></pre>
+        </section>
+
+        <section>
+          <h2 id="u6">Procesos</h2>
+          <pre><code>ps aux              # todos los procesos, con formato orientado al usuario
+ps -ef              # todos los procesos, con formato completo
+kill 1234           # pedir al proceso 1234 que termine (señal TERM)
+kill -9 1234        # forzar su cierre (señal KILL)</code></pre>
+          <p><code>kill</code> envía por defecto la señal <code>TERM</code>, que permite al proceso limpiar antes de cerrarse. La señal <code>KILL</code> (<code>-9</code>) no puede ser interceptada y no da esa oportunidad: úsala solo si <code>TERM</code> no funciona.</p>
+        </section>
+
+        <section>
+          <h2 id="u7">Redirecciones y tuberías</h2>
+          <pre><code>ls -l &gt; lista.txt              # guardar la salida en un archivo (sobrescribe)
+ls -l &gt;&gt; lista.txt             # añadirla al final del archivo
+comando 2&gt; errores.txt         # guardar solo los mensajes de error
+ls -l | grep "txt"             # la salida del primer comando pasa al segundo
+cat registro.log | grep -c "error"</code></pre>
+          <p>La tubería <code>|</code> conecta la salida estándar de un comando con la entrada estándar del siguiente: permite encadenar herramientas simples.</p>
+        </section>
+
+        <section>
+          <h2 id="u8">Espacio en disco</h2>
+          <pre><code>df -h               # espacio usado y libre por sistema de archivos, en formato legible</code></pre>
+        </section>
+
+        <section>
+          <h2 id="u9">Errores frecuentes</h2>
+          <ul>
+            <li><strong><code>rm -rf</code> con una ruta equivocada.</strong> Borra sin preguntar y sin papelera. Revisa la ruta y usa <code>ls</code> antes.</li>
+            <li><strong><code>&gt;</code> en lugar de <code>&gt;&gt;</code>.</strong> <code>&gt;</code> sobrescribe el archivo; <code>&gt;&gt;</code> añade al final.</li>
+            <li><strong>Abusar de <code>chmod 777</code>.</strong> Da permisos totales a todo el mundo. Da solo los permisos necesarios.</li>
+            <li><strong>Nombres con espacios.</strong> Ponlos entre comillas (<code>"mi archivo.txt"</code>) o el terminal los tratará como dos argumentos.</li>
+            <li><strong>Usar <code>kill -9</code> como primer intento.</strong> Prueba antes con <code>kill</code> a secas.</li>
+          </ul>
+        </section>
+
+        <section>
+          <h2 id="para-saber-mas">Para saber más</h2>
+          <ul class="resources-list">
+            <li><a href="https://man7.org/linux/man-pages/index.html" target="_blank" rel="noopener"><i class="bi bi-box-arrow-up-right"></i> Páginas de manual de Linux (man7.org)</a></li>
+            <li><a href="https://man7.org/linux/man-pages/man1/chmod.1.html" target="_blank" rel="noopener"><i class="bi bi-box-arrow-up-right"></i> Manual de chmod</a></li>
+          </ul>
+        </section>
+      </article>
+
+      <nav id="prev-next"></nav>
+    </main>
+
+    <aside class="toc d-none d-xl-block" id="toc-aside">
+      <div class="toc-inner">
+        <h6>En esta página</h6>
+        <nav id="toc-nav" class="nav flex-column"></nav>
+      </div>
+    </aside>
+  </div>
+</div>
+
+<button id="back-to-top" class="btn back-to-top" aria-label="Volver arriba"><i class="bi bi-arrow-up text-white"></i></button>
+
+<script src="../assets/vendor/bootstrap/bootstrap.bundle.min.js"></script>
+<script src="../assets/js/nav-data.js"></script>
+<script src="../assets/js/search-index.js"></script>
+<script src="../assets/js/main.js"></script>
+</body>
+</html>
