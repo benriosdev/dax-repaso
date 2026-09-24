@@ -208,7 +208,7 @@
       var title = found ? found.page.title : extra.title;
       var href = found ? found.page.href : extra.href;
       var catName = found ? found.category.name : "Glosario";
-      var catColor = found ? found.category.color : "";
+      var catColor = found ? found.category.color : (extra.color || "");
       html += '<a class="recent-item" href="' + href + '">' +
         '<span class="badge-cat' + (catColor ? " " + catColor : "") + '">' + catName + "</span>" +
         '<span class="recent-title">' + title + "</span>" +

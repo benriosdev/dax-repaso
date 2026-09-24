@@ -204,6 +204,6 @@ const SITE = {
     }
   ],
   extras: [
-    { id: "glosario", title: "Glosario", href: "glosario/", icon: "bi-journal-text" }
+    { id: "glosario", title: "Glosario", href: "glosario/", icon: "bi-journal-text", color: "glos" }
   ]
 };

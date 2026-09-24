@@ -23,6 +23,7 @@
   --cat-trans: #b18cff;
   --cat-herr: #2dd4bf;
   --cat-chul: #fb7185;
+  --cat-glos: #a3e635;
   --ampl: #f2c94c;
 }
 
@@ -44,6 +45,7 @@
   --cat-trans: #7a53e0;
   --cat-herr: #0d9488;
   --cat-chul: #e11d48;
+  --cat-glos: #65a30d;
   --ampl: #a16207;
 }
 
@@ -1055,6 +1057,7 @@ body[data-page="home"] .topbar .topbar-search { display: none; }
 .badge-cat.trans{ color: var(--cat-trans);background: color-mix(in srgb, var(--cat-trans) 16%, transparent); }
 .badge-cat.herr { color: var(--cat-herr); background: color-mix(in srgb, var(--cat-herr) 16%, transparent); }
 .badge-cat.chul { color: var(--cat-chul); background: color-mix(in srgb, var(--cat-chul) 16%, transparent); }
+.badge-cat.glos { color: var(--cat-glos); background: color-mix(in srgb, var(--cat-glos) 16%, transparent); }
 
 /* ===== Volver arriba ===== */
 .back-to-top {
