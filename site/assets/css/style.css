@@ -1098,4 +1098,37 @@ body[data-page="home"] .topbar .topbar-search { display: none; }
     border-right: none;
     padding-right: 0.5rem;
   }
+  .topbar-main {
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 0.5rem;
+    padding: 0 0.75rem 0 0;
+  }
+  .topbar-main > .topbar-search { grid-column: 1; }
+  .topbar-main > .topbar-actions { grid-column: 2; }
+  /* 16px evita el zoom automático de iOS al enfocar el campo */
+  .topbar .search-input { font-size: 1rem; }
+}
+
+@media (max-width: 767.98px) {
+  /* Las tablas anchas se desplazan dentro de su caja en vez de ensanchar la página */
+  #page-content table {
+    display: block;
+    max-width: 100%;
+    overflow-x: auto;
+  }
+}
+
+@media (max-width: 575.98px) {
+  /* En pantallas estrechas el buscador ocupa toda la barra mientras se escribe y mientras haya resultados (al tocar uno, el campo pierde el foco y sin esto la caja se movería antes de registrar el toque) */
+  .topbar .topbar-search:focus-within,
+  .topbar .topbar-search:has(.search-results.show) {
+    position: fixed;
+    top: 0.5rem;
+    left: 0.5rem;
+    right: 0.5rem;
+    width: auto;
+    z-index: 1041;
+  }
+  .topbar .topbar-search:focus-within .search-input,
+  .topbar .topbar-search:has(.search-results.show) .search-input { padding-top: 0.5rem; padding-bottom: 0.5rem; }
 }
