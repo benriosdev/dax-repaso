@@ -1131,4 +1131,7 @@ body[data-page="home"] .topbar .topbar-search { display: none; }
   }
   .topbar .topbar-search:focus-within .search-input,
   .topbar .topbar-search:has(.search-results.show) .search-input { padding-top: 0.5rem; padding-bottom: 0.5rem; }
+  /* Evita el desbordamiento y escroll horizontal en pantallas pequeñas */
+  .flash-controls button { padding: 0.4rem 0.7rem;}
+  .flash-controls { gap: 0.25rem;}
 }
