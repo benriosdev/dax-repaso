@@ -169,11 +169,9 @@
     buttons.forEach(function (b) {
       b.addEventListener("click", function () {
         var vote = b.dataset.vote;
-        var changed = vote !== saved;
         select(vote);
         saved = vote;
         try { localStorage.setItem(key, vote); } catch (e) {}
-        if (changed && window.gtag) window.gtag("event", "feedback", { vote: vote, page_id: currentPage });
       });
     });
   }
@@ -399,21 +397,7 @@
     });
   }
 
-  function initAnalytics() {
-    if (location.hostname !== "benrios.dev") return;
-    var id = "G-B7JYL0JMEV";
-    var s = document.createElement("script");
-    s.async = true;
-    s.src = "https://www.googletagmanager.com/gtag/js?id=" + id;
-    document.head.appendChild(s);
-    window.dataLayer = window.dataLayer || [];
-    window.gtag = function () { window.dataLayer.push(arguments); };
-    window.gtag("js", new Date());
-    window.gtag("config", id);
-  }
-
   document.addEventListener("DOMContentLoaded", function () {
-    initAnalytics();
     renderSidebars();
     renderBreadcrumb();
     wirePdfLink();
