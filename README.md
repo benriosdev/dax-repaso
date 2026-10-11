@@ -24,6 +24,9 @@ Resúmenes por asignatura, glosario con flashcards y guías de herramientas de d
 - **Para profundizar**: en cada asignatura, una sección de ampliación diferenciada, con contenido adicional contrastado con fuentes oficiales enlazadas.
 - **Glosario con modo flashcards** para repasar términos.
 - **Herramientas de referencia**: Git, GitHub, Docker, MySQL Workbench y Supabase.
+- **Chuletas** de consulta rápida: SQL, Git, Java, Linux y HTTP.
+- **Relacionado y última revisión**: al final de cada página, enlaces a las páginas afines y la fecha en que se revisó su contenido.
+- **Tests de práctica**: cada asignatura con test enlaza directamente a sus preguntas en [benrios.dev/tests](https://benrios.dev/tests/).
 - **Temas recientes**: recuerda, en tu propio navegador y sin analítica ni servidor, las últimas páginas que visitaste.
 - **Modo claro y oscuro**, con la preferencia guardada.
 - **URLs limpias**, del estilo `/programacion-a/`, sin reglas de servidor.
@@ -42,16 +45,18 @@ Resúmenes por asignatura, glosario con flashcards y guías de herramientas de d
 ```
 site/                              Todo lo que se publica
 ├── index.html                     Portada
-├── <id>/index.html                Una carpeta por asignatura, herramienta y el glosario
+├── sitemap.xml                    Mapa del sitio para buscadores
+├── <id>/index.html                Una carpeta por asignatura, herramienta, chuleta y el glosario
 └── assets/
     ├── css/style.css              Estilos propios
     ├── js/
     │   ├── nav-data.js            Fuente única de navegación (categorías, páginas y rutas)
     │   ├── search-index.js        Índice de búsqueda (generado)
-    │   └── main.js                Sidebar, migas de pan, TOC, búsqueda, tema
+    │   └── main.js                Todo el JS del sitio (menú, migas de pan, TOC, búsqueda, tema, portada, flashcards…)
     └── vendor/                    Bootstrap y Bootstrap Icons
 scripts/
 └── build-search-index.py          Regenera el índice de búsqueda
+CONTRIBUTING.md, .github/          Guía de contribución y plantillas de issue y pull request
 ```
 
 ## Empezar
@@ -72,8 +77,12 @@ Y abre <http://localhost:8743>.
 python3 scripts/build-search-index.py
 ```
 
-**Añadir una página.** Crea una carpeta `<id>/` con su `index.html` dentro de `site/` y regístrala en `site/assets/js/nav-data.js` con `href: "<id>/"`, su fecha de revisión (`updated: "AAAA-MM-DD"`) y sus páginas relacionadas (`related`, de 2 a 4 ids). El menú, las migas de pan, el bloque "Relacionado", la fecha de última revisión y los botones anterior/siguiente se generan solos a partir de ese archivo. Añade también la URL a `site/sitemap.xml`.
+**Sin JavaScript en línea.** Los HTML no llevan código JS dentro: cada página se identifica con `<body data-page="<id>">` y todo el comportamiento vive en `site/assets/js/main.js`.
+
+**Añadir una página.** Crea una carpeta `<id>/` con su `index.html` dentro de `site/` (copia una existente y cambia su `data-page`) y regístrala en `site/assets/js/nav-data.js` con `href: "<id>/"`, su fecha de revisión (`updated: "AAAA-MM-DD"`) y sus páginas relacionadas (`related`, de 2 a 4 ids). El menú, las migas de pan, el bloque "Relacionado", la fecha de última revisión y los botones anterior/siguiente se generan solos a partir de ese archivo. Añade también la URL a `site/sitemap.xml`.
 
 ## Despliegue
 
 Sube el **contenido** de `site/` (no la carpeta `site/` en sí) a la ruta del servidor donde vaya a vivir el sitio. Al ser 100 % estático, sirve cualquier alojamiento de archivos.
+
+Los HTML cargan el CSS y el JS propios con un número de versión (`style.css?v=1.2`). Si el servidor cachea esos archivos, sube ese número en todos los HTML cada vez que cambien, para que los navegadores descarguen la versión nueva.
