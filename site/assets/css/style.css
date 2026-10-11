@@ -760,6 +760,40 @@ body[data-page="home"] .topbar .topbar-search { display: none; }
 }
 .flash-controls button:hover { border-color: var(--accent); color: var(--accent); }
 
+/* ===== Relacionado y última revisión ===== */
+.related-pages { margin-top: 3rem; }
+.related-label {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--text-muted);
+  margin-bottom: 0.6rem;
+}
+.related-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 0.75rem;
+}
+.related-link {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  padding: 0.75rem 0.9rem;
+  border: 1px solid var(--border-color);
+  border-radius: 0.6rem;
+  color: var(--text);
+  min-width: 0;
+}
+.related-link:hover { border-color: var(--accent); text-decoration: none; }
+.related-link .badge-cat { margin-bottom: 0; }
+.related-title { font-weight: 600; }
+.page-updated {
+  margin: 2rem 0 0;
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+.page-updated + #prev-next .prev-next-nav { margin-top: 1rem; }
+
 /* ===== Anterior / siguiente ===== */
 .prev-next-nav {
   display: grid;
