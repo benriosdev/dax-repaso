@@ -87,6 +87,11 @@
         <section>
           <h2 id="u1">1. Repositorios remotos</h2>
           <p>Un repositorio en GitHub puede ser público (cualquiera lo ve) o privado (solo las personas invitadas). Al crearlo, GitHub ofrece generar automáticamente un <code>README.md</code> (la portada del proyecto), un <code>.gitignore</code> según el lenguaje y un archivo de licencia.</p>
+          <h3>Conectarte por SSH</h3>
+          <p>GitHub ya no acepta la contraseña de tu cuenta para hacer <code>push</code> o <code>pull</code>. Por HTTPS hay que escribir un <strong>token de acceso personal</strong> en su lugar, y la alternativa más cómoda es <strong>SSH</strong>. Generas un par de claves en tu equipo, subes la clave <em>pública</em> a tu cuenta (<em>Settings → SSH and GPG keys</em>) y desde ese momento Git se identifica solo. La clave privada nunca sale de tu ordenador.</p>
+          <pre><code>ssh-keygen -t ed25519 -C "tu-email@ejemplo.com"   # genera el par de claves
+ssh -T git@github.com                            # comprueba que GitHub te reconoce</code></pre>
+          <p>Con SSH la URL del remoto tiene otro formato, <code>git@github.com:usuario/repo.git</code> en vez de <code>https://github.com/usuario/repo.git</code>. Si un repositorio ya clonado usa HTTPS, se cambia con <code>git remote set-url origin</code> seguido de la URL nueva.</p>
           <h3>Fork</h3>
           <p>Hacer un <em>fork</em> crea una copia independiente de un repositorio ajeno en tu propia cuenta. Es el mecanismo habitual para contribuir a un proyecto en el que no tienes permisos de escritura directos: haces fork, cambias tu copia y luego propones esos cambios al original mediante un pull request.</p>
           <h3>GitHub Pages</h3>
@@ -126,6 +131,7 @@ jobs:
           <h2><i class="bi bi-stars"></i> Puntos clave</h2>
           <ul>
             <li>GitHub aloja repositorios Git y añade colaboración (PRs, issues, Actions); Git funciona igual sin GitHub.</li>
+            <li>GitHub no acepta la contraseña de la cuenta en Git: se usa un token por HTTPS o, más cómodo, una clave SSH.</li>
             <li>Un fork crea una copia propia de un repositorio ajeno, base habitual para contribuir sin permisos directos.</li>
             <li>Un pull request propone fusionar una rama y permite revisar el código antes de aceptarlo.</li>
             <li>Los issues siguen tareas y errores; GitHub Projects los organiza en un tablero Kanban.</li>
@@ -150,6 +156,10 @@ jobs:
           <details class="quiz-item">
             <summary>¿Para qué sirve GitHub Actions?</summary>
             <p class="quiz-answer">Para automatizar tareas del repositorio (como ejecutar tests o desplegar la aplicación) cada vez que ocurre un evento, como un push, definiendo el flujo en un archivo YAML.</p>
+          </details>
+          <details class="quiz-item">
+            <summary>Al hacer <code>git push</code> te pide usuario y contraseña, y la contraseña de tu cuenta no funciona. ¿Por qué?</summary>
+            <p class="quiz-answer">Porque GitHub ya no admite la contraseña de la cuenta para operaciones de Git. Por HTTPS hay que usar un token de acceso personal como contraseña, o configurar una clave SSH y usar la URL del remoto en formato <code>git@github.com:usuario/repo.git</code>.</p>
           </details>
         </section>
 

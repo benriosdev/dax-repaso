@@ -243,7 +243,14 @@ body[data-page="home"] .topbar .topbar-search { display: none; }
   overflow-y: auto;
   border-right: 1px solid var(--border-color);
   padding: 1.25rem 1rem;
+  scrollbar-width: thin;
+  scrollbar-color: var(--border-color) transparent;
+  scrollbar-gutter: stable;
 }
+/* Respaldo para navegadores sin scrollbar-color (Safari) */
+.sidebar::-webkit-scrollbar { width: 4px; }
+.sidebar::-webkit-scrollbar-track { background: transparent; }
+.sidebar::-webkit-scrollbar-thumb { background-color: var(--border-color); border-radius: 4px; }
 
 .content {
   flex: 1 1 0%;

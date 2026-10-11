@@ -93,6 +93,8 @@
           <h2 id="u2">2. Editor SQL</h2>
           <p>El editor SQL es la pestaña donde se escriben y ejecutan las consultas contra la base de datos conectada. Ofrece autocompletado de nombres de tablas y columnas, resaltado de sintaxis y la posibilidad de ejecutar solo la consulta donde está el cursor sin lanzar todo el script.</p>
           <pre><code>SELECT nombre, email FROM usuarios WHERE activo = 1;</code></pre>
+          <h3>El error 1175 (Safe Updates)</h3>
+          <p>Workbench trae activado por defecto el modo <em>Safe Updates</em>, que rechaza los <code>UPDATE</code> y <code>DELETE</code> cuyo <code>WHERE</code> no filtra por una columna con clave y que tampoco llevan <code>LIMIT</code>. Al intentarlo aparece <strong>Error Code: 1175</strong> (<em>You are using safe update mode…</em>). Es una protección para no modificar ni borrar una tabla entera por accidente, así que lo normal es corregir la sentencia y filtrar por la clave primaria, por ejemplo <code>WHERE id = 7</code>. Si de verdad necesitas una actualización sin clave, puedes desactivarlo solo en la sesión actual con <code>SET SQL_SAFE_UPDATES = 0;</code>, o para siempre desmarcando <em>Safe Updates</em> en las preferencias del editor SQL y volviendo a conectar.</p>
           <h3>Resultados y exportación</h3>
           <p>Cada consulta ejecutada abre una pestaña de resultados en forma de tabla, editable directamente para modificar filas sin escribir un <code>UPDATE</code>. Los resultados se pueden exportar a CSV, JSON o Excel desde el propio panel de resultados.</p>
           <h3>Explain Plan</h3>
@@ -118,6 +120,7 @@
           <ul>
             <li>Workbench cubre tres áreas: desarrollo SQL, modelado de datos y administración del servidor.</li>
             <li>Una conexión se define con host, puerto (3306 por defecto), usuario y contraseña.</li>
+            <li>El modo Safe Updates (error 1175) bloquea <code>UPDATE</code> y <code>DELETE</code> sin una clave en el <code>WHERE</code> ni <code>LIMIT</code>.</li>
             <li>El editor SQL ejecuta consultas y permite exportar los resultados a CSV, JSON o Excel.</li>
             <li>La ingeniería inversa genera un diagrama desde una BBDD existente; la directa genera el SQL desde el diagrama.</li>
             <li>Permite gestionar usuarios y privilegios, y exportar/importar bases de datos completas.</li>
@@ -137,6 +140,10 @@
           <details class="quiz-item">
             <summary>¿Qué diferencia hay entre ingeniería inversa e ingeniería directa en el modelado EER?</summary>
             <p class="quiz-answer">La ingeniería inversa genera un diagrama a partir de una base de datos ya existente; la ingeniería directa genera el script SQL (<code>CREATE TABLE</code>) a partir de un diagrama diseñado.</p>
+          </details>
+          <details class="quiz-item">
+            <summary>Ejecutas <code>UPDATE clientes SET activo = 0 WHERE ciudad = 'Madrid';</code> y Workbench devuelve el error 1175. ¿Qué ocurre?</summary>
+            <p class="quiz-answer">Está activo el modo Safe Updates, que rechaza un <code>UPDATE</code> o <code>DELETE</code> cuyo <code>WHERE</code> no filtra por una columna con clave (y que no lleva <code>LIMIT</code>). <code>ciudad</code> no es clave. Se soluciona filtrando por la clave primaria o, si de verdad hace falta, desactivando el modo con <code>SET SQL_SAFE_UPDATES = 0;</code>.</p>
           </details>
         </section>
 

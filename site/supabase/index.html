@@ -88,8 +88,10 @@
           <pre><code>const { data } = await supabase
   .from("tareas")
   .select("id, titulo, completada");</code></pre>
+          <h3>Las claves de API</h3>
+          <p>Cada proyecto tiene dos tipos de clave. La <strong>clave publicable</strong> (<code>sb_publishable_...</code>) puede ir sin problema en el código del navegador o de una app, porque sus peticiones pasan por las políticas de seguridad. La <strong>clave secreta</strong> (<code>sb_secret_...</code>) trabaja con el rol <code>service_role</code>, que se salta todas esas políticas, así que solo se usa en un servidor o en una Edge Function y nunca en el frontend. En proyectos antiguos se llaman <code>anon</code> y <code>service_role</code>, y son las versiones anteriores de esas mismas dos claves.</p>
           <h3>Row Level Security (RLS)</h3>
-          <p>Como la API queda expuesta directamente, Supabase se apoya en las políticas de seguridad a nivel de fila (RLS) de PostgreSQL: reglas que definen, para cada tabla, qué filas puede leer o modificar cada usuario. Sin una política activa, por defecto no se puede acceder a los datos desde el cliente.</p>
+          <p>Como la API queda expuesta directamente, Supabase se apoya en las políticas de seguridad a nivel de fila (RLS) de PostgreSQL: reglas que definen, para cada tabla, qué filas puede leer o modificar cada usuario. Al activar RLS en una tabla, nadie puede acceder a sus datos con la clave publicable hasta que se crea una política. Si una tabla expuesta se queda <strong>sin RLS</strong>, en la práctica cualquiera que tenga la clave publicable puede leerla y modificarla, por eso hay que activarlo siempre.</p>
           <h3>CLI y desarrollo local</h3>
           <p>La CLI de Supabase (<code>supabase init</code>, <code>supabase start</code>) levanta una copia completa del stack (base de datos, Auth, Storage...) en el propio ordenador con Docker, para desarrollar y probar sin depender de internet ni tocar el proyecto real. Los cambios en el esquema se gestionan como <strong>migraciones</strong>: archivos SQL versionados que se aplican en orden, tanto en local como al desplegar a producción con <code>supabase link</code> y <code>supabase db push</code>.</p>
         </section>
@@ -120,6 +122,7 @@
           <ul>
             <li>Supabase da a cada proyecto una base de datos PostgreSQL estándar, sin formato propietario.</li>
             <li>Cada tabla obtiene automáticamente una API REST y GraphQL, sin escribir endpoints a mano.</li>
+            <li>La clave publicable puede ir en el frontend; la secreta se salta RLS y solo se usa en el servidor.</li>
             <li>Row Level Security (RLS) controla, fila a fila, qué puede leer o modificar cada usuario.</li>
             <li>Storage gestiona archivos con las mismas políticas de RLS que la base de datos.</li>
             <li>Edge Functions ejecutan lógica de servidor; Realtime notifica cambios de la base de datos al instante.</li>
@@ -143,6 +146,10 @@
           <details class="quiz-item">
             <summary>¿Cuándo usarías una Edge Function en vez de ejecutar la lógica en el cliente?</summary>
             <p class="quiz-answer">Cuando la lógica no debe vivir en el navegador, por ejemplo al usar una clave secreta, procesar un pago o llamar a una API externa de forma segura.</p>
+          </details>
+          <details class="quiz-item">
+            <summary>¿Qué clave de Supabase pondrías en el código de una web y cuál no?</summary>
+            <p class="quiz-answer">En la web va la clave publicable (<code>sb_publishable_...</code>, antes <code>anon</code>), porque sus peticiones respetan las políticas RLS. La clave secreta (<code>sb_secret_...</code>, antes <code>service_role</code>) se salta RLS y da acceso total, así que solo debe usarse en un servidor o en una Edge Function.</p>
           </details>
         </section>
 
