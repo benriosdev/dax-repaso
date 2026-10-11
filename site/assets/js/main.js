@@ -31,6 +31,9 @@
       var active = ex.id === currentPage ? " active" : "";
       html += '<a class="side-home-link' + active + '" href="' + basePath + ex.href + '"><i class="bi ' + ex.icon + '"></i> ' + ex.title + "</a>";
     });
+    if (SITE.testsUrl) {
+      html += '<a class="side-home-link side-tests-link" href="' + SITE.testsUrl + '"><i class="bi bi-ui-checks"></i> Tests de práctica <span class="side-new">Nuevo</span></a>';
+    }
     SITE.categories.forEach(function (cat) {
       if (cat.separator) html += '<hr class="side-divider">';
       var hasActive = cat.pages.some(function (p) { return p.id === currentPage; });
@@ -293,6 +296,25 @@
     if (html) el.insertAdjacentHTML("beforebegin", html);
   }
 
+  // ---------- Aviso "Hacer el test" tras "Ponte a prueba" ----------
+  function renderTestsCta() {
+    var found = findPage(currentPage);
+    var heading = document.getElementById("autoevaluacion");
+    var section = heading && heading.closest("section");
+    if (!found || !found.page.tests || !SITE.testsUrl || !section) return;
+    var url = SITE.testsUrl + found.page.tests + "/";
+    var icon = '<svg class="tests-cta-icon" viewBox="0 0 42 42" aria-hidden="true" focusable="false">' +
+      '<rect width="42" height="42" rx="10" fill="currentColor" fill-opacity="0.15"/>' +
+      '<polyline points="11,28 18,19 25,23 31,12" fill="none" stroke="currentColor" stroke-opacity="0.55"/>' +
+      '<circle cx="11" cy="28" r="2" fill="currentColor"/><circle cx="18" cy="19" r="2" fill="currentColor"/>' +
+      '<circle cx="25" cy="23" r="2" fill="currentColor"/><circle cx="31" cy="12" r="3" fill="currentColor"/></svg>';
+    var html = '<div class="tests-cta">' + icon +
+      '<div class="tests-cta-text"><p class="tests-cta-title">¿Quieres más preguntas sobre este tema?</p>' +
+      '<p class="tests-cta-url">' + url.replace(/^https?:\/\//, "") + "</p></div>" +
+      '<a class="tests-cta-btn" href="' + url + '">Hacer el test</a></div>';
+    section.insertAdjacentHTML("beforeend", html);
+  }
+
   // ---------- Anterior / siguiente tema ----------
   function renderPrevNext() {
     var el = document.getElementById("prev-next");
@@ -433,6 +455,7 @@
     renderTOC();
     renderRelatedTerms();
     wireFeedback();
+    renderTestsCta();
     renderPageMeta();
     renderPrevNext();
     recordRecentPage();
