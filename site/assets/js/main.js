@@ -1,9 +1,11 @@
-// BASE_PATH y CURRENT_PAGE se definen inline en cada página antes de cargar este script.
+// La página actual sale de <body data-page="...">. La ruta base (de la página a la raíz del sitio)
+// se deduce de la ruta con la que se ha cargado este script: "assets/js/main.js" o "../assets/js/main.js".
 (function () {
   "use strict";
 
-  var basePath = typeof BASE_PATH !== "undefined" ? BASE_PATH : "";
-  var currentPage = typeof CURRENT_PAGE !== "undefined" ? CURRENT_PAGE : "home";
+  var scriptSrc = document.currentScript ? document.currentScript.getAttribute("src") : "";
+  var basePath = scriptSrc.replace(/assets\/js\/main\.js.*$/, "");
+  var currentPage = document.body.getAttribute("data-page") || "home";
 
   function findPage(id) {
     for (var c = 0; c < SITE.categories.length; c++) {
@@ -91,7 +93,7 @@
 
   // ---------- "On this page" (TOC + scrollspy) ----------
   function renderTOC() {
-    if (currentPage === "home") return; // la home construye su propio TOC de categorías
+    if (currentPage === "home") return; // la home construye su propio TOC en renderHomeCategories()
     var nav = document.getElementById("toc-nav");
     var content = document.getElementById("page-content");
     if (!nav || !content) return;
@@ -265,7 +267,113 @@
       });
     }
   }
-  window.__initScrollSpy = initScrollSpy;
+
+  // ---------- Home: tarjetas de cada categoría y TOC de categorías ----------
+  function renderHomeCategories() {
+    var grids = document.querySelectorAll("[data-cat-grid]");
+    if (!grids.length) return;
+    grids.forEach(function (grid) {
+      var catName = grid.getAttribute("data-cat-grid");
+      var cat = SITE.categories.find(function (c) { return c.name === catName; });
+      if (!cat) return;
+      var html = "";
+      cat.pages.forEach(function (p) {
+        html += '<div class="col-md-6 col-xl-4">' +
+          '<a class="subject-card" href="' + basePath + p.href + '">' +
+          '<span class="badge-cat ' + cat.color + '"><i class="bi ' + cat.icon + '"></i> ' + cat.name + "</span>" +
+          "<h3>" + p.title + "</h3>" +
+          "<p>" + p.card + "</p>" +
+          '<span class="card-link">Ver resumen <i class="bi bi-arrow-right"></i></span>' +
+          "</a></div>";
+      });
+      grid.innerHTML = html;
+    });
+
+    // Un enlace por sección de categoría, en el orden en que aparecen en la página.
+    var tocNav = document.getElementById("toc-nav");
+    if (!tocNav) return;
+    var tocHtml = "";
+    grids.forEach(function (grid) {
+      var section = grid.closest(".category-section[id]");
+      if (section) tocHtml += '<a class="toc-link" href="#' + section.id + '">' + grid.getAttribute("data-cat-grid") + "</a>";
+    });
+    tocNav.innerHTML = tocHtml;
+    initScrollSpy();
+  }
+
+  // ---------- Glosario: modo flashcards ----------
+  function initFlashcards() {
+    var flashSection = document.getElementById("flashcards");
+    if (!flashSection) return;
+    var toggleBtn = document.getElementById("flash-toggle-btn");
+    var list = document.getElementById("glossary-list");
+    var card = document.getElementById("flashcard");
+    var deck = [];
+    var order = [];
+    var pos = 0;
+    var built = false;
+
+    function buildDeck() {
+      document.querySelectorAll("#glossary-list dl > dt").forEach(function (dt) {
+        var dd = dt.nextElementSibling;
+        if (!dd) return;
+        var term = dt.querySelector("strong") ? dt.querySelector("strong").textContent.trim() : dt.textContent.trim();
+        var tagEl = dt.querySelector(".text-muted");
+        var tag = tagEl ? tagEl.textContent.replace(/[()]/g, "").trim() : "";
+        var ddClone = dd.cloneNode(true);
+        var link = ddClone.querySelector("a");
+        if (link) link.remove();
+        deck.push({ term: term, tag: tag, def: ddClone.textContent.trim() });
+      });
+      order = deck.map(function (_, i) { return i; });
+      built = true;
+    }
+
+    function shuffle(arr) {
+      for (var i = arr.length - 1; i > 0; i--) {
+        var j = Math.floor(Math.random() * (i + 1));
+        var tmp = arr[i]; arr[i] = arr[j]; arr[j] = tmp;
+      }
+    }
+
+    function render() {
+      var c = deck[order[pos]];
+      if (!c) return;
+      document.getElementById("fc-term").textContent = c.term;
+      document.getElementById("fc-tag-front").textContent = c.tag;
+      document.getElementById("fc-def").textContent = c.def;
+      document.getElementById("flash-progress").textContent = (pos + 1) + " / " + deck.length;
+      card.classList.remove("flipped");
+    }
+
+    toggleBtn.addEventListener("click", function () {
+      var showing = flashSection.classList.toggle("show");
+      list.classList.toggle("hide", showing);
+      toggleBtn.innerHTML = showing
+        ? '<i class="bi bi-list-ul"></i> Ver lista completa'
+        : '<i class="bi bi-shuffle"></i> Modo flashcards';
+      if (showing && !built) {
+        buildDeck();
+        render();
+      }
+    });
+    card.addEventListener("click", function () {
+      card.classList.toggle("flipped");
+    });
+    document.getElementById("fc-next").addEventListener("click", function () {
+      pos = (pos + 1) % order.length;
+      render();
+    });
+    document.getElementById("fc-prev").addEventListener("click", function () {
+      pos = (pos - 1 + order.length) % order.length;
+      render();
+    });
+    document.getElementById("fc-shuffle").addEventListener("click", function () {
+      shuffle(order);
+      pos = 0;
+      render();
+    });
+  }
 
   // ---------- Relacionado y última revisión (antes de anterior/siguiente) ----------
   function renderPageMeta() {
@@ -453,6 +561,7 @@
     renderBreadcrumb();
     wirePdfLink();
     renderTOC();
+    renderHomeCategories();
     renderRelatedTerms();
     wireFeedback();
     renderTestsCta();
@@ -465,5 +574,6 @@
     wirePopularTags();
     initTheme();
     wireBackToTop();
+    initFlashcards();
   });
 })();

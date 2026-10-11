@@ -21,11 +21,10 @@
   <link rel="icon" type="image/x-icon" href="assets/img/favicon.ico" sizes="48x48 32x32 16x16">
   <link href="assets/vendor/bootstrap/bootstrap.min.css" rel="stylesheet">
   <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
-  <link href="assets/css/style.css" rel="stylesheet">
+  <link href="assets/css/style.css?v=1.2" rel="stylesheet">
 </head>
 
 <body data-page="home">
-  <script>var BASE_PATH = ""; var CURRENT_PAGE = "home";</script>
 
   <nav class="navbar topbar navbar-expand fixed-top">
     <div class="topbar-inner">
@@ -223,48 +222,9 @@
       class="bi bi-arrow-up text-white"></i></button>
 
   <script src="assets/vendor/bootstrap/bootstrap.bundle.min.js"></script>
-  <script src="assets/js/nav-data.js"></script>
-  <script src="assets/js/search-index.js"></script>
-  <script src="assets/js/main.js"></script>
-  <script>
-    // Home: construye las tarjetas de cada categoría y el TOC de categorías (no depende de h2 en el contenido).
-    document.addEventListener("DOMContentLoaded", function () {
-      var colorMap = { "Programación": "prog", "Bases de Datos": "bbdd", "Sistemas y Redes": "sist", "Inglés": "ing", "Herramientas": "herr", "Chuletas": "chul", "Transversales": "trans" };
-      document.querySelectorAll("[data-cat-grid]").forEach(function (grid) {
-        var catName = grid.getAttribute("data-cat-grid");
-        var cat = SITE.categories.find(function (c) { return c.name === catName; });
-        if (!cat) return;
-        var html = "";
-        cat.pages.forEach(function (p) {
-          html += '<div class="col-md-6 col-xl-4">' +
-            '<a class="subject-card" href="' + p.href + '">' +
-            '<span class="badge-cat ' + colorMap[catName] + '"><i class="bi ' + cat.icon + '"></i> ' + catName + '</span>' +
-            '<h3>' + p.title + '</h3>' +
-            '<p>' + p.card + '</p>' +
-            '<span class="card-link">Ver resumen <i class="bi bi-arrow-right"></i></span>' +
-            '</a></div>';
-        });
-        grid.innerHTML = html;
-      });
-
-      var sectionIdMap = {
-        "Programación": "cat-programacion",
-        "Bases de Datos": "cat-bases-de-datos",
-        "Sistemas y Redes": "cat-sistemas-y-redes",
-        "Inglés": "cat-ingles",
-        "Herramientas": "cat-herramientas",
-        "Chuletas": "cat-chuletas",
-        "Transversales": "cat-transversales"
-      };
-      var tocNav = document.getElementById("toc-nav");
-      var tocHtml = "";
-      SITE.categories.forEach(function (cat) {
-        tocHtml += '<a class="toc-link" href="#' + sectionIdMap[cat.name] + '">' + cat.name + "</a>";
-      });
-      tocNav.innerHTML = tocHtml;
-      if (window.__initScrollSpy) window.__initScrollSpy();
-    });
-  </script>
+  <script src="assets/js/nav-data.js?v=1.2"></script>
+  <script src="assets/js/search-index.js?v=1.2"></script>
+  <script src="assets/js/main.js?v=1.2"></script>
 </body>
 
 </html>
