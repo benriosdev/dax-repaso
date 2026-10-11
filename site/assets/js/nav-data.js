@@ -191,7 +191,7 @@ const SITE = {
           title: "GitHub",
           href: "github/",
           card: "Repositorios remotos, pull requests, issues y Actions: cómo se colabora en Git a través de GitHub.",
-          updated: "2026-09-26",
+          updated: "2026-10-11",
           related: ["git", "chuleta-git"]
         },
         {
@@ -199,7 +199,7 @@ const SITE = {
           title: "Docker",
           href: "docker/",
           card: "Contenedores: imágenes, Dockerfile, volúmenes y redes para ejecutar aplicaciones de forma aislada y reproducible.",
-          updated: "2026-09-26",
+          updated: "2026-10-11",
           related: ["chuleta-linux", "sistemas-informaticos"]
         },
         {
@@ -207,7 +207,7 @@ const SITE = {
           title: "MySQL Workbench",
           href: "mysql-workbench/",
           card: "Gestión visual de bases de datos MySQL: modelado ER, ejecución de consultas y administración de conexiones.",
-          updated: "2026-09-26",
+          updated: "2026-10-11",
           related: ["chuleta-sql", "bases-datos-a", "anexo-entidad-relacion"]
         },
         {
@@ -215,7 +215,7 @@ const SITE = {
           title: "Supabase",
           href: "supabase/",
           card: "Backend as a Service sobre PostgreSQL: base de datos, autenticación, almacenamiento y APIs generadas automáticamente.",
-          updated: "2026-09-26",
+          updated: "2026-10-11",
           related: ["chuleta-sql", "bases-datos-b", "chuleta-http"]
         }
       ]

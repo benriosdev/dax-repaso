@@ -103,6 +103,12 @@ CMD ["npm", "start"]</code></pre>
           <p><code>docker run nombre-imagen</code> crea y arranca un contenedor a partir de una imagen; <code>docker ps</code> lista los contenedores en ejecución; <code>docker stop id</code> lo detiene y <code>docker rm id</code> lo elimina.</p>
           <h3>Puertos y variables de entorno</h3>
           <p>Un contenedor está aislado de la red del host por defecto: <code>-p 8080:80</code> mapea el puerto 80 del contenedor al 8080 de la máquina para poder acceder desde fuera. <code>-e VARIABLE=valor</code> pasa variables de entorno al contenedor, útil para configuración sin tocar la imagen (como credenciales de una base de datos).</p>
+          <h3>Ver qué pasa dentro y limpiar</h3>
+          <p>Cuando un contenedor no se comporta como esperas, lo primero es mirar su salida con <code>docker logs</code>, que muestra lo que el proceso ha escrito por la salida estándar y la de errores. Con <code>-f</code> la sigue en directo. Para entrar en un contenedor en marcha y revisar archivos o lanzar comandos se usa <code>docker exec -it</code> con una shell. Y si uno se cierra nada más arrancar, <code>docker ps -a</code> lo muestra aunque esté parado, para poder consultar sus logs.</p>
+          <pre><code>docker logs -f mi-app        # ver la salida en directo
+docker exec -it mi-app sh    # abrir una shell dentro del contenedor
+docker system prune          # borrar lo que no se usa</code></pre>
+          <p>Con el tiempo se acumulan contenedores parados, imágenes sin etiqueta y caché de compilación. <code>docker system prune</code> los elimina de una vez, pero no toca los volúmenes salvo que añadas <code>--volumes</code>, para no perder datos por descuido. Con <code>-a</code> borra además todas las imágenes que no use ningún contenedor.</p>
         </section>
 
         <section>
@@ -125,6 +131,7 @@ CMD ["npm", "start"]</code></pre>
             <li>Un contenedor comparte el kernel del host (a diferencia de una VM), por eso es más ligero.</li>
             <li>Una imagen es la plantilla; un contenedor es una instancia en ejecución de esa imagen.</li>
             <li>El Dockerfile define cómo construir la imagen, capa a capa (<code>FROM</code>, <code>COPY</code>, <code>RUN</code>, <code>CMD</code>).</li>
+            <li><code>docker logs</code> y <code>docker exec</code> sirven para depurar; <code>docker system prune</code> limpia lo que no se usa.</li>
             <li>Los contenedores son efímeros: los volúmenes se usan para persistir datos entre reinicios.</li>
             <li>Docker Compose orquesta varios contenedores relacionados desde un único archivo YAML.</li>
           </ul>
@@ -147,6 +154,10 @@ CMD ["npm", "start"]</code></pre>
           <details class="quiz-item">
             <summary>¿Para qué sirve Docker Compose?</summary>
             <p class="quiz-answer">Para definir y levantar varios contenedores relacionados (por ejemplo, aplicación y base de datos) desde un único archivo <code>docker-compose.yml</code>, en vez de encadenar varios comandos <code>docker run</code> a mano.</p>
+          </details>
+          <details class="quiz-item">
+            <summary>Un contenedor se detiene nada más arrancar y no sabes por qué. ¿Qué harías?</summary>
+            <p class="quiz-answer">Buscarlo con <code>docker ps -a</code>, que también lista los contenedores parados, y revisar su salida con <code>docker logs</code> para ver el error que ha provocado el cierre.</p>
           </details>
         </section>
 
