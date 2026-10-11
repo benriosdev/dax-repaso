@@ -72,7 +72,7 @@ Y abre <http://localhost:8743>.
 python3 scripts/build-search-index.py
 ```
 
-**Añadir una página.** Crea una carpeta `<id>/` con su `index.html` dentro de `site/` y regístrala en `site/assets/js/nav-data.js` con `href: "<id>/"`. El menú, las migas de pan y los botones anterior/siguiente se generan solos a partir de ese archivo.
+**Añadir una página.** Crea una carpeta `<id>/` con su `index.html` dentro de `site/` y regístrala en `site/assets/js/nav-data.js` con `href: "<id>/"`, su fecha de revisión (`updated: "AAAA-MM-DD"`) y sus páginas relacionadas (`related`, de 2 a 4 ids). El menú, las migas de pan, el bloque "Relacionado", la fecha de última revisión y los botones anterior/siguiente se generan solos a partir de ese archivo. Añade también la URL a `site/sitemap.xml`.
 
 ## Despliegue
 
