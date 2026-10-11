@@ -19,10 +19,9 @@
 <link rel="icon" type="image/x-icon" href="../assets/img/favicon.ico" sizes="48x48 32x32 16x16">
 <link href="../assets/vendor/bootstrap/bootstrap.min.css" rel="stylesheet">
 <link href="../assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
-<link href="../assets/css/style.css" rel="stylesheet">
+<link href="../assets/css/style.css?v=1.2" rel="stylesheet">
 </head>
 <body data-page="chuleta-sql">
-<script>var BASE_PATH = "../"; var CURRENT_PAGE = "chuleta-sql";</script>
 
 <nav class="navbar topbar navbar-expand fixed-top">
   <div class="topbar-inner">
@@ -106,11 +105,11 @@ LIMIT 10;                      -- cuántas filas</code></pre>
         <section>
           <h2 id="u3">Modificar datos (INSERT, UPDATE, DELETE)</h2>
           <pre><code>INSERT INTO clientes (nombre, email)
-VALUES ('Ana', 'ana@ejemplo.com'),
-       ('Luis', 'luis@ejemplo.com');    -- varias filas a la vez
+VALUES ('Ana', '<!--email_off-->ana@ejemplo.com<!--/email_off-->'),
+       ('Luis', '<!--email_off-->luis@ejemplo.com<!--/email_off-->');    -- varias filas a la vez
 
 UPDATE clientes
-SET email = 'nuevo@ejemplo.com'
+SET email = '<!--email_off-->nuevo@ejemplo.com<!--/email_off-->'
 WHERE id_cliente = 3;                   -- sin WHERE cambia TODAS las filas
 
 DELETE FROM clientes
@@ -211,8 +210,8 @@ DROP TABLE pedidos;</code></pre>
 <button id="back-to-top" class="btn back-to-top" aria-label="Volver arriba"><i class="bi bi-arrow-up text-white"></i></button>
 
 <script src="../assets/vendor/bootstrap/bootstrap.bundle.min.js"></script>
-<script src="../assets/js/nav-data.js"></script>
-<script src="../assets/js/search-index.js"></script>
-<script src="../assets/js/main.js"></script>
+<script src="../assets/js/nav-data.js?v=1.2"></script>
+<script src="../assets/js/search-index.js?v=1.2"></script>
+<script src="../assets/js/main.js?v=1.2"></script>
 </body>
 </html>

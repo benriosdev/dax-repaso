@@ -19,10 +19,9 @@
 <link rel="icon" type="image/x-icon" href="../assets/img/favicon.ico" sizes="48x48 32x32 16x16">
 <link href="../assets/vendor/bootstrap/bootstrap.min.css" rel="stylesheet">
 <link href="../assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
-<link href="../assets/css/style.css" rel="stylesheet">
+<link href="../assets/css/style.css?v=1.2" rel="stylesheet">
 </head>
 <body data-page="glosario">
-<script>var BASE_PATH = "../"; var CURRENT_PAGE = "glosario";</script>
 
 <nav class="navbar topbar navbar-expand fixed-top">
   <div class="topbar-inner">
@@ -360,89 +359,8 @@
 <button id="back-to-top" class="btn back-to-top" aria-label="Volver arriba"><i class="bi bi-arrow-up text-white"></i></button>
 
 <script src="../assets/vendor/bootstrap/bootstrap.bundle.min.js"></script>
-<script src="../assets/js/nav-data.js"></script>
-<script src="../assets/js/search-index.js"></script>
-<script src="../assets/js/main.js"></script>
-<script>
-(function () {
-  "use strict";
-
-  var deck = [];
-  var order = [];
-  var pos = 0;
-  var built = false;
-
-  function buildDeck() {
-    document.querySelectorAll("#glossary-list dl > dt").forEach(function (dt) {
-      var dd = dt.nextElementSibling;
-      if (!dd) return;
-      var term = dt.querySelector("strong") ? dt.querySelector("strong").textContent.trim() : dt.textContent.trim();
-      var tagEl = dt.querySelector(".text-muted");
-      var tag = tagEl ? tagEl.textContent.replace(/[()]/g, "").trim() : "";
-      var ddClone = dd.cloneNode(true);
-      var link = ddClone.querySelector("a");
-      if (link) link.remove();
-      var def = ddClone.textContent.trim();
-      deck.push({ term: term, tag: tag, def: def });
-    });
-    order = deck.map(function (_, i) { return i; });
-    built = true;
-  }
-
-  function shuffle(arr) {
-    for (var i = arr.length - 1; i > 0; i--) {
-      var j = Math.floor(Math.random() * (i + 1));
-      var tmp = arr[i]; arr[i] = arr[j]; arr[j] = tmp;
-    }
-  }
-
-  function render() {
-    var card = deck[order[pos]];
-    if (!card) return;
-    document.getElementById("fc-term").textContent = card.term;
-    document.getElementById("fc-tag-front").textContent = card.tag;
-    document.getElementById("fc-def").textContent = card.def;
-    document.getElementById("flash-progress").textContent = (pos + 1) + " / " + deck.length;
-    document.getElementById("flashcard").classList.remove("flipped");
-  }
-
-  document.addEventListener("DOMContentLoaded", function () {
-    var toggleBtn = document.getElementById("flash-toggle-btn");
-    var flashSection = document.getElementById("flashcards");
-    var list = document.getElementById("glossary-list");
-    var card = document.getElementById("flashcard");
-
-    toggleBtn.addEventListener("click", function () {
-      var showing = flashSection.classList.toggle("show");
-      list.classList.toggle("hide", showing);
-      toggleBtn.innerHTML = showing
-        ? '<i class="bi bi-list-ul"></i> Ver lista completa'
-        : '<i class="bi bi-shuffle"></i> Modo flashcards';
-      if (showing && !built) {
-        buildDeck();
-        render();
-      }
-    });
-
-    card.addEventListener("click", function () {
-      card.classList.toggle("flipped");
-    });
-
-    document.getElementById("fc-next").addEventListener("click", function () {
-      pos = (pos + 1) % order.length;
-      render();
-    });
-    document.getElementById("fc-prev").addEventListener("click", function () {
-      pos = (pos - 1 + order.length) % order.length;
-      render();
-    });
-    document.getElementById("fc-shuffle").addEventListener("click", function () {
-      shuffle(order);
-      pos = 0;
-      render();
-    });
-  });
-})();
-</script>
+<script src="../assets/js/nav-data.js?v=1.2"></script>
+<script src="../assets/js/search-index.js?v=1.2"></script>
+<script src="../assets/js/main.js?v=1.2"></script>
 </body>
 </html>

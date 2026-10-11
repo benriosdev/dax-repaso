@@ -1,5 +1,5 @@
 // Fuente única de navegación: categorías, asignaturas y rutas.
-// Las rutas (href) son relativas a la raíz del proyecto; main.js les añade BASE_PATH.
+// Las rutas (href) son relativas a la raíz del sitio; main.js les añade la ruta base de cada página.
 // updated: fecha (AAAA-MM-DD) de la última revisión del contenido de la página.
 // related: ids de 2 a 4 páginas relacionadas, que se muestran al final de la página.
 // tests: ruta de la asignatura en los tests (testsUrl + tests). Añade el aviso "Practica en los tests" tras "Ponte a prueba".

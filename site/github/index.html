@@ -19,10 +19,9 @@
 <link rel="icon" type="image/x-icon" href="../assets/img/favicon.ico" sizes="48x48 32x32 16x16">
 <link href="../assets/vendor/bootstrap/bootstrap.min.css" rel="stylesheet">
 <link href="../assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
-<link href="../assets/css/style.css" rel="stylesheet">
+<link href="../assets/css/style.css?v=1.2" rel="stylesheet">
 </head>
 <body data-page="github">
-<script>var BASE_PATH = "../"; var CURRENT_PAGE = "github";</script>
 
 <nav class="navbar topbar navbar-expand fixed-top">
   <div class="topbar-inner">
@@ -89,9 +88,9 @@
           <p>Un repositorio en GitHub puede ser público (cualquiera lo ve) o privado (solo las personas invitadas). Al crearlo, GitHub ofrece generar automáticamente un <code>README.md</code> (la portada del proyecto), un <code>.gitignore</code> según el lenguaje y un archivo de licencia.</p>
           <h3>Conectarte por SSH</h3>
           <p>GitHub ya no acepta la contraseña de tu cuenta para hacer <code>push</code> o <code>pull</code>. Por HTTPS hay que escribir un <strong>token de acceso personal</strong> en su lugar, y la alternativa más cómoda es <strong>SSH</strong>. Generas un par de claves en tu equipo, subes la clave <em>pública</em> a tu cuenta (<em>Settings → SSH and GPG keys</em>) y desde ese momento Git se identifica solo. La clave privada nunca sale de tu ordenador.</p>
-          <pre><code>ssh-keygen -t ed25519 -C "tu-email@ejemplo.com"   # genera el par de claves
-ssh -T git@github.com                            # comprueba que GitHub te reconoce</code></pre>
-          <p>Con SSH la URL del remoto tiene otro formato, <code>git@github.com:usuario/repo.git</code> en vez de <code>https://github.com/usuario/repo.git</code>. Si un repositorio ya clonado usa HTTPS, se cambia con <code>git remote set-url origin</code> seguido de la URL nueva.</p>
+          <pre><code>ssh-keygen -t ed25519 -C "<!--email_off-->tu-email@ejemplo.com<!--/email_off-->"   # genera el par de claves
+ssh -T <!--email_off-->git@github.com<!--/email_off-->                            # comprueba que GitHub te reconoce</code></pre>
+          <p>Con SSH la URL del remoto tiene otro formato, <code><!--email_off-->git@github.com<!--/email_off-->:usuario/repo.git</code> en vez de <code>https://github.com/usuario/repo.git</code>. Si un repositorio ya clonado usa HTTPS, se cambia con <code>git remote set-url origin</code> seguido de la URL nueva.</p>
           <h3>Fork</h3>
           <p>Hacer un <em>fork</em> crea una copia independiente de un repositorio ajeno en tu propia cuenta. Es el mecanismo habitual para contribuir a un proyecto en el que no tienes permisos de escritura directos: haces fork, cambias tu copia y luego propones esos cambios al original mediante un pull request.</p>
           <h3>GitHub Pages</h3>
@@ -159,7 +158,7 @@ jobs:
           </details>
           <details class="quiz-item">
             <summary>Al hacer <code>git push</code> te pide usuario y contraseña, y la contraseña de tu cuenta no funciona. ¿Por qué?</summary>
-            <p class="quiz-answer">Porque GitHub ya no admite la contraseña de la cuenta para operaciones de Git. Por HTTPS hay que usar un token de acceso personal como contraseña, o configurar una clave SSH y usar la URL del remoto en formato <code>git@github.com:usuario/repo.git</code>.</p>
+            <p class="quiz-answer">Porque GitHub ya no admite la contraseña de la cuenta para operaciones de Git. Por HTTPS hay que usar un token de acceso personal como contraseña, o configurar una clave SSH y usar la URL del remoto en formato <code><!--email_off-->git@github.com<!--/email_off-->:usuario/repo.git</code>.</p>
           </details>
         </section>
 
@@ -187,8 +186,8 @@ jobs:
 <button id="back-to-top" class="btn back-to-top" aria-label="Volver arriba"><i class="bi bi-arrow-up text-white"></i></button>
 
 <script src="../assets/vendor/bootstrap/bootstrap.bundle.min.js"></script>
-<script src="../assets/js/nav-data.js"></script>
-<script src="../assets/js/search-index.js"></script>
-<script src="../assets/js/main.js"></script>
+<script src="../assets/js/nav-data.js?v=1.2"></script>
+<script src="../assets/js/search-index.js?v=1.2"></script>
+<script src="../assets/js/main.js?v=1.2"></script>
 </body>
 </html>
