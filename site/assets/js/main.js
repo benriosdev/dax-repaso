@@ -264,6 +264,35 @@
   }
   window.__initScrollSpy = initScrollSpy;
 
+  // ---------- Relacionado y última revisión (antes de anterior/siguiente) ----------
+  function renderPageMeta() {
+    var el = document.getElementById("prev-next");
+    var found = findPage(currentPage);
+    if (!el || !found) return;
+    var page = found.page;
+    var html = "";
+
+    var links = (page.related || []).map(findPage).filter(Boolean);
+    if (links.length) {
+      html += '<nav class="related-pages" aria-label="Páginas relacionadas"><p class="related-label">Relacionado</p><div class="related-grid">';
+      links.forEach(function (r) {
+        html += '<a class="related-link" href="' + basePath + r.page.href + '">' +
+          '<span class="badge-cat ' + r.category.color + '">' + r.category.name + "</span>" +
+          '<span class="related-title">' + r.page.title + "</span></a>";
+      });
+      html += "</div></nav>";
+    }
+
+    if (page.updated) {
+      var parts = page.updated.split("-");
+      var date = new Date(+parts[0], parts[1] - 1, +parts[2]);
+      html += '<p class="page-updated"><i class="bi bi-clock-history"></i> Última revisión: <time datetime="' + page.updated + '">' +
+        date.toLocaleDateString("es-ES", { day: "numeric", month: "short", year: "numeric" }) + "</time></p>";
+    }
+
+    if (html) el.insertAdjacentHTML("beforebegin", html);
+  }
+
   // ---------- Anterior / siguiente tema ----------
   function renderPrevNext() {
     var el = document.getElementById("prev-next");
@@ -404,6 +433,7 @@
     renderTOC();
     renderRelatedTerms();
     wireFeedback();
+    renderPageMeta();
     renderPrevNext();
     recordRecentPage();
     renderRecentPages();
