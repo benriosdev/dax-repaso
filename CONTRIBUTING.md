@@ -51,13 +51,16 @@ El repositorio protege `main` con reglas, así que todos los cambios entran por 
 - El sitio es HTML, CSS y JavaScript sin más. No se aceptan frameworks, herramientas de build ni dependencias nuevas.
 - Bootstrap y Bootstrap Icons están incluidos en `site/assets/vendor/`. No los edites.
 - `site/assets/js/search-index.js` es un archivo generado. No lo edites a mano, regenéralo con el script.
+- No añadas JavaScript dentro del HTML (`<script>` con código ni atributos como `onclick`). Todo el JS va en `site/assets/js/main.js`.
+- Si cambias el CSS o algún JS, no hace falta que toques el `?v=` de los HTML. Lo actualiza quien publica.
+- Si un ejemplo contiene algo con forma de email (`git@github.com`, `tu@correo.com`), envuélvelo en `<!--email_off-->…<!--/email_off-->`. Si no, el CDN lo oculta en la página publicada.
 - Los números de las estadísticas de la portada se calculan solos. No los escribas a mano.
 - El menú lateral, las migas de pan, el bloque "Relacionado", la fecha de última revisión y los botones anterior y siguiente salen de `site/assets/js/nav-data.js`.
 - Si cambias el contenido de una página, actualiza su `updated` en `nav-data.js` con la fecha del día.
 
 ## Añadir una página
 
-Una página nueva es una carpeta dentro de `site/` con su `index.html`, por ejemplo `site/mi-tema/index.html`. Después se registra en `site/assets/js/nav-data.js` con `href: "mi-tema/"`, `updated` y `related`. Copia la estructura de una página existente y mantén el mismo esquema de secciones. El README explica el resto.
+Una página nueva es una carpeta dentro de `site/` con su `index.html`, por ejemplo `site/mi-tema/index.html`, con `<body data-page="mi-tema">`. Después se registra en `site/assets/js/nav-data.js` con `href: "mi-tema/"`, `updated` y `related`. Copia la estructura de una página existente y mantén el mismo esquema de secciones. El README explica el resto.
 
 ## Mensajes de commit
 
