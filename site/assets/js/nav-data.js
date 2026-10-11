@@ -2,7 +2,9 @@
 // Las rutas (href) son relativas a la raíz del proyecto; main.js les añade BASE_PATH.
 // updated: fecha (AAAA-MM-DD) de la última revisión del contenido de la página.
 // related: ids de 2 a 4 páginas relacionadas, que se muestran al final de la página.
+// tests: ruta de la asignatura en los tests (testsUrl + tests). Añade el aviso "Practica en los tests" tras "Ponte a prueba".
 const SITE = {
+  testsUrl: "https://benrios.dev/tests/",
   categories: [
     {
       name: "Programación",
@@ -15,7 +17,8 @@ const SITE = {
           href: "programacion-a/",
           card: "De cero a la POO: algoritmos, estructuras de control, depuración y las bases de la programación orientada a objetos en Java.",
           updated: "2026-09-26",
-          related: ["programacion-b", "fundamentos-java", "chuleta-java"]
+          related: ["programacion-b", "fundamentos-java", "chuleta-java"],
+          tests: "programacion-a"
         },
         {
           id: "programacion-b",
@@ -23,7 +26,8 @@ const SITE = {
           href: "programacion-b/",
           card: "Continúa la POO (herencia, polimorfismo), estructuras de datos y conexión de programas Java con bases de datos (CRUD).",
           updated: "2026-09-26",
-          related: ["programacion-a", "chuleta-java", "bases-datos-b"]
+          related: ["programacion-a", "chuleta-java", "bases-datos-b"],
+          tests: "programacion-b"
         },
         {
           id: "fundamentos-java",
@@ -39,7 +43,8 @@ const SITE = {
           href: "entornos-desarrollo/",
           card: "Ciclo de vida del software, IDEs, pruebas y depuración, control de versiones y modelado UML.",
           updated: "2026-09-26",
-          related: ["git", "github", "chuleta-git"]
+          related: ["git", "github", "chuleta-git"],
+          tests: "entornos-de-desarrollo"
         }
       ]
     },
@@ -54,7 +59,8 @@ const SITE = {
           href: "bases-datos-a/",
           card: "Fundamentos de BBDD, modelo entidad-relación, modelo relacional, normalización y primeros pasos con Oracle y SQL.",
           updated: "2026-09-26",
-          related: ["anexo-entidad-relacion", "chuleta-sql", "mysql-workbench"]
+          related: ["anexo-entidad-relacion", "chuleta-sql", "mysql-workbench"],
+          tests: "bases-de-datos-a"
         },
         {
           id: "bases-datos-b",
@@ -62,7 +68,8 @@ const SITE = {
           href: "bases-datos-b/",
           card: "DML avanzado, transacciones y concurrencia, programación en BBDD (PL/SQL) y una introducción a las BBDD no relacionales.",
           updated: "2026-09-26",
-          related: ["bases-datos-a", "chuleta-sql", "supabase"]
+          related: ["bases-datos-a", "chuleta-sql", "supabase"],
+          tests: "bases-de-datos-b"
         },
         {
           id: "anexo-entidad-relacion",
@@ -85,7 +92,8 @@ const SITE = {
           href: "sistemas-informaticos/",
           card: "Arquitectura de equipos, sistemas operativos, gestión de la información, redes y aplicaciones de propósito general.",
           updated: "2026-09-26",
-          related: ["chuleta-linux", "docker"]
+          related: ["chuleta-linux", "docker"],
+          tests: "sistemas-informaticos"
         },
         {
           id: "digitalizacion",
@@ -101,7 +109,8 @@ const SITE = {
           href: "lenguaje-marcas/",
           card: "HTML, CSS, XML, JavaScript y sistemas de gestión empresarial (ERP/CRM) con Odoo.",
           updated: "2026-09-26",
-          related: ["chuleta-http", "digitalizacion"]
+          related: ["chuleta-http", "digitalizacion"],
+          tests: "lenguaje-de-marcas"
         }
       ]
     },
@@ -116,7 +125,8 @@ const SITE = {
           href: "ingles-material/",
           card: "10 unidades de inglés profesional: tiempos verbales, redacción de emails/CV, cultura anglosajona y vocabulario técnico.",
           updated: "2026-09-26",
-          related: ["ingles-diapositivas", "vocabulary"]
+          related: ["ingles-diapositivas", "vocabulary"],
+          tests: "ingles"
         },
         {
           id: "ingles-diapositivas",
@@ -124,7 +134,8 @@ const SITE = {
           href: "ingles-diapositivas/",
           card: "Mapa de las cinco destrezas del inglés profesional y del bloque de gramática asociado a cada una.",
           updated: "2026-09-26",
-          related: ["ingles-material", "vocabulary"]
+          related: ["ingles-material", "vocabulary"],
+          tests: "ingles"
         },
         {
           id: "vocabulary",
@@ -132,7 +143,8 @@ const SITE = {
           href: "vocabulary/",
           card: "Glosario de vocabulario técnico en inglés: desarrollo de apps, metodologías, arquitectura, despliegue y seguridad.",
           updated: "2026-09-26",
-          related: ["ingles-material", "ingles-diapositivas"]
+          related: ["ingles-material", "ingles-diapositivas"],
+          tests: "ingles"
         }
       ]
     },
@@ -155,7 +167,8 @@ const SITE = {
           href: "sostenibilidad/",
           card: "Retos ambientales y sociales, ODS, economía circular y elaboración de un plan de sostenibilidad empresarial.",
           updated: "2026-09-26",
-          related: ["ipe1", "digitalizacion"]
+          related: ["ipe1", "digitalizacion"],
+          tests: "sostenibilidad"
         }
       ]
     },
