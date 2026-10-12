@@ -272,7 +272,7 @@ body[data-page="home"] .topbar .topbar-search { display: none; }
 }
 .side-home-link:hover { background-color: var(--bg-elevated); text-decoration: none; }
 .side-home-link.active { color: var(--accent); }
-.side-tests-link { display: flex; align-items: center; gap: 0.3rem; }
+.side-tests-link { display: flex; align-items: center; gap: 0.3rem; white-space: nowrap; }
 .side-new {
   margin-left: auto;
   padding: 0 0.45rem;
